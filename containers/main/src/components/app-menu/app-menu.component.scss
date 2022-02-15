@@ -1,0 +1,46 @@
+.app-menu {
+  &__card {
+    padding: 1rem;
+  }
+}
+
+.app-menu-item {
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  margin-right: 8px;
+
+  &:hover {
+    background-color: var(--pk-color-grey);
+  }
+
+  &__wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    width: 200px;
+  }
+
+  &__icon {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--pk-color-primary2);
+  }
+
+  &__title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--pk-color-black);
+  }
+
+  &__subtitle {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--pk-color-grey-darken2);
+  }
+}

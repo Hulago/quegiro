@@ -1,0 +1,39 @@
+{
+  "name": "@quegiro/irs",
+  "version": "1.0.0",
+  "source": "./src",
+  "main": "./src/main.ts",
+  "types": "src/main.ts",
+  "scripts": {
+    "build": "vite serve"
+  },
+  "dependencies": {
+    "@mdi/js": "^5.1.45",
+    "@quegiro/common": "1.0.0",
+    "@quegiro/main-containers": "1.0.0",
+    "@vue/composition-api": "^1.4.5",
+    "b64-to-blob": "^1.2.19",
+    "core-js": "^3.6.5",
+    "date-fns": "^2.26.0",
+    "date-fns-tz": "^1.1.6",
+    "echarts": "^4.6.0",
+    "emotion": "^11.0.0",
+    "file-type": "^14.3.0",
+    "lodash-es": "^4.17.15",
+    "moment": "^2.27.0",
+    "moment-timezone": "^0.5.31",
+    "register-service-worker": "^1.6.2",
+    "vue-class-component": "^7.2.6",
+    "vue-router": "^3.2.0",
+    "vuetify": "^2.4.11"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.12",
+    "@vitejs/plugin-vue": "^1.10.0",
+    "@vue/compiler-sfc": "^3.2.22",
+    "typescript": "^4.5.2",
+    "vite": "^2.6.14",
+    "vue": "^2.6.12",
+    "vue-template-compiler": "^2.6.12"
+  }
+}
