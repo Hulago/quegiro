@@ -1,12 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/**
- * Copyright Prozis All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://prozis.com/license
- *
- */
-
 import { computed, reactive, toRefs } from '@vue/composition-api';
 import Keycloak, { KeycloakConfig } from 'keycloak-js';
 import { isFunction, uniq } from 'lodash-es';

@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 import 'vuetify/dist/vuetify.min.css';
-import '@quegiro/dashboard/plugins/composition.plugin';
+import './plugins/composition.plugin';
 
 import { useEnvironment } from '@quegiro/common';
-import { i18n } from '@quegiro/dashboard/plugins/i18n.plugin';
-import { router } from '@quegiro/dashboard/plugins/router.plugin';
-import { vuetify } from '@quegiro/dashboard/plugins/vuetify.plugin';
-import { store } from '@quegiro/dashboard/store';
+import { i18n } from './plugins/i18n.plugin';
+import { router } from './plugins/router.plugin';
+import { vuetify } from './plugins/vuetify.plugin';
+import { store } from './store';
 import { RootContainer } from '@quegiro/main-containers';
 import { h } from '@vue/composition-api';
 import Vue from 'vue';

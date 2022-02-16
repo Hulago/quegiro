@@ -12,7 +12,6 @@ import {
   IPKMenuItems
 } from '../../components/app-menu/app-menu.types';
 import ProfileMenu from '../../components/profile-menu/profile-menu.component.vue';
-import ProzisLogo from '../../components/prozis-logo/prozis-logo.component.vue';
 
 const { logout, profile } = useAuth();
 
@@ -21,8 +20,7 @@ const { env } = useEnvironment<ImportMetaEnv>(import.meta.env);
 @Component({
   components: {
     AppMenu,
-    ProfileMenu,
-    ProzisLogo
+    ProfileMenu
   },
   name: 'app-container'
 })
@@ -128,30 +126,18 @@ export default class extends Vue {
       },
       {
         icon: 'mdi-sitemap',
-        label: this.i18n('MAIN.LABEL.ORGANIZATION'),
+        label: this.i18n('MAIN.LABEL.IRS'),
         roles: [],
-        url: '/apps/organization/'
+        url: '/apps/irs/'
       }
     ];
 
     this.appItems = [
       {
-        description: 'Now BackOffice',
+        description: 'Descrição',
         icon: 'mdi-open-in-new',
-        label: 'Now',
-        url: 'https://now.i.prozis.tech'
-      },
-      {
-        description: 'Partnership BackOffice',
-        icon: 'mdi-open-in-new',
-        label: 'Partnership',
-        url: 'https://partnership.i.prozis.tech'
-      },
-      {
-        description: 'Voodoo BackOffice',
-        icon: 'mdi-open-in-new',
-        label: 'Voodoo',
-        url: 'https://voodoo.i.prozis.tech'
+        label: 'App',
+        url: 'https://app'
       }
     ];
   }

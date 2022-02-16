@@ -1,16 +1,14 @@
 /* eslint-disable no-console */
 import 'vuetify/dist/vuetify.min.css';
-import '@quegiro/irs/plugins/composition.plugin';
-import '@quegiro/irs/plugins/graph.plugin';
-import '@quegiro/irs/plugins/services.plugin';
-import '@quegiro/irs/plugins/kit.plugin';
+import './plugins/composition.plugin';
 
 import { useEnvironment } from '@quegiro/common';
-import { boot } from '@quegiro/irs/plugins/boot.plugin';
-import { i18n } from '@quegiro/irs/plugins/i18n.plugin';
-import { router } from '@quegiro/irs/plugins/router.plugin';
-import { vuetify } from '@quegiro/irs/plugins/vuetify.plugin';
-import { store } from '@quegiro/irs/store';
+import { boot } from './plugins/boot.plugin';
+import { i18n } from './plugins/i18n.plugin';
+import { router } from './plugins/router.plugin';
+import { vuetify } from './plugins/vuetify.plugin';
+import { store } from './store';
+import { RootContainer } from '@quegiro/main-containers';
 import { h } from '@vue/composition-api';
 import Vue from 'vue';
 
@@ -25,7 +23,7 @@ async function main() {
     router,
     setup(props, { attrs, ...rest }) {
       return () =>
-        h(PkRoot, {
+        h(RootContainer, {
           attrs: { ...attrs },
           props,
           ...rest

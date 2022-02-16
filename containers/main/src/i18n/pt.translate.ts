@@ -6,6 +6,7 @@ export default {
   HEADER: {},
   LABEL: {
     DASHBOARD: 'Dashboard',
+    IRS: 'IRS',
     LOGOUT: 'Sair',
     ORGANIZATION: 'Organização'
   },

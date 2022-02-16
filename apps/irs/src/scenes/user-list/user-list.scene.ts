@@ -14,8 +14,6 @@ export default defineComponent({
       const res = await client?.query({
         query
       });
-
-      console.log(res);
     };
 
     return {

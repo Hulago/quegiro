@@ -67,8 +67,8 @@ export default defineComponent({
       }
     }
 
-    function handleViewDetail(item) {
-      console.log(item);
+    function handleViewDetail(item: Transactions) {
+      // console.log(item);
       isDetailModalVisible.value = true;
       currentTransaction.value = item;
     }

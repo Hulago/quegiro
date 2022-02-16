@@ -80,7 +80,8 @@ export default defineComponent({
       icons: {
         mdiDelete
       },
-      products
+      products,
+      success
     };
   }
 });

@@ -1,7 +1,7 @@
 <template>
   <v-menu position="bottom" class="app-menu">
     <template #activator="{ on }">
-      <v-btn class="pk-mr-2" icon="mdi-apps" rounded v-on="on">
+      <v-btn class="mr-2" icon="mdi-apps" rounded v-on="on">
         <v-icon>{{ mdiApps }}</v-icon>
       </v-btn>
     </template>
@@ -30,7 +30,7 @@
           </v-col>
         </v-row>
 
-        <v-divider v-if="appItems.length > 0" class="pk-my-6" />
+        <v-divider v-if="appItems.length > 0" class="my-6" />
 
         <v-row>
           <v-col

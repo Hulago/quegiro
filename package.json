@@ -26,7 +26,7 @@
     }
   },
   "license": "MIT",
-  "name": "prozis-sdk",
+  "name": "quegiro",
   "private": true,
   "scripts": {
     "build": "vite build -c ./vite.config.ts --mode production",

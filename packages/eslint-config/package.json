@@ -40,13 +40,6 @@
     "tap-spec": "^5.0.0",
     "tape": "^5.2.2"
   },
-  "publishConfig": {
-    "registry": "http://nexus.i.prozis.tech:8081/repository/npm-proxy/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@gitlab.i.prozis.tech:v-prozis/prz-kit.git"
-  },
   "scripts": {
     "lint": "eslint . --config=./index.js",
     "test": "tape tests/**/*.js | tap-spec"

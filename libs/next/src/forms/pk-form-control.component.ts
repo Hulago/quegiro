@@ -1,6 +1,3 @@
-/**
- * Copyright Prozis All Rights Reserved.
- */
 import { FormControl } from '@quegiro/next';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
