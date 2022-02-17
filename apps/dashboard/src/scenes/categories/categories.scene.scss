@@ -1,0 +1,16 @@
+.categories {
+  &__product-list {
+    height: calc(100vh - 78px);
+    overflow-y: auto;
+  }
+
+  &__category-list {
+    height: calc(100vh - 78px);
+    overflow-y: auto;
+  }
+
+  &__toolbar {
+    position: sticky;
+    top: 0px;
+  }
+}

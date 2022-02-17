@@ -1,0 +1,31 @@
+query {
+  users(limit: 10, page: 0) {
+    count
+    data {
+      name
+      email
+      initials
+      position {
+        name
+      }
+      photoPath
+      workPhone
+      mobilePhone
+      department {
+        name
+        parentDepartment {
+          name
+          parentDepartment {
+            name
+            parentDepartment {
+              name
+              parentDepartment {
+                name
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

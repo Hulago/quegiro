@@ -1,0 +1,71 @@
+.sales {
+  --pk-line-clamp: 2;
+}
+
+.sales-list {
+  font-size: 12px;
+
+  &__item {
+    display: -webkit-box;
+    -webkit-line-clamp: var(--pk-line-clamp, 1);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal;
+    word-break: break-all;
+    letter-spacing: normal;
+    margin-right: 8px !important;
+  }
+
+  &__header {
+    font-size: 14px;
+    font-weight: 600;
+    display: -webkit-box;
+    -webkit-line-clamp: var(--pk-line-clamp, 1);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal;
+    word-break: break-all;
+    letter-spacing: normal;
+    margin-right: 8px !important;
+  }
+
+  &__date {
+    max-width: 100px;
+  }
+
+  &__time {
+    max-width: 75px;
+  }
+
+  &__name {
+    max-width: 350px;
+  }
+
+  &__order {
+    max-width: 250px;
+  }
+
+  &__exchange {
+    max-width: 75px;
+  }
+
+  &__qty {
+    max-width: 150px;
+  }
+
+  &__price {
+    max-width: 125px;
+  }
+
+  &__currency {
+    max-width: 50px;
+  }
+
+  &__cost {
+    max-width: 75px;
+  }
+
+  &__button {
+    max-width: 75px;
+  }
+}

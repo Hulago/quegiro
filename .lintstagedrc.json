@@ -1,0 +1,5 @@
+{
+  "*.{ts,tsx}": ["prettier --write --parser typescript"],
+  "*.vue": ["prettier --write --parser vue"],
+  "*.{ts,vue}": ["eslint --fix"]
+}

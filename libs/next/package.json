@@ -1,0 +1,39 @@
+{
+  "name": "@quegiro/next",
+  "version": "1.0.0",
+  "source": "./src",
+  "main": "./dist/next.umd.js",
+  "module": "./dist/next.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/next.es.js",
+      "require": "./dist/next.umd.js"
+    }
+  },
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "config": {
+    "rollupOptions": {}
+  },
+  "dependencies": {
+    "@apollo/client": "^3.5.8",
+    "@vue/composition-api": "^1.4.6",
+    "axios": "^0.19.2",
+    "date-fns-timezone": "^0.1.4",
+    "graphql": "^16.3.0",
+    "graphql-tag": "^2.12.6",
+    "keycloak-js": "^17.0.0",
+    "localforage": "^1.9.0",
+    "lodash-es": "^4.17.15",
+    "vue-i18n": "8",
+    "vue-property-decorator": "^9.1.2",
+    "vue-router": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.12",
+    "typescript": "^4.5.2",
+    "vue": "^2.6.12"
+  }
+}
