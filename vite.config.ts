@@ -22,8 +22,7 @@ export default defineConfig({
       // external: ['vue'],
       input: {
         main: resolve(__dirname, 'index.html'),
-        dashboard: resolve(__dirname, 'apps/dashboard/index.html'),
-        organization: resolve(__dirname, 'apps/organization/index.html')
+        dashboard: resolve(__dirname, 'apps/dashboard/index.html')
       },
       output: {
         // Provide global variables to use in the UMD build
