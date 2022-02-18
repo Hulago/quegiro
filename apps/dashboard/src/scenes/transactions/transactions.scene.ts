@@ -61,6 +61,8 @@ export default defineComponent({
         processTransactionsCVS(content);
         processTransactions();
 
+        await processSales();
+
         await save();
 
         isLoading.value = false;

@@ -1,7 +1,11 @@
 <template>
   <v-col class="sales">
     <v-row>
-      <v-toolbar flat dark dense>
+      <v-toolbar
+        flat
+        dark
+        dense
+      >
         <v-toolbar-title>Sales</v-toolbar-title>
 
         <v-text-field
@@ -17,7 +21,7 @@
 
         <v-spacer />
 
-        <v-file-input
+        <!-- <v-file-input
           v-model="file"
           :prepend-icon="icons.mdiCloudUpload"
           label="Upload transaction file csv"
@@ -44,7 +48,7 @@
           @click="handleLoadTransations"
         >
           Load transations
-        </v-btn>
+        </v-btn> -->
       </v-toolbar>
     </v-row>
     <v-row>
