@@ -1,7 +1,15 @@
 <template>
-  <v-menu position="bottom" class="app-menu">
+  <v-menu
+    position="bottom"
+    class="app-menu"
+  >
     <template #activator="{ on }">
-      <v-btn class="mr-2" icon="mdi-apps" rounded v-on="on">
+      <v-btn
+        class="mr-2"
+        icon="mdi-apps"
+        rounded
+        v-on="on"
+      >
         <v-icon>{{ mdiApps }}</v-icon>
       </v-btn>
     </template>
@@ -24,13 +32,16 @@
                 {{ menu.label }}
               </div>
               <div class="app-menu-item__subtitle">
-                Matrix Dashboard Indicators
+                {{ menu.description }}
               </div>
             </div>
           </v-col>
         </v-row>
 
-        <v-divider v-if="appItems.length > 0" class="my-6" />
+        <v-divider
+          v-if="appItems.length > 0"
+          class="my-6"
+        />
 
         <v-row>
           <v-col

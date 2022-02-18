@@ -1,7 +1,11 @@
 <template>
   <v-col class="transactions">
     <v-row>
-      <v-toolbar flat dark dense>
+      <v-toolbar
+        flat
+        dark
+        dense
+      >
         <v-toolbar-title>Transactions</v-toolbar-title>
 
         <v-text-field
@@ -28,13 +32,13 @@
           hide-details
         />
 
-        <v-btn dark color="secondary" small class="mx-2" @click="processSales">
+        <!-- <v-btn dark color="secondary" small class="mx-2" @click="processSales">
           Process Sales
-        </v-btn>
+        </v-btn> -->
 
-        <v-btn dark color="warning" small class="mx-2" @click="handleClear">
+        <!-- <v-btn dark color="warning" small class="mx-2" @click="handleClear">
           clear
-        </v-btn>
+        </v-btn> -->
 
         <v-btn
           dark
@@ -194,8 +198,14 @@
       </v-virtual-scroll>
     </v-row>
 
-    <v-dialog v-model="isDetailModalVisible" width="50vw">
-      <v-card v-if="currentTransaction" class="transaction-modal">
+    <v-dialog
+      v-model="isDetailModalVisible"
+      width="50vw"
+    >
+      <v-card
+        v-if="currentTransaction"
+        class="transaction-modal"
+      >
         <v-card-title class="mb-2">
           {{ currentTransaction.name }} ({{ currentTransaction.isin }})
           <v-chip
@@ -249,9 +259,9 @@
             <span class="transaction-modal__value">
               {{ currentTransaction.qty }}
             </span>
-            <span class="transaction-modal__label"
-              >Local Transaction Price:</span
-            >
+            <span
+              class="transaction-modal__label"
+            >Local Transaction Price:</span>
             <span
               class="transaction-modal__value"
               v-html="
@@ -262,9 +272,9 @@
               "
             />
 
-            <span class="transaction-modal__label"
-              >Total Transaction Price:</span
-            >
+            <span
+              class="transaction-modal__label"
+            >Total Transaction Price:</span>
             <span
               class="transaction-modal__value"
               v-html="
@@ -325,7 +335,10 @@
 
         <v-card-actions>
           <v-spacer />
-          <v-btn color="secondary" @click="isDetailModalVisible = false">
+          <v-btn
+            color="secondary"
+            @click="isDetailModalVisible = false"
+          >
             Close
           </v-btn>
         </v-card-actions>
