@@ -1,7 +1,7 @@
 import { useStorage } from '@quegiro/next';
 import { computed, reactive } from '@vue/composition-api';
-import { parse } from 'date-fns';
-import { orderBy, uniqBy } from 'lodash-es';
+import { parse, format } from 'date-fns';
+import { orderBy, uniqBy, uniq } from 'lodash-es';
 
 export interface Sales {
   sellOrderId: string;
@@ -59,6 +59,9 @@ export interface Category {
   name: string;
 }
 
+const MONTH_FORMAT = 'MM-yyyy';
+const DAY_FORMAT = 'dd-MM-yyyy';
+
 const state = reactive<{
   transactions: Transactions[];
   products: Products[];
@@ -74,6 +77,11 @@ const state = reactive<{
 const { getItem, setItem } = useStorage('QUEGIRO');
 
 export function useTransactions() {
+  const transactions = computed(() => state.transactions);
+  const products = computed(() => state.products);
+  const categories = computed(() => state.categories);
+  const sales = computed(() => state.sales);
+
   async function loadProducts() {
     const prod = await getItem('products');
 
@@ -133,6 +141,67 @@ export function useTransactions() {
     await setItem('products', []);
     await setItem('transactions', []);
     await setItem('sales', []);
+  }
+
+  function getTransactionDays() {
+    const dates = orderBy(transactions.value.map((item) => item.date));
+
+    return uniq(dates);
+  }
+
+  function getTransactionMonths() {
+    const months = orderBy(transactions.value, ['transactionDate']).map(
+      (item) => {
+        let date = parse(item.date, DAY_FORMAT, new Date());
+        return format(date, MONTH_FORMAT);
+      }
+    );
+
+    return uniq(months);
+  }
+
+  function getBuysPerMonth() {
+    const months = getTransactionMonths();
+
+    const arr: number[] = [];
+    months.forEach((month) => {
+      const totalMonth = transactions.value
+        .filter((item) => {
+          let date = parse(item.date, DAY_FORMAT, new Date());
+          return item.buy && format(date, MONTH_FORMAT) === month;
+        })
+        .reduce((prev, curr) => {
+          prev = prev + Math.abs(curr.total);
+
+          return prev;
+        }, 0);
+
+      arr.push(Math.round(totalMonth * 100) / 100);
+    });
+
+    return arr;
+  }
+
+  function getSalesPerMonth() {
+    const months = getTransactionMonths();
+
+    const arr: number[] = [];
+    months.forEach((month) => {
+      const totalMonth = transactions.value
+        .filter((item) => {
+          let date = parse(item.date, DAY_FORMAT, new Date());
+          return item.sale && format(new Date(date), MONTH_FORMAT) === month;
+        })
+        .reduce((prev, curr) => {
+          prev = prev + Math.abs(curr.total);
+
+          return prev;
+        }, 0);
+
+      arr.push(Math.round(totalMonth * 100) / 100);
+    });
+
+    return arr;
   }
 
   async function processSales() {
@@ -346,11 +415,6 @@ export function useTransactions() {
       });
   }
 
-  const transactions = computed(() => state.transactions);
-  const products = computed(() => state.products);
-  const categories = computed(() => state.categories);
-  const sales = computed(() => state.sales);
-
   return {
     addCategory,
     addTransaction,
@@ -372,6 +436,11 @@ export function useTransactions() {
     saveProducts,
     saveSales,
     saveTransactions,
-    transactions
+    transactions,
+    // move it to another place
+    getTransactionMonths,
+    getTransactionDays,
+    getBuysPerMonth,
+    getSalesPerMonth
   };
 }

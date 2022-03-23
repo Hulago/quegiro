@@ -1,17 +1,23 @@
 import {
+  LegendComponentOption,
+  XAXisComponentOption,
+  YAXisComponentOption
+} from 'echarts';
+import {
   BarChart,
   // The series types are defined with the SeriesOption suffix
-  BarSeriesOption,
+  // BarSeriesOption,
   LineChart,
   LineSeriesOption
 } from 'echarts/charts';
 import {
   // Dataset
   DatasetComponent,
-  DatasetComponentOption,
+  // DatasetComponentOption,
   GridComponent,
   GridComponentOption,
   TitleComponent,
+  LegendComponent,
   // The component types are defined with the suffix ComponentOption
   TitleComponentOption,
   TooltipComponent,
@@ -24,14 +30,21 @@ import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 
 // Combine an Option type with only required components and charts via ComposeOption
-type ECOption = echarts.ComposeOption<
-  | BarSeriesOption
-  | LineSeriesOption
-  | TitleComponentOption
-  | TooltipComponentOption
-  | GridComponentOption
-  | DatasetComponentOption
->;
+type ChartOptions = {
+  title: TitleComponentOption;
+  series: LineSeriesOption[];
+  tooltip: TooltipComponentOption;
+  grid: GridComponentOption;
+  legend: LegendComponentOption;
+  xAxis: XAXisComponentOption;
+  yAxis: YAXisComponentOption;
+};
+// | BarSeriesOption
+// | LineSeriesOption
+// | TitleComponentOption
+// | TooltipComponentOption
+// | GridComponentOption
+// | DatasetComponentOption;
 
 // Register the required components
 echarts.use([
@@ -39,25 +52,23 @@ echarts.use([
   TooltipComponent,
   GridComponent,
   DatasetComponent,
+  LegendComponent,
   TransformComponent,
   BarChart,
+  LineChart,
   LabelLayout,
   UniversalTransition,
   CanvasRenderer
 ]);
 
-const option: ECOption = {
-  // ...
-};
-
-export function useLineChart() {
-  const xAxis: any = {
+export function useStackedChart() {
+  const xAxis: XAXisComponentOption = {
     boundaryGap: false,
     data: [],
     type: 'category'
   };
 
-  const options: ECOption = {
+  const options: ChartOptions = {
     grid: {
       bottom: '3%',
       containLabel: true,
@@ -69,24 +80,33 @@ export function useLineChart() {
     },
     series: [],
     title: {
-      text: ''
+      text: '',
+      right: 100
     },
     tooltip: {
       trigger: 'axis'
     },
     xAxis,
     yAxis: {
-      type: 'log'
+      min: 0,
+      max: 0,
+      type: 'category'
     }
   };
 
   let chart: any;
 
+  const setTitle = (title: string) => {
+    if (options.title) {
+      options.title.text = title;
+    }
+  };
+
   const initChart = (
     canvas: HTMLDivElement | HTMLCanvasElement,
     title: string
   ) => {
-    options.title.text = title;
+    setTitle(title);
     chart = echarts.init(canvas);
     chart.setOption(options);
   };
@@ -104,13 +124,14 @@ export function useLineChart() {
   };
 
   const addXValues = (xValue: any) => {
-    xAxis.data.push(xValue);
+    xAxis?.data?.push(xValue);
   };
 
-  const addSeries = (name: string) => {
-    options.legend.data.push(name);
+  const addSeries = (name: string, data: any = []) => {
+    options.legend?.data?.push(name);
+
     options.series.push({
-      data: [],
+      data,
       name,
       smooth: true,
       type: 'line'
@@ -119,7 +140,7 @@ export function useLineChart() {
 
   const addValueToSeries = (name: string, value: any) => {
     const serie = options.series.find((serie: any) => serie.name === name);
-    serie.data.push(value);
+    serie?.data?.push(value);
   };
 
   const clearData = () => {
@@ -138,6 +159,7 @@ export function useLineChart() {
     addValueToSeries,
     addXValues,
     chart,
+    setTitle,
     clearData,
     initChart,
     options,
