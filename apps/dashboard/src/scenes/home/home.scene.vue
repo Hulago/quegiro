@@ -24,6 +24,14 @@
       <v-col class="text-center" cols="6">
         <div ref="buysVsSalesChartYearRef" class="home__graph" />
       </v-col>
+
+      <v-col class="text-center" cols="6">
+        <div ref="gainsVsLossesMonthChartRef" class="home__graph" />
+      </v-col>
+
+      <v-col class="text-center" cols="6">
+        <div ref="gainsVsLossesYearChartRef" class="home__graph" />
+      </v-col>
     </v-row>
   </v-container>
 </template>

@@ -6,8 +6,8 @@ import { orderBy, uniqBy, uniq } from 'lodash-es';
 export interface Sales {
   sellOrderId: string;
   buyOrderId: string | null;
-  sellDate: Date;
-  buyDate: Date | null;
+  sellDate: Date | string | null;
+  buyDate: Date | string | null;
   isin: string;
   name: string;
   exchange: string;
@@ -61,6 +61,7 @@ export interface Category {
 
 const MONTH_FORMAT = 'MM-yyyy';
 const DAY_FORMAT = 'dd-MM-yyyy';
+const FULL_DAY_FORMAT = 'dd-MM-yyyy HH:mm';
 
 const state = reactive<{
   transactions: Transactions[];
@@ -241,14 +242,134 @@ export function useTransactions() {
     const years = getTransactionYears();
 
     const arr: number[] = [];
-    years.forEach((years) => {
+    years.forEach((year) => {
       const totalYear = transactions.value
         .filter((item) => {
           let date = parse(item.date, DAY_FORMAT, new Date());
-          return item.sale && format(new Date(date), 'yyyy') === years;
+          return item.sale && format(new Date(date), 'yyyy') === year;
         })
         .reduce((prev, curr) => {
           prev = prev + Math.abs(curr.total);
+
+          return prev;
+        }, 0);
+
+      arr.push(Math.round(totalYear * 100) / 100);
+    });
+
+    return arr;
+  }
+
+  function getMonthsOnSales() {
+    const months = orderBy(sales.value, ['sellDate']).map((item) => {
+      return format(item.sellDate as Date, MONTH_FORMAT);
+    });
+
+    return uniq(months);
+  }
+
+  function getYearsOnSales() {
+    const years = orderBy(sales.value, ['sellDate']).map((item) => {
+      return format(item.sellDate as Date, 'yyyy');
+    });
+
+    return uniq(years);
+  }
+
+  function getGainsPerMonth() {
+    const months = getMonthsOnSales();
+
+    const arr: number[] = [];
+
+    months.forEach((month) => {
+      const totalMonth = sales.value
+        .filter((item) => {
+          return (
+            item.sellDate &&
+            format(item.sellDate as Date, MONTH_FORMAT) === month &&
+            item.totalSellPrice - item.totalBuyPrice >= 0
+          );
+        })
+        .reduce((prev, curr) => {
+          prev = prev + Math.abs(curr.totalSellPrice - curr.totalBuyPrice);
+
+          return prev;
+        }, 0);
+
+      arr.push(Math.round(totalMonth * 100) / 100);
+    });
+
+    return arr;
+  }
+
+  function getLossesPerMonth() {
+    const months = getMonthsOnSales();
+
+    const arr: number[] = [];
+
+    months.forEach((month) => {
+      const totalMonth = sales.value
+        .filter((item) => {
+          return (
+            item.sellDate &&
+            format(item.sellDate as Date, MONTH_FORMAT) === month &&
+            item.totalSellPrice - item.totalBuyPrice < 0
+          );
+        })
+        .reduce((prev, curr) => {
+          prev = prev + Math.abs(curr.totalSellPrice - curr.totalBuyPrice);
+
+          return prev;
+        }, 0);
+
+      arr.push(Math.round(totalMonth * 100) / 100);
+    });
+
+    return arr;
+  }
+
+  function getGainsPerYear() {
+    const years = getYearsOnSales();
+
+    const arr: number[] = [];
+
+    years.forEach((year) => {
+      const totalYear = sales.value
+        .filter((item) => {
+          return (
+            item.sellDate &&
+            format(item.sellDate as Date, 'yyyy') === year &&
+            item.totalSellPrice - item.totalBuyPrice >= 0
+          );
+        })
+        .reduce((prev, curr) => {
+          prev = prev + Math.abs(curr.totalSellPrice - curr.totalBuyPrice);
+
+          return prev;
+        }, 0);
+
+      arr.push(Math.round(totalYear * 100) / 100);
+    });
+
+    return arr;
+  }
+
+  function getLossesPerYear() {
+    const years = getYearsOnSales();
+
+    const arr: number[] = [];
+
+    years.forEach((year) => {
+      const totalYear = sales.value
+        .filter((item) => {
+          return (
+            item.sellDate &&
+            format(item.sellDate as Date, 'yyyy') === year &&
+            item.totalSellPrice - item.totalBuyPrice < 0
+          );
+        })
+        .reduce((prev, curr) => {
+          prev = prev + Math.abs(curr.totalSellPrice - curr.totalBuyPrice);
 
           return prev;
         }, 0);
@@ -512,6 +633,13 @@ export function useTransactions() {
     //
     getTransactionYears,
     getBuysPerYear,
-    getSalesPerYear
+    getSalesPerYear,
+    //
+    getGainsPerMonth,
+    getLossesPerMonth,
+    getGainsPerYear,
+    getLossesPerYear,
+    getMonthsOnSales,
+    getYearsOnSales
   };
 }

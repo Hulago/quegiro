@@ -9,6 +9,9 @@ export default defineComponent({
     const totalPorfolioChart = useLineChart();
     const buysVsSalesYearChart = useBarChart();
 
+    const gainsVsLossesMonthChart = useBarChart();
+    const gainsVsLossesYearChart = useBarChart();
+
     const {
       load,
       processSales,
@@ -17,19 +20,34 @@ export default defineComponent({
       getSalesPerMonth,
       getTransactionYears,
       getBuysPerYear,
-      getSalesPerYear
+      getSalesPerYear,
+
+      getGainsPerMonth,
+      getLossesPerMonth,
+      getGainsPerYear,
+      getLossesPerYear,
+      getMonthsOnSales,
+      getYearsOnSales
     } = useTransactions();
 
     const buysVsSalesChartRef = ref(null);
     const buysVsSalesChartYearRef = ref(null);
     const totalPorfolioChartRef = ref(null);
 
+    const gainsVsLossesMonthChartRef = ref(null);
+
+    const gainsVsLossesYearChartRef = ref(null);
+
     onMounted(async () => {
       await load();
 
       initBuysVsSalesChart();
-      inittotalPorfolioChart();
+      initTotalPorfolioChart();
       initBuysVsSalesYearChart();
+
+      initGainsVsLossesMonthChart();
+
+      initGainsVsLossesYearChart();
     });
 
     function initBuysVsSalesChart() {
@@ -72,7 +90,7 @@ export default defineComponent({
       buysVsSalesYearChart.refreshChart();
     }
 
-    function inittotalPorfolioChart() {
+    function initTotalPorfolioChart() {
       totalPorfolioChart.options.yAxis.type = 'value';
       totalPorfolioChart.initChart(
         totalPorfolioChartRef.value as any,
@@ -121,10 +139,56 @@ export default defineComponent({
       totalPorfolioChart.refreshChart();
     }
 
+    function initGainsVsLossesMonthChart() {
+      gainsVsLossesMonthChart.options.yAxis.type = 'value';
+      gainsVsLossesMonthChart.initChart(
+        gainsVsLossesMonthChartRef.value as any,
+        'Gains vs Losses / Month'
+      );
+
+      gainsVsLossesMonthChart.setXValues(getMonthsOnSales());
+
+      const gains = getGainsPerMonth();
+
+      gainsVsLossesMonthChart.addSeries('Gains', gains);
+
+      const losses = getLossesPerMonth();
+
+      gainsVsLossesMonthChart.addSeries('Losses', losses);
+
+      gainsVsLossesMonthChart.setMaxY(max([...gains, ...(losses as any)]));
+
+      gainsVsLossesMonthChart.refreshChart();
+    }
+
+    function initGainsVsLossesYearChart() {
+      gainsVsLossesYearChart.options.yAxis.type = 'value';
+      gainsVsLossesYearChart.initChart(
+        gainsVsLossesYearChartRef.value as any,
+        'Gains vs Losses / Years'
+      );
+
+      gainsVsLossesYearChart.setXValues(getYearsOnSales());
+
+      const gains = getGainsPerYear();
+
+      gainsVsLossesYearChart.addSeries('Gains', gains);
+
+      const losses = getLossesPerYear();
+
+      gainsVsLossesYearChart.addSeries('Losses', losses);
+
+      gainsVsLossesYearChart.setMaxY(max([...gains, ...(losses as any)]));
+
+      gainsVsLossesYearChart.refreshChart();
+    }
+
     return {
       buysVsSalesChartRef,
       totalPorfolioChartRef,
-      buysVsSalesChartYearRef
+      buysVsSalesChartYearRef,
+      gainsVsLossesMonthChartRef,
+      gainsVsLossesYearChartRef
     };
   }
 });
