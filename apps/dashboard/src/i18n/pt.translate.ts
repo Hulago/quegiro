@@ -7,6 +7,7 @@ export default {
   LABEL: {
     CATEGORIES: 'Categorias',
     DASHBOARD: 'Dashboard',
+    DATA: 'Dados',
     SALES: 'Vendas',
     TRANSACTIONS: 'Transações'
   },

@@ -1,4 +1,7 @@
 import { mdiCloudUpload, mdiEye } from '@mdi/js';
+
+import dataSvg from '../../components/svgs/data.svg.vue';
+
 import {
   currencyRender,
   dateRender,
@@ -14,6 +17,9 @@ import {
 } from '@vue/composition-api';
 
 export default defineComponent({
+  components: {
+    dataSvg
+  },
   setup() {
     const {
       loadTransactions,

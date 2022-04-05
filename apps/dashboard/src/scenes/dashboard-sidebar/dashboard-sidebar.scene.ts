@@ -1,5 +1,6 @@
 import {
   mdiCashLock,
+  mdiDatabase,
   mdiFormatListBulletedSquare,
   mdiShapeOutline,
   mdiViewDashboard
@@ -19,6 +20,13 @@ export default defineComponent({
         label: i18n('DASHBOARD.LABEL.DASHBOARD'),
         route: {
           name: ROUTES.HOME
+        }
+      },
+      {
+        icon: mdiDatabase,
+        label: i18n('DASHBOARD.LABEL.DATA'),
+        route: {
+          name: ROUTES.DATA
         }
       },
       {

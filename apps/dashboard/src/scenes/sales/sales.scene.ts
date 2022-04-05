@@ -23,8 +23,6 @@ export default defineComponent({
     async function handleProcessSales() {
       processSales();
       await saveSales();
-      // console.log('dSDSDS');
-      // console.log(transactions);
     }
 
     const selectedSales = computed(() =>
