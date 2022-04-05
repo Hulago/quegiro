@@ -8,11 +8,21 @@ import DashboardScene from '../scenes/dashboard/dashboard.scene.vue';
 import HomeScene from '../scenes/home/home.scene.vue';
 import SalesScene from '../scenes/sales/sales.scene.vue';
 import TransactionsScene from '../scenes/transactions/transactions.scene.vue';
+import DataScene from '../scenes/data/data.scene.vue';
 
 Vue.use(VueRouter);
 
 const root: RouteConfig = {
   children: [
+    {
+      components: {
+        default: DataScene,
+        sidebar: DashboardSidebarScene
+      },
+
+      name: ROUTES.DATA,
+      path: 'data'
+    },
     {
       components: {
         default: HomeScene,

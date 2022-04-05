@@ -4,10 +4,9 @@ import {
   YAXisComponentOption
 } from 'echarts';
 import {
+  BarChart,
   // The series types are defined with the SeriesOption suffix
-  // BarSeriesOption,
-  LineChart,
-  LineSeriesOption
+  BarSeriesOption
 } from 'echarts/charts';
 import {
   // Dataset
@@ -31,7 +30,7 @@ import { CanvasRenderer } from 'echarts/renderers';
 // Combine an Option type with only required components and charts via ComposeOption
 type ChartOptions = {
   title: TitleComponentOption;
-  series: LineSeriesOption[];
+  series: BarSeriesOption[];
   tooltip: TooltipComponentOption;
   grid: GridComponentOption;
   legend: LegendComponentOption;
@@ -53,15 +52,14 @@ echarts.use([
   DatasetComponent,
   LegendComponent,
   TransformComponent,
-  LineChart,
+  BarChart,
   LabelLayout,
   UniversalTransition,
   CanvasRenderer
 ]);
 
-export function useLineChart() {
+export function useBarChart() {
   const xAxis: XAXisComponentOption = {
-    boundaryGap: false,
     data: [],
     type: 'category'
   };
@@ -132,8 +130,7 @@ export function useLineChart() {
       ...stack,
       data,
       name,
-      smooth: true,
-      type: 'line'
+      type: 'bar'
     });
   };
 

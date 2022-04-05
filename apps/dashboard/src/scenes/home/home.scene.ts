@@ -1,4 +1,4 @@
-import { useLineChart, useTransactions } from '@quegiro/common';
+import { useLineChart, useTransactions, useBarChart } from '@quegiro/common';
 import { defineComponent, onMounted, ref } from '@vue/composition-api';
 
 import { max, min } from 'lodash-es';
@@ -7,17 +7,29 @@ export default defineComponent({
   setup() {
     const buysVsSalesChart = useLineChart();
     const totalPorfolioChart = useLineChart();
+    const buysVsSalesYearChart = useBarChart();
 
-    const { load, getTransactionMonths, getBuysPerMonth, getSalesPerMonth } =
-      useTransactions();
+    const {
+      load,
+      processSales,
+      getTransactionMonths,
+      getBuysPerMonth,
+      getSalesPerMonth,
+      getTransactionYears,
+      getBuysPerYear,
+      getSalesPerYear
+    } = useTransactions();
 
     const buysVsSalesChartRef = ref(null);
+    const buysVsSalesChartYearRef = ref(null);
     const totalPorfolioChartRef = ref(null);
 
     onMounted(async () => {
       await load();
+
       initBuysVsSalesChart();
       inittotalPorfolioChart();
+      initBuysVsSalesYearChart();
     });
 
     function initBuysVsSalesChart() {
@@ -38,6 +50,26 @@ export default defineComponent({
       );
 
       buysVsSalesChart.refreshChart();
+    }
+
+    function initBuysVsSalesYearChart() {
+      buysVsSalesYearChart.options.yAxis.type = 'value';
+      buysVsSalesYearChart.initChart(
+        buysVsSalesChartYearRef.value as any,
+        'Sales & Buys / Year'
+      );
+
+      buysVsSalesYearChart.setXValues(getTransactionYears());
+
+      buysVsSalesYearChart.addSeries('Buys', getBuysPerYear());
+
+      buysVsSalesYearChart.addSeries('Sells', getSalesPerYear());
+
+      buysVsSalesYearChart.setMaxY(
+        max([...getBuysPerYear(), ...(getSalesPerYear() as any)])
+      );
+
+      buysVsSalesYearChart.refreshChart();
     }
 
     function inittotalPorfolioChart() {
@@ -91,7 +123,8 @@ export default defineComponent({
 
     return {
       buysVsSalesChartRef,
-      totalPorfolioChartRef
+      totalPorfolioChartRef,
+      buysVsSalesChartYearRef
     };
   }
 });

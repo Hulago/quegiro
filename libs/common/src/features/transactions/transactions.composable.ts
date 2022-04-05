@@ -160,6 +160,17 @@ export function useTransactions() {
     return uniq(months);
   }
 
+  function getTransactionYears() {
+    const years = orderBy(transactions.value, ['transactionDate']).map(
+      (item) => {
+        let date = parse(item.date, DAY_FORMAT, new Date());
+        return format(date, 'yyyy');
+      }
+    );
+
+    return uniq(years);
+  }
+
   function getBuysPerMonth() {
     const months = getTransactionMonths();
 
@@ -177,6 +188,28 @@ export function useTransactions() {
         }, 0);
 
       arr.push(Math.round(totalMonth * 100) / 100);
+    });
+
+    return arr;
+  }
+
+  function getBuysPerYear() {
+    const years = getTransactionYears();
+
+    const arr: number[] = [];
+    years.forEach((year) => {
+      const totalYear = transactions.value
+        .filter((item) => {
+          let date = parse(item.date, DAY_FORMAT, new Date());
+          return item.buy && format(date, 'yyyy') === year;
+        })
+        .reduce((prev, curr) => {
+          prev = prev + Math.abs(curr.total);
+
+          return prev;
+        }, 0);
+
+      arr.push(Math.round(totalYear * 100) / 100);
     });
 
     return arr;
@@ -204,15 +237,47 @@ export function useTransactions() {
     return arr;
   }
 
+  function getSalesPerYear() {
+    const years = getTransactionYears();
+
+    const arr: number[] = [];
+    years.forEach((years) => {
+      const totalYear = transactions.value
+        .filter((item) => {
+          let date = parse(item.date, DAY_FORMAT, new Date());
+          return item.sale && format(new Date(date), 'yyyy') === years;
+        })
+        .reduce((prev, curr) => {
+          prev = prev + Math.abs(curr.total);
+
+          return prev;
+        }, 0);
+
+      arr.push(Math.round(totalYear * 100) / 100);
+    });
+
+    return arr;
+  }
+
+  function resetRemain() {
+    state.transactions.forEach((trans) => {
+      trans.remain = Math.abs(trans.qty);
+    });
+  }
+
   async function processSales() {
     let iterations = 0;
 
     state.sales = [];
 
+    resetRemain();
+
     const sales = orderBy(
       state.transactions.filter((trans) => trans.sale),
       ['transactionDate']
     );
+
+    console.log(JSON.stringify(sales.map((item) => item.remain)));
 
     const buys = orderBy(
       state.transactions.filter((trans) => trans.buy),
@@ -295,6 +360,8 @@ export function useTransactions() {
         iterations++;
       }
     });
+
+    console.log('Save Sales');
 
     await saveSales();
   }
@@ -441,6 +508,10 @@ export function useTransactions() {
     getTransactionMonths,
     getTransactionDays,
     getBuysPerMonth,
-    getSalesPerMonth
+    getSalesPerMonth,
+    //
+    getTransactionYears,
+    getBuysPerYear,
+    getSalesPerYear
   };
 }
