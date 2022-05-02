@@ -79,9 +79,9 @@
             </v-col>
           </v-row> -->
 
-          <v-row class="pa-4">
+          <!-- <v-row class="pa-4">
             <v-progress-linear value="15"></v-progress-linear>
-          </v-row>
+          </v-row> -->
         </v-container>
       </v-col>
       <v-col class="pa-4">

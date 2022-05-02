@@ -1,7 +1,7 @@
 import { useStorage } from '@quegiro/next';
 import { computed, reactive } from '@vue/composition-api';
-import { parse, format } from 'date-fns';
-import { orderBy, uniqBy, uniq } from 'lodash-es';
+import { format, parse } from 'date-fns';
+import { orderBy, uniq, uniqBy } from 'lodash-es';
 
 export interface Sales {
   sellOrderId: string;
@@ -153,7 +153,7 @@ export function useTransactions() {
   function getTransactionMonths() {
     const months = orderBy(transactions.value, ['transactionDate']).map(
       (item) => {
-        let date = parse(item.date, DAY_FORMAT, new Date());
+        const date = parse(item.date, DAY_FORMAT, new Date());
         return format(date, MONTH_FORMAT);
       }
     );
@@ -164,7 +164,7 @@ export function useTransactions() {
   function getTransactionYears() {
     const years = orderBy(transactions.value, ['transactionDate']).map(
       (item) => {
-        let date = parse(item.date, DAY_FORMAT, new Date());
+        const date = parse(item.date, DAY_FORMAT, new Date());
         return format(date, 'yyyy');
       }
     );
@@ -179,7 +179,7 @@ export function useTransactions() {
     months.forEach((month) => {
       const totalMonth = transactions.value
         .filter((item) => {
-          let date = parse(item.date, DAY_FORMAT, new Date());
+          const date = parse(item.date, DAY_FORMAT, new Date());
           return item.buy && format(date, MONTH_FORMAT) === month;
         })
         .reduce((prev, curr) => {
@@ -201,7 +201,7 @@ export function useTransactions() {
     years.forEach((year) => {
       const totalYear = transactions.value
         .filter((item) => {
-          let date = parse(item.date, DAY_FORMAT, new Date());
+          const date = parse(item.date, DAY_FORMAT, new Date());
           return item.buy && format(date, 'yyyy') === year;
         })
         .reduce((prev, curr) => {
@@ -223,7 +223,7 @@ export function useTransactions() {
     months.forEach((month) => {
       const totalMonth = transactions.value
         .filter((item) => {
-          let date = parse(item.date, DAY_FORMAT, new Date());
+          const date = parse(item.date, DAY_FORMAT, new Date());
           return item.sale && format(new Date(date), MONTH_FORMAT) === month;
         })
         .reduce((prev, curr) => {
@@ -245,7 +245,7 @@ export function useTransactions() {
     years.forEach((year) => {
       const totalYear = transactions.value
         .filter((item) => {
-          let date = parse(item.date, DAY_FORMAT, new Date());
+          const date = parse(item.date, DAY_FORMAT, new Date());
           return item.sale && format(new Date(date), 'yyyy') === year;
         })
         .reduce((prev, curr) => {
@@ -261,17 +261,13 @@ export function useTransactions() {
   }
 
   function getMonthsOnSales() {
-    const months = orderBy(sales.value, ['sellDate']).map((item) => {
-      return format(item.sellDate as Date, MONTH_FORMAT);
-    });
+    const months = orderBy(sales.value, ['sellDate']).map((item) => format(item.sellDate as Date, MONTH_FORMAT));
 
     return uniq(months);
   }
 
   function getYearsOnSales() {
-    const years = orderBy(sales.value, ['sellDate']).map((item) => {
-      return format(item.sellDate as Date, 'yyyy');
-    });
+    const years = orderBy(sales.value, ['sellDate']).map((item) => format(item.sellDate as Date, 'yyyy'));
 
     return uniq(years);
   }
@@ -283,13 +279,11 @@ export function useTransactions() {
 
     months.forEach((month) => {
       const totalMonth = sales.value
-        .filter((item) => {
-          return (
-            item.sellDate &&
+        .filter((item) => (
+          item.sellDate &&
             format(item.sellDate as Date, MONTH_FORMAT) === month &&
             item.totalSellPrice - item.totalBuyPrice >= 0
-          );
-        })
+        ))
         .reduce((prev, curr) => {
           prev = prev + Math.abs(curr.totalSellPrice - curr.totalBuyPrice);
 
@@ -309,13 +303,11 @@ export function useTransactions() {
 
     months.forEach((month) => {
       const totalMonth = sales.value
-        .filter((item) => {
-          return (
-            item.sellDate &&
+        .filter((item) => (
+          item.sellDate &&
             format(item.sellDate as Date, MONTH_FORMAT) === month &&
             item.totalSellPrice - item.totalBuyPrice < 0
-          );
-        })
+        ))
         .reduce((prev, curr) => {
           prev = prev + Math.abs(curr.totalSellPrice - curr.totalBuyPrice);
 
@@ -335,13 +327,11 @@ export function useTransactions() {
 
     years.forEach((year) => {
       const totalYear = sales.value
-        .filter((item) => {
-          return (
-            item.sellDate &&
+        .filter((item) => (
+          item.sellDate &&
             format(item.sellDate as Date, 'yyyy') === year &&
             item.totalSellPrice - item.totalBuyPrice >= 0
-          );
-        })
+        ))
         .reduce((prev, curr) => {
           prev = prev + Math.abs(curr.totalSellPrice - curr.totalBuyPrice);
 
@@ -361,13 +351,11 @@ export function useTransactions() {
 
     years.forEach((year) => {
       const totalYear = sales.value
-        .filter((item) => {
-          return (
-            item.sellDate &&
+        .filter((item) => (
+          item.sellDate &&
             format(item.sellDate as Date, 'yyyy') === year &&
             item.totalSellPrice - item.totalBuyPrice < 0
-          );
-        })
+        ))
         .reduce((prev, curr) => {
           prev = prev + Math.abs(curr.totalSellPrice - curr.totalBuyPrice);
 
@@ -508,7 +496,8 @@ export function useTransactions() {
 
   function processTransactions() {
     state.transactions = orderBy(
-      uniqBy(state.transactions, 'orderId'),
+      uniqBy(state.transactions, (trans: any) => 
+        trans.orderId + trans.transactionCost + trans.qty + trans.localTransactionPrice),
       ['transactionDate'],
       ['desc']
     );
