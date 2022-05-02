@@ -27,24 +27,24 @@
         <h2>QUEGIRO</h2>
       </div>
 
-      <div class="app__breadcrumb">
+      <!-- <div class="app__breadcrumb">
         <v-icon dark class="mr-3">
           {{ icon }}
         </v-icon>
 
         <v-toolbar-title>{{ title }}</v-toolbar-title>
-      </div>
+      </div> -->
 
       <v-spacer />
 
-      <app-menu
+      <!-- <app-menu
         :columns="3"
         :menu-items="selectedSidebarItems"
         :app-items="appItems"
         @selectModule="handleSelectModule"
       />
 
-      <profile-menu :user="user" />
+      <profile-menu :user="user" /> -->
     </v-app-bar>
 
     <!-- Sizes your content based upon application components -->

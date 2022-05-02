@@ -72,12 +72,14 @@ export function useBarChart() {
       right: '4%'
     },
     legend: {
+      orient: 'vertical',
+      right: 'right',
       data: []
     },
     series: [],
     title: {
       text: '',
-      right: 10
+      left: 'center'
     },
     tooltip: {
       trigger: 'axis'
