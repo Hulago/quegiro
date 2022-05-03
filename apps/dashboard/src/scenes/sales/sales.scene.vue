@@ -21,6 +21,18 @@
 
         <v-spacer />
 
+        <div>
+          total buy:
+        </div>
+        <div v-html="currencyRender()(totalBuy)" />
+        <div class="ml-3">
+          | total sell:
+        </div>
+        <div v-html="currencyRender()(totalSell)" />
+        <div class="ml-3">
+          | total cost:
+        </div>
+        <div v-html="currencyRender()(totalCosts)" />
         <!-- <v-file-input
           v-model="file"
           :prepend-icon="icons.mdiCloudUpload"
@@ -49,6 +61,9 @@
         >
           Load transations
         </v-btn> -->
+        </span>
+        </span></span
+        >
       </v-toolbar>
     </v-row>
     <v-row>
