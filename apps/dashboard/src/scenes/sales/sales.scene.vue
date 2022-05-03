@@ -21,16 +21,16 @@
 
         <v-spacer />
 
-        <div>
+        <div class="ml-3 mr-1">
           total buy:
         </div>
         <div v-html="currencyRender()(totalBuy)" />
-        <div class="ml-3">
-          | total sell:
+        <div class="ml-3 mr-1">
+          total sell:
         </div>
         <div v-html="currencyRender()(totalSell)" />
-        <div class="ml-3">
-          | total cost:
+        <div class="ml-3 mr-1">
+          total cost:
         </div>
         <div v-html="currencyRender()(totalCosts)" />
         <!-- <v-file-input
