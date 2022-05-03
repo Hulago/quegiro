@@ -27,10 +27,32 @@ export default defineComponent({
 
     const selectedSales = computed(() =>
       sales.value.filter((item) =>
-        (item.name + item.buyDate + item.sellDate)
-          .toLocaleLowerCase()
+        (
+          item.name.toLowerCase() +
+          dateRender()(item.buyDate as any) +
+          dateRender()(item.sellDate as any)
+        )
+          .toLowerCase()
           .includes(searchCriteria.value)
       )
+    );
+
+    const totalBuy = computed(() =>
+      selectedSales.value.reduce(
+        (prev, curr) => (prev += curr.totalBuyPrice),
+        0
+      )
+    );
+
+    const totalSell = computed(() =>
+      selectedSales.value.reduce(
+        (prev, curr) => (prev += curr.totalSellPrice),
+        0
+      )
+    );
+
+    const totalCosts = computed(() =>
+      selectedSales.value.reduce((prev, curr) => (prev += curr.cost), 0)
     );
 
     return {
@@ -43,7 +65,10 @@ export default defineComponent({
       },
       isLoading,
       searchCriteria,
-      selectedSales
+      selectedSales,
+      totalBuy,
+      totalCosts,
+      totalSell
     };
   }
 });
