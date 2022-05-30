@@ -1,5 +1,6 @@
 /** Vuetify Vite */
 import { createApp } from '@vue/composition-api';
+
 import Vue from 'vue';
 
 import './plugins/composition.plugin';
