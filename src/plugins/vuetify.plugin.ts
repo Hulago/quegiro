@@ -2,6 +2,9 @@
 import Vuetify from 'vuetify/lib/framework';
 import Vue from 'vue';
 
+// import * as components from 'vuetify/lib/components';
+// import * as directives from 'vuetify/lib/directives';
+
 /*
 // Locale
 import i18n from './i18n';
@@ -14,6 +17,8 @@ import { getCurrentInstance } from '@vue/composition-api';
 // import { loadFonts } from './webfontloader';
 
 // loadFonts();
+
+// Vue.use(Vuetify, { components, directives });
 
 Vue.use(Vuetify);
 
