@@ -1,128 +1,178 @@
+import { VuetifyResolver } from 'unplugin-vue-components/resolvers';
+import eslintPlugin from '@modyqyw/vite-plugin-eslint';
+import Components from 'unplugin-vue-components/vite';
+import { visualizer } from 'rollup-plugin-visualizer';
+import { defineConfig, type UserConfig } from 'vite';
+import stylelintPlugin from 'vite-plugin-stylelint';
 import { createVuePlugin } from 'vite-plugin-vue2';
-import { defineConfig, searchForWorkspaceRoot } from 'vite';
-import { workspacesAlias, htmlFallback, gqlPlugin } from './packages/vite';
-import svgLoader from 'vite-svg-loader';
+import path from 'path';
+import fs from 'fs';
 
-import { resolve } from 'path';
-import { readFileSync } from 'fs';
-
-const BUILD_MODE = process.env.BUILD_MODE || 'dev';
-const envMessage = `ENVIRONMENT: ${BUILD_MODE}`;
-
-// eslint-disable-next-line no-console
-console.log('\x1b[33m%s\x1b[0m', envMessage);
-
-var file = readFileSync(resolve(__dirname, 'apps/dashboard/index.html'));
-
-export default defineConfig({
-  build: {
-    rollupOptions: {
-      // make sure to externalize deps that shouldn't be bundled
-      // into your library
-      // external: ['vue'],
-      input: {
-        main: resolve(__dirname, 'index.html'),
-        dashboard: resolve(__dirname, 'apps/dashboard/index.html')
-      },
-      output: {
-        // Provide global variables to use in the UMD build
-        // for externalized deps
-        globals: {
-          vue: 'Vue'
+// https://vitejs.dev/config/
+export default defineConfig(async ({ mode }): Promise<UserConfig> => {
+  const config: UserConfig = {
+    // https://vitejs.dev/config/#base
+    base: './',
+    // Resolver
+    resolve: {
+      // https://vitejs.dev/config/#resolve-alias
+      alias: [
+        {
+          // vue @ shortcut fix
+          find: '@/',
+          replacement: `${path.resolve(__dirname, './src')}/`
+        },
+        {
+          find: 'src/',
+          replacement: `${path.resolve(__dirname, './src')}/`
         }
-      }
-    }
-  },
-  plugins: [
-    createVuePlugin({}),
-    workspacesAlias(['.'], ['vite']),
-    svgLoader(),
-    gqlPlugin(),
-    require('rollup-plugin-web-worker-loader')({
-      pattern: /(.+)\?worker/,
-      preserveSource: true, // somehow results in slightly smaller bundle
-      targetPlatform: 'browser'
-    }),
-    htmlFallback()
-    // workspaceRollupOptions() // Mandatory to be the last plugin
-  ],
-  optimizeDeps: {
-    exclude: ['vue-svgicon'],
-    include: [
-      // 'vue-color/dist/vue-color.min.js',
-      // 'tinycolor2/tinycolor.js',
-      // 'vuedraggable/dist/vuedraggable.umd.js',
-      // 'tinymce/tinymce.js',
-      // 'tinymce/plugins/advlist',
-      // 'tinymce/plugins/charmap',
-      // 'tinymce/plugins/directionality',
-      // 'tinymce/plugins/fullscreen',
-      // 'tinymce/plugins/hr',
-      // 'tinymce/plugins/link',
-      // 'tinymce/plugins/lists',
-      // 'tinymce/plugins/pagebreak',
-      // 'tinymce/plugins/paste',
-      // 'tinymce/plugins/tabfocus',
-      // 'tinymce/plugins/table',
-      // 'tinymce/plugins/textpattern',
-      // 'tinymce/plugins/visualblocks',
-      // 'tinymce/plugins/visualchars',
-      // 'tinymce/plugins/wordcount',
-      // 'tinymce/themes/silver/theme',
-      // 'tinymce/icons/default/icons',
-      'vuetify/dist/vuetify.min.js'
-      // 'moment-timezone/index.js',
-      // 'moment/moment.js'
-    ]
-  },
-  server: {
-    host: 'localhost',
-    https: false,
-    open: process.platform === 'darwin',
-    port: 9092,
-    proxy: {
-      '^/api/private': {
-        changeOrigin: true,
-        headers: {
-          'Content-type': 'application/json'
-        },
-        rewrite: (path: string) => {
-          const url = path.replace('/api/private', '');
-          return `/apiman-gateway/partnership/private-intranet/1.1${url}`;
-        },
-        target: 'https://api.dev.prozis.tech',
-        ws: true
-      },
-      '^/api/public': {
-        changeOrigin: true,
-        headers: {
-          'Content-type': 'application/json'
-        },
-        rewrite: (path: string) => {
-          const base = `/apiman-gateway/partnership/${
-            BUILD_MODE === 'prd' ? 'prd-public' : 'public'
-          }/1.0`;
-          const url = path.replace('/api/public', '');
-
-          return `${base}${url}`;
-        },
-        target:
-          BUILD_MODE === 'prd'
-            ? 'https://api.prozis.tech'
-            : 'https://api-dev.prozis.tech',
-        ws: true
-      },
-      '^/test': {
-        changeOrigin: true,
-        headers: {
-          'Content-type': 'application/json'
-        },
-        rewrite: () => '/',
-        target: 'http://localhost:3000'
+      ]
+    },
+    // https://vitejs.dev/config/#server-options
+    server: {
+      fs: {
+        // Allow serving files from one level up to the project root
+        allow: ['..']
       }
     },
-    fs: {
-      allow: [searchForWorkspaceRoot(process.cwd())]
+    plugins: [
+      // Vue2
+      // https://github.com/underfin/vite-plugin-vue2
+      createVuePlugin({
+        target: 'esnext'
+      }),
+      // unplugin-vue-components
+      // https://github.com/antfu/unplugin-vue-components
+      Components({
+        // generate `components.d.ts` global declarations
+        dts: true,
+        // auto import for directives
+        directives: true,
+        // resolvers for custom components
+        resolvers: [
+          // Vuetify
+          VuetifyResolver()
+        ]
+      })
+      // eslint
+      // https://github.com/ModyQyW/vite-plugin-eslint
+      // eslintPlugin(),
+      // Stylelint
+      // https://github.com/ModyQyW/vite-plugin-stylelint
+      // stylelintPlugin()
+      // compress assets
+      // https://github.com/vbenjs/vite-plugin-compression
+      // viteCompression(),
+    ],
+    css: {
+      postcss: {
+        plugins: [
+          // Fix vite build includes @charset problem
+          // https://github.com/vitejs/vite/issues/5655
+          {
+            postcssPlugin: 'internal:charset-removal',
+            AtRule: {
+              charset: atRule => {
+                if (atRule.name === 'charset') {
+                  atRule.remove();
+                }
+              }
+            }
+          }
+        ]
+      },
+      // https://vitejs.dev/config/#css-preprocessoroptions
+      preprocessorOptions: {
+        sass: {
+          additionalData: [
+            // vuetify variable overrides
+            '@import "@/styles/variables.scss"',
+            ''
+          ].join('\n')
+        }
+      }
+    },
+    // Build Options
+    // https://vitejs.dev/config/#build-options
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // Split external library from transpiled code.
+            vue: [
+              'vue',
+              '@vue/composition-api',
+              'vue-class-component',
+              'vue-property-decorator',
+              'vue-router',
+              'vuex',
+              'vuex-persist',
+              'vue2-helpers'
+            ],
+            vuetify: ['vuetify/lib'],
+            echarts: ['echarts/features', 'echarts/renderers'],
+            'echarts-core': [
+              'echarts/core',
+              'echarts',
+              'echarts/components',
+              'echarts/charts'
+            ]
+          },
+          plugins: [
+            mode === 'analyze'
+              ? // rollup-plugin-visualizer
+                // https://github.com/btd/rollup-plugin-visualizer
+                visualizer({
+                  open: true,
+                  filename: 'dist/stats.html',
+                  gzipSize: true,
+                  brotliSize: true
+                })
+              : undefined
+            /*
+            // if you use Code encryption by rollup-plugin-obfuscator
+            // https://github.com/getkey/rollup-plugin-obfuscator
+            obfuscator({
+              globalOptions: {
+                debugProtection: true,
+              },
+            }),
+            */
+          ]
+        }
+      },
+      target: 'es2021'
+      /*
+      // Minify option
+      // https://vitejs.dev/config/#build-minify
+      minify: 'terser',
+      terserOptions: {
+        ecma: 2020,
+        parse: {},
+        compress: { drop_console: true },
+        mangle: true, // Note `mangle.properties` is `false` by default.
+        module: true,
+        output: { comments: true, beautify: false },
+      },
+      */
     }
-  }
+  };
+  // Hook production build.
+  // if (command === 'build') {
+  // Write meta data.
+  fs.writeFileSync(
+    path.resolve(path.join(__dirname, 'src/Meta.ts')),
+    `import type MetaInterface from '@/interfaces/MetaInterface';
+
+// This file is auto-generated by the build system.
+const meta: MetaInterface = {
+  version: '${require('./package.json').version}',
+  date: '${new Date().toISOString()}',
+};
+export default meta;
+`
+  );
+  // }
+
+  return config;
 });

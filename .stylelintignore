@@ -1,0 +1,6 @@
+index.html
+.husky/
+.vscode/
+dist/
+public/
+node_modules/

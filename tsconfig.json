@@ -1,25 +1,35 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig.json",
   "compilerOptions": {
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "baseUrl": ".",
-    "paths": {
-      "@quegiro/dashboard": ["./apps/dashboard/src/index.ts"],
-      "@quegiro/irs": ["./apps/irs/src/index.ts"],
-      "@quegiro/common": ["./libs/common/src/index.ts"],
-      "@quegiro/next": ["./libs/next/src/index.ts"],
-      "@quegiro/main-containers": ["./containers/main/src/index.ts"]
-    },
+    "allowJs": false,
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "types",
     "esModuleInterop": true,
+    "emitDeclarationOnly": false,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "isolatedModules": true,
     "jsx": "preserve",
     "lib": ["esnext", "dom"],
     "module": "esnext",
     "moduleResolution": "node",
+    "newLine": "lf",
+    "noImplicitAny": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "resolveJsonModule": true,
+    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "esnext"
+    "target": "esnext",
+    "types": ["vite/client", "node", "vue", "vuetify"],
+    "useDefineForClassFields": true
   },
-  "exclude": ["node_modules"],
-  "include": ["*/**/*.ts", "*/**/*.d.ts", "*/**/*.tsx", "*/**/*.vue"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": ["node_modules", "dist"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
