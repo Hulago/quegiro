@@ -1,21 +1,17 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "vite-vue2-vuetify-ts-starter",
+  "name": "quegiro",
   "private": true,
-  "version": "0.4.5",
-  "description": "Vue2 Vuetify TypeScript Startar project for Vite.",
+  "version": "0.0.1",
+  "description": "Quegiro degiro csv transaction parser.",
   "author": {
-    "name": "Logue",
-    "email": "logue@hotmail.co.jp",
-    "url": "https://logue.dev/"
+    "name": "Hugo Lago",
+    "email": "huzgo1@gmail.com"
   },
-  "homepage": "https://github.com/logue/vite-vue2-vuetify-ts-starter",
+  "homepage": "https://github.com/Hulago/quegiro/",
   "repository": {
     "type": "git",
-    "url": "git@github.com:logue/vite-vue2-vuetify-ts-starter.git"
-  },
-  "bugs": {
-    "url": "https://github.com/logue/vite-vue2-vuetify-ts-starter/issues"
+    "url": "git@github.com:Hulago/quegiro.git"
   },
   "engines": {
     "node": ">=16.12.0",
