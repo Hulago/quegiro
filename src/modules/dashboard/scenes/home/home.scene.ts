@@ -6,7 +6,18 @@ import { max, min } from 'lodash-es';
 export default defineComponent({
   name: 'Home',
   metaInfo: {
-    title: 'Dashboard'
+    title: 'Dashboard',
+    meta: [
+      { charset: 'utf-8' },
+      {
+        name: 'google-site-verification',
+        content: 'PBkQrOSqcjgQtk1Ee-wlNSRK3VcQb3KewbsXawGmWh8'
+      },
+      {
+        name: 'description',
+        content: 'Home dashboard for Quegiro'
+      }
+    ]
   },
   setup() {
     const buysVsSalesChart = useLineChart();

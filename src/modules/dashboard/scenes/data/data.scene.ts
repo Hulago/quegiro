@@ -22,6 +22,10 @@ export default defineComponent({
     meta: [
       { charset: 'utf-8' },
       {
+        name: 'google-site-verification',
+        content: 'PBkQrOSqcjgQtk1Ee-wlNSRK3VcQb3KewbsXawGmWh8'
+      },
+      {
         name: 'description',
         content:
           'Import data from Degiro into Quegiro. All data will be store in local storage indexDB.'
