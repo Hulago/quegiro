@@ -4,6 +4,10 @@ import { useLineChart, useTransactions, useBarChart } from '@/common';
 import { max, min } from 'lodash-es';
 
 export default defineComponent({
+  name: 'Home',
+  metaInfo: {
+    title: 'Dashboard'
+  },
   setup() {
     const buysVsSalesChart = useLineChart();
     const totalPorfolioChart = useLineChart();

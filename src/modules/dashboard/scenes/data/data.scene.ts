@@ -17,6 +17,17 @@ import {
 } from '@/common';
 
 export default defineComponent({
+  metaInfo: {
+    title: 'Data',
+    meta: [
+      { charset: 'utf-8' },
+      {
+        name: 'description',
+        content:
+          'Import data from Degiro into Quegiro. All data will be store in local storage indexDB.'
+      }
+    ]
+  },
   components: {
     dataSvg
   },
