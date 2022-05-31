@@ -67,7 +67,6 @@ const root: RouteConfig = {
 const routes: Array<RouteConfig> = [root];
 
 export const router = new VueRouter({
-  base: '/apps/dashboard',
   linkActiveClass: 'active',
   mode: 'history',
   routes

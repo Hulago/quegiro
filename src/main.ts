@@ -4,6 +4,7 @@ import { createApp } from '@vue/composition-api';
 import Vue from 'vue';
 
 import './plugins/composition.plugin';
+import './plugins/vue-meta.plugin';
 Vue.config.productionTip = false;
 
 import { vuetify } from './plugins/vuetify.plugin';
