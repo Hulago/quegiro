@@ -1,5 +1,5 @@
-/sitemap.xml    /sitemap.xml   200
-/robots.txt    /robots.txt   200
-/favicon.ico    /favicon.ico   200
-/*    /index.html   200
-/*    /index.html   404
+/sales    /index.html   200
+/data    /index.html   200
+/categories /index.html   200
+/transactions    /index.html   200
+/home    /index.html   200
