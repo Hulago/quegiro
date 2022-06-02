@@ -154,6 +154,7 @@ export function useTransactions() {
     const months = orderBy(transactions.value, ['transactionDate']).map(
       item => {
         const date = parse(item.date, DAY_FORMAT, new Date());
+
         return format(date, MONTH_FORMAT);
       }
     );
@@ -506,7 +507,9 @@ export function useTransactions() {
   function processTransactions() {
     state.transactions = orderBy(
       uniqBy(
-        state.transactions,
+        state.transactions.filter(
+          item => item.date && item.date !== '' && item.isin !== ''
+        ),
         (trans: any) =>
           trans.orderId +
           trans.transactionCost +
