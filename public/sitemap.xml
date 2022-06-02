@@ -1,29 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-        <loc>https://quegiro.netlify.app/home</loc>
-        <priority>0.7</priority>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
-        <loc>https://quegiro.netlify.app/data</loc>
-        <priority>0.7</priority>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
-        <loc>https://quegiro.netlify.app/transactions</loc>
-        <priority>0.7</priority>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
-        <loc>https://quegiro.netlify.app/categories</loc>
-        <priority>0.7</priority>
-        <changefreq>weekly</changefreq>
-    </url>
-    <url>
-        <loc>https://quegiro.netlify.app/sales</loc>
-        <priority>0.7</priority>
-        <changefreq>weekly</changefreq>
-    </url>
-    <!-- [...] -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<url>
+  <loc>https://quegiro.netlify.app/</loc>
+  <lastmod>2022-06-02T13:23:50+00:00</lastmod>
+</url>
+<url>
+    <loc>https://quegiro.netlify.app/home</loc>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+</url>
+<url>
+    <loc>https://quegiro.netlify.app/data</loc>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+</url>
+<url>
+    <loc>https://quegiro.netlify.app/transactions</loc>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+</url>
+<url>
+    <loc>https://quegiro.netlify.app/categories</loc>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+</url>
+<url>
+    <loc>https://quegiro.netlify.app/sales</loc>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+</url>
 </urlset>
+
