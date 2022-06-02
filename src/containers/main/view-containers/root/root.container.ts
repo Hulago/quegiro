@@ -13,6 +13,8 @@ import Vue from 'vue';
 })
 export default class extends Vue {
   // force rerender when locale change
+  loading = false;
+
   get locale() {
     return this.$root &&
       (this.$root as any).$i18n &&
