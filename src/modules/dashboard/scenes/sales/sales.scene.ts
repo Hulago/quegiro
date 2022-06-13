@@ -12,6 +12,7 @@ export default defineComponent({
     const { loadSales, processSales, sales, saveSales } = useTransactions();
 
     const isLoading = ref(false);
+    const isGroupByMonth = ref(false);
     const searchCriteria = ref<string>('');
 
     onMounted(async () => {
@@ -25,17 +26,29 @@ export default defineComponent({
       await saveSales();
     }
 
-    const selectedSales = computed(() =>
-      sales.value.filter(item =>
-        (
-          item.name.toLowerCase() +
-          dateRender()(item.buyDate as any) +
-          dateRender()(item.sellDate as any)
-        )
-          .toLowerCase()
-          .includes(searchCriteria.value)
-      )
-    );
+    const selectedSales = computed(() => {
+      if (isGroupByMonth.value) {
+        return sales.value.filter(item =>
+          (
+            item.name.toLowerCase() +
+            dateRender()(item.buyDate as any) +
+            dateRender()(item.sellDate as any)
+          )
+            .toLowerCase()
+            .includes(searchCriteria.value)
+        );
+      } else {
+        return sales.value.filter(item =>
+          (
+            item.name.toLowerCase() +
+            dateRender()(item.buyDate as any) +
+            dateRender()(item.sellDate as any)
+          )
+            .toLowerCase()
+            .includes(searchCriteria.value)
+        );
+      }
+    });
 
     const totalBuy = computed(() =>
       selectedSales.value.reduce(
@@ -64,6 +77,7 @@ export default defineComponent({
         mdiEye
       },
       isLoading,
+      isGroupByMonth,
       searchCriteria,
       selectedSales,
       totalBuy,
