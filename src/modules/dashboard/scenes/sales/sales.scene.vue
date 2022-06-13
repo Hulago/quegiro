@@ -18,6 +18,13 @@
 
         <v-spacer />
 
+        <!-- <v-switch
+          v-model="isGroupByMonth"
+          color="primary"
+          hide-details
+          label="Group by month"
+        /> -->
+
         <div class="ml-3 mr-1">total buy:</div>
         <div v-html="currencyRender()(totalBuy)" />
         <div class="ml-3 mr-1">total sell:</div>
