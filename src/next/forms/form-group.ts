@@ -5,21 +5,14 @@ import {
   schemaType
 } from '../schema';
 import { BaseControl } from './base-control';
-import { FormControl } from './form-control';
 import { FormArray } from './form-array';
+import { FormControl } from './form-control';
 
 /**
  * Form Group
  */
-export class FormGroup<T = any> extends BaseControl<T> {
-  properties: Record<keyof T, BaseControl<T>> = {} as Record<
-    keyof T,
-    BaseControl<T>
-  >;
-
-  // properties: {
-  //   [P in keyof T] | [key: string]: BaseControl<T>;
-  // }
+export class FormGroup<T = unknown> extends BaseControl<T> {
+  properties = {} as Record<keyof T | string, BaseControl<T>>;
 
   constructor(
     schema: ObjectSchemaType<T>,
@@ -29,14 +22,16 @@ export class FormGroup<T = any> extends BaseControl<T> {
     super(schema, parent, context);
 
     if (this.schema.schemaType !== schemaType.object) {
-      throw new Error('Invalid Schema type');
+      throw 'Invalid Schema type';
     }
 
-    Object.keys(schema.properties).forEach(key => {
+    const { properties = {} } = schema;
+
+    Object.keys(properties as object).forEach((key: keyof T | string) => {
       const childSchema = (schema.properties as any)[key] as
-        | BaseSchemaType<any>
-        | ArraySchemaType<any>
-        | ObjectSchemaType<any>;
+        | BaseSchemaType
+        | ArraySchemaType<unknown>
+        | ObjectSchemaType<unknown>;
 
       if (childSchema && childSchema.schemaType === schemaType.property) {
         this.properties[key] = new FormControl(
@@ -67,7 +62,7 @@ export class FormGroup<T = any> extends BaseControl<T> {
   async validate(data: any = this.data, drill = false) {
     const { errors, isValid } = await this.schema.check(
       data,
-      this.parent?.data,
+      this.parent?.weakMap.get(this.parent),
       null,
       drill
     );
@@ -92,7 +87,8 @@ export class FormGroup<T = any> extends BaseControl<T> {
   }
 
   setData(data: T) {
-    this.data = data;
+    this.weakMap.set(this, data);
+
     Object.keys(this.properties).forEach(key => {
       if (data && key in data) {
         this.properties[key].setData((data as any)[key]);
@@ -114,14 +110,16 @@ export class FormGroup<T = any> extends BaseControl<T> {
     this.isLoading = child.isLoading;
 
     if (
-      (child.context !== null || child.context !== undefined) &&
-      (this.data !== null || this.data !== undefined) &&
-      JSON.stringify((this.data as any)[child.context]) !==
-        JSON.stringify(child.data)
+      child.context !== null &&
+      child.context !== undefined &&
+      this.weakMap.get(this) !== null &&
+      this.weakMap.get(this) !== undefined &&
+      JSON.stringify((this.weakMap.get(this) as any)[child.context]) !==
+        JSON.stringify(child.weakMap.get(child))
     ) {
-      (this.data as any)[child.context] = child.data;
+      (this.weakMap.get(this) as any)[child.context] = child.weakMap.get(child);
     }
 
-    await this.validate(this.data);
+    await this.validate(this.weakMap.get(this));
   }
 }

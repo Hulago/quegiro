@@ -1,3 +1,13 @@
+/**
+|--------------------------------------------------------------------------
+| Copyright Websublime All Rights Reserved.
+|--------------------------------------------------------------------------
+|
+| Use of this source code is governed by an MIT-style license that can be
+| found in the LICENSE file at https://websublime.dev/license
+|
+*/
+
 import { errorMessages } from '../constants/error-messages.constant';
 import { schemaType } from '../constants/schema-type.constant';
 import { BaseSchemaType } from './base.schema-type';
@@ -15,13 +25,12 @@ export class DateSchemaType extends BaseSchemaType<Date | string> {
    *
    * @param errorMessage - Error message
    */
-
   constructor(errorMessage: string) {
     super(schemaType.property);
 
     this.addRule({
       errorMessage,
-      validationFn: value =>
+      validationFn: (value) =>
         this.isEmpty(value)
           ? true
           : !/Invalid|NaN/.test(new Date(value).toString())
@@ -34,6 +43,7 @@ export class DateSchemaType extends BaseSchemaType<Date | string> {
    * @param min - Minimum date
    * @param max - Maximum date
    * @param errorMessage - Error message
+   *
    * @public
    */
   range(
@@ -44,7 +54,7 @@ export class DateSchemaType extends BaseSchemaType<Date | string> {
     this.addRule({
       errorMessage,
       params: { max, min },
-      validationFn: value =>
+      validationFn: (value) =>
         new Date(value) >= new Date(min) && new Date(value) <= new Date(max)
     });
 
@@ -56,13 +66,14 @@ export class DateSchemaType extends BaseSchemaType<Date | string> {
    *
    * @param min - Minimum date
    * @param errorMessage - Error message
+   *
    * @public
    */
   min(min: string | Date, errorMessage = errorMessages.date.min) {
     this.addRule({
       errorMessage,
       params: { min },
-      validationFn: value => new Date(value) >= new Date(min)
+      validationFn: (value) => new Date(value) >= new Date(min)
     });
 
     return this;
@@ -73,13 +84,14 @@ export class DateSchemaType extends BaseSchemaType<Date | string> {
    *
    * @param max - Maximum date
    * @param errorMessage - Error message
+   *
    * @public
    */
   max(max: string | Date, errorMessage = errorMessages.date.max) {
     this.addRule({
       errorMessage,
       params: { max },
-      validationFn: value => new Date(value) <= new Date(max)
+      validationFn: (value) => new Date(value) <= new Date(max)
     });
 
     return this;
@@ -87,7 +99,7 @@ export class DateSchemaType extends BaseSchemaType<Date | string> {
 }
 
 /**
- * Creats instance DateType
+ * Creates instance DateType
  *
  * @public
  */

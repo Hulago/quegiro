@@ -1,0 +1,22 @@
+.p-toolbar {
+  margin-bottom: 1rem;
+
+  &--no-breadcrumb {
+    .el-page-header__breadcrumb {
+      display: none !important;
+    }
+  }
+
+  &--no-back {
+    el-page-header__left {
+      .el-page-header__back {
+        display: none !important;
+      }
+
+      .el-divider {
+        display: none !important;
+      }
+    }
+    
+  }
+}

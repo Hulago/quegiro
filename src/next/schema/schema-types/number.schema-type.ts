@@ -1,3 +1,13 @@
+/**
+|--------------------------------------------------------------------------
+| Copyright Websublime All Rights Reserved.
+|--------------------------------------------------------------------------
+|
+| Use of this source code is governed by an MIT-style license that can be
+| found in the LICENSE file at https://websublime.dev/license
+|
+*/
+
 import { errorMessages } from '../constants/error-messages.constant';
 import { schemaType } from '../constants/schema-type.constant';
 import { BaseSchemaType } from './base.schema-type';
@@ -20,7 +30,7 @@ export class NumberSchemaType extends BaseSchemaType<number> {
 
     this.addRule({
       errorMessage,
-      validationFn: value =>
+      validationFn: (value) =>
         this.isEmpty(value) ? true : typeof value === 'number'
     });
   }
@@ -29,12 +39,13 @@ export class NumberSchemaType extends BaseSchemaType<number> {
    * Test if number is integer.
    *
    * @param errorMessage - Error message
+   *
    * @public
    */
   isInteger(errorMessage = errorMessages.number.isInteger) {
     this.addRule({
       errorMessage,
-      validationFn: value => Number.isInteger(Number(value))
+      validationFn: (value) => Number.isInteger(Number(value))
     });
 
     return this;
@@ -45,13 +56,14 @@ export class NumberSchemaType extends BaseSchemaType<number> {
    *
    * @param regexp - Reg expression
    * @param errorMessage - Error message
+   *
    * @public
    */
   pattern(regexp: RegExp, errorMessage = errorMessages.number.pattern) {
     this.addRule({
       errorMessage,
       params: { regexp },
-      validationFn: value => regexp.test(value + '')
+      validationFn: (value) => regexp.test(value + '')
     });
 
     return this;
@@ -60,15 +72,16 @@ export class NumberSchemaType extends BaseSchemaType<number> {
   /**
    * Test if is one of other types included
    *
-   * @param values [description]
+   * @param values - Other values
    * @param errorMessage - Error message
+   *
    * @public
    */
   isOneOf(values: number[], errorMessage = errorMessages.number.isOneOf) {
     this.addRule({
       errorMessage,
       params: { values },
-      validationFn: value => values.includes(Number(value))
+      validationFn: (value) => values.includes(Number(value))
     });
 
     return this;
@@ -80,13 +93,14 @@ export class NumberSchemaType extends BaseSchemaType<number> {
    * @param min - Minimum value
    * @param max - Maximum value
    * @param errorMessage - Error message
+   *
    * @public
    */
   range(min: number, max: number, errorMessage = errorMessages.number.range) {
     this.addRule({
       errorMessage,
       params: { max, min },
-      validationFn: value => Number(value) >= min && Number(value) <= max
+      validationFn: (value) => Number(value) >= min && Number(value) <= max
     });
 
     return this;
@@ -97,13 +111,14 @@ export class NumberSchemaType extends BaseSchemaType<number> {
    *
    * @param min - Minimum value
    * @param errorMessage - Error message
+   *
    * @public
    */
   min(min: number, errorMessage = errorMessages.number.min) {
     this.addRule({
       errorMessage,
       params: { min },
-      validationFn: value => Number(value) >= min
+      validationFn: (value) => Number(value) >= min
     });
 
     return this;
@@ -114,13 +129,14 @@ export class NumberSchemaType extends BaseSchemaType<number> {
    *
    * @param max - Maximum value
    * @param errorMessage - Error message
+   *
    * @public
    */
   max(max: number, errorMessage = errorMessages.number.max) {
     this.addRule({
       errorMessage,
       params: { max },
-      validationFn: value => Number(value) <= max
+      validationFn: (value) => Number(value) <= max
     });
 
     return this;
@@ -128,7 +144,7 @@ export class NumberSchemaType extends BaseSchemaType<number> {
 }
 
 /**
- * Creats instance NumberType
+ * Creates instance NumberType
  *
  * @public
  */

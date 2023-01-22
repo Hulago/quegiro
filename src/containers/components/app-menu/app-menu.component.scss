@@ -1,0 +1,41 @@
+.app-menu {
+  height: calc(100vh - 60px);
+
+  overflow-x: hidden;
+
+  border-right: solid 1px var(--el-menu-border-color);
+
+  .el-menu {
+    border-right: none;
+  }
+
+  &__expand-label {
+    height: var(--el-menu-item-height);
+    line-height: var(--el-menu-item-height);
+    font-size: var(--el-menu-item-font-size);
+    color: var(--el-menu-text-color);
+    padding: 0 10px;
+    list-style: none;
+    cursor: pointer;
+  }
+  
+
+  &__expand {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 26px;
+    height: 64px;
+    width: 200px;
+    cursor: pointer;
+
+    &--collapsed{
+      padding-left: 0px;
+      justify-content: center;
+      width: 64px;
+    }
+  }
+
+  
+}
+  

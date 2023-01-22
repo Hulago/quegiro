@@ -1,6 +1,16 @@
-import { CheckResult, InferSchemaType, Maybe } from '../schema.types';
+/**
+|--------------------------------------------------------------------------
+| Copyright Websublime All Rights Reserved.
+|--------------------------------------------------------------------------
+|
+| Use of this source code is governed by an MIT-style license that can be
+| found in the LICENSE file at https://websublime.dev/license
+|
+*/
+
 import { errorMessages } from '../constants/error-messages.constant';
 import { schemaType } from '../constants/schema-type.constant';
+import { CheckResult, InferSchemaType, Maybe } from '../schema.types';
 import { BaseSchemaType } from './base.schema-type';
 
 /**
@@ -19,6 +29,7 @@ export class ArraySchemaType<T> extends BaseSchemaType<Array<T>> {
   /**
    * Create ArraySchemaType instance
    *
+   * @param items - Array items
    * @param errorMessage - Error message for invalid type
    */
   constructor(items: Maybe<InferSchemaType<T>> = null, errorMessage: string) {
@@ -32,35 +43,42 @@ export class ArraySchemaType<T> extends BaseSchemaType<Array<T>> {
     });
   }
 
-  /**
-   * Validation of an empty array
-   * @param value
-   * @returns
-   */
-  isEmpty(value: Maybe<Array<T>>) {
-    if (super.isEmpty(value)) {
-      return true;
-    }
+  // /**
+  //  * Validation of an empty array
+  //  *
+  //  * @param value - Value
+  //  *
+  //  * @returns
+  //  * @public
+  //  */
+  // isEmpty(value: Maybe<Array<T>>) {
+  //   if (super.isEmpty(value)) {
+  //     return true;
+  //   }
+  //   return false;
 
-    if (value && value.length === 0) {
-      return true;
-    } else {
-      const childsArray: boolean[] = [];
+  //   // if (value && value.length === 0) {
+  //   //   return true;
+  //   // } else {
+  //   //   const childsArray: boolean[] = [];
 
-      value?.forEach(item => {
-        if (this.items) {
-          // TODO remove any
-          childsArray.push(this.items.isEmpty(item as never));
-        }
-      });
-      return childsArray.reduce((acc, item) => acc && item, true);
-    }
-  }
+  //   //   value?.forEach((item) => {
+  //   //     if (this.items) {
+  //   //       // TODO remove any
+  //   //       childsArray.push(this.items.isEmpty(item as never));
+  //   //     }
+  //   //   });
+  //   //   return childsArray.reduce((acc, item) => acc && item, true);
+  //   // }
+  // }
 
   /**
    * Set items model type
-   * @param items
+   *
+   * @param items - Child items
+   *
    * @returns
+   * @public
    */
   of(items: InferSchemaType<T>) {
     this.items = items;
@@ -72,9 +90,12 @@ export class ArraySchemaType<T> extends BaseSchemaType<Array<T>> {
 
   /**
    * Validate array
+   *
    * @param values - array values to be validated
    * @param parent - parent value
+   *
    * @returns
+   * @public
    */
   // eslint-disable-next-line max-params
   async check(
@@ -127,6 +148,7 @@ export class ArraySchemaType<T> extends BaseSchemaType<Array<T>> {
    * @param minLength - Minimum length
    * @param maxLength - Maximum length
    * @param errorMessage - Error message
+   *
    * @public
    */
   rangeLength(
@@ -148,6 +170,7 @@ export class ArraySchemaType<T> extends BaseSchemaType<Array<T>> {
    *
    * @param minLength - Minimum length
    * @param errorMessage - Error message
+   *
    * @public
    */
   minLength(minLength: number, errorMessage = errorMessages.array.minLength) {
@@ -165,6 +188,7 @@ export class ArraySchemaType<T> extends BaseSchemaType<Array<T>> {
    *
    * @param maxLength - Maximum length
    * @param errorMessage - Error message
+   *
    * @public
    */
   maxLength(maxLength: number, errorMessage = errorMessages.array.maxLength) {
@@ -178,7 +202,7 @@ export class ArraySchemaType<T> extends BaseSchemaType<Array<T>> {
 }
 
 /**
- * Creats instance ObjectType
+ * Creates instance ObjectType
  *
  * @public
  */

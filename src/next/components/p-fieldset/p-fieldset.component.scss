@@ -1,0 +1,51 @@
+.p-fieldset {
+  height: 100%;
+
+  fieldset {
+    border-radius: var(--el-card-border-radius);
+    border-color: var(--el-menu-border-color);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: var(--el-card-border-radius);
+
+    padding-top: 0px;
+
+    overflow-y: auto;
+
+
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--el-border-color-extra-light);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--el-border-color);
+      border-radius: 20px;
+      border: 0 solid var(--el-border-color-extra-light);
+    }
+  }
+
+  legend {
+    color: var(--el-text-color-primary);
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+
+  &__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 1.75rem;
+    margin-bottom: 0.5rem;
+    background-image: radial-gradient(transparent 1px, white 1px);
+    background-size: 4px 4px;
+    backdrop-filter: saturate(50%) blur(4px);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+}

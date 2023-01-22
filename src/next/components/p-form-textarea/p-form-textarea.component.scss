@@ -1,0 +1,9 @@
+.p-form-textarea {
+  &__detail {
+    color: var(--el-input-text-color,var(--el-text-color-regular));
+    margin-top: 2px;
+    margin-left: 7px;
+    // margin-left: calc(0.5rem + 3px);
+    min-height: 44px;
+  }
+}

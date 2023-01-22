@@ -1,7 +1,17 @@
+/**
+|--------------------------------------------------------------------------
+| Copyright Websublime All Rights Reserved.
+|--------------------------------------------------------------------------
+|
+| Use of this source code is governed by an MIT-style license that can be
+| found in the LICENSE file at https://websublime.dev/license
+|
+*/
+
 import { errorMessages } from '../constants/error-messages.constant';
 import { schemaType } from '../constants/schema-type.constant';
-import { CheckResult, Maybe, Rule } from '../schema.types';
 import { ErrorModel } from '../models/error.model';
+import { CheckResult, Maybe, Rule } from '../schema.types';
 
 /**
  * Base type model validation
@@ -9,7 +19,7 @@ import { ErrorModel } from '../models/error.model';
  * @public
  */
 export class BaseSchemaType<T = any> {
-  type: string;
+  type!: string;
 
   /**
    * schema for ArraySchemaType items
@@ -61,6 +71,7 @@ export class BaseSchemaType<T = any> {
    * @param value - Value
    * @param data - Data
    * @param fieldName - Field
+   *
    * @public
    */
   async check(
@@ -83,20 +94,22 @@ export class BaseSchemaType<T = any> {
 
     const errors = [];
 
-    for (const rule of this.rules) {
-      const valid = await Promise.resolve(
-        rule.validationFn.call(this, value, parent, context)
-      );
-
-      if (!valid) {
-        errors.push(
-          new ErrorModel({
-            constraints: rule.params,
-            i18n: rule.errorMessage,
-            key: context,
-            value
-          })
+    if (!this.isEmpty(value)) {
+      for (const rule of this.rules) {
+        const valid = await Promise.resolve(
+          rule.validationFn.call(this, value, parent, context)
         );
+
+        if (!valid) {
+          errors.push(
+            new ErrorModel({
+              constraints: rule.params,
+              i18n: rule.errorMessage,
+              key: context,
+              value
+            })
+          );
+        }
       }
     }
 
@@ -109,8 +122,11 @@ export class BaseSchemaType<T = any> {
 
   /**
    * Validate if value is empty
-   * @param value
+   *
+   * @param value - Value
+   *
    * @returns
+   * @public
    */
   isEmpty(value: Maybe<T>): boolean {
     return (
@@ -122,8 +138,11 @@ export class BaseSchemaType<T = any> {
 
   /**
    * Add validation rule.
-   * @param param0 Rule object.
+   *
+   * @param param - Rule object.
+   *
    * @returns
+   * @public
    */
   addRule({ errorMessage, params = null, validationFn }: Rule) {
     this.rules.push({
@@ -139,6 +158,7 @@ export class BaseSchemaType<T = any> {
    *
    * @param errorMessage - Error message
    * @param trim - Trim string spaces
+   *
    * @public
    */
   isRequired(errorMessage = this.requiredErrorMessage, trim = true) {
@@ -151,10 +171,10 @@ export class BaseSchemaType<T = any> {
 }
 
 /**
- * Creats instance MixedType
+ * Creates instance MixedType
  *
  * @public
  */
-export function BaseType<T = any>() {
-  return new BaseSchemaType<T>();
+export function BaseType<T = any>(st = schemaType.property) {
+  return new BaseSchemaType<T>(st);
 }

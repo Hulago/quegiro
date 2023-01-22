@@ -1,6 +1,14 @@
 /**
- * Error Model
- *
+|--------------------------------------------------------------------------
+| Copyright Websublime All Rights Reserved.
+|--------------------------------------------------------------------------
+|
+| Use of this source code is governed by an MIT-style license that can be
+| found in the LICENSE file at https://websublime.dev/license
+|
+*/
+
+/**
  * @public
  */
 export class ErrorModel {
@@ -27,9 +35,9 @@ export class ErrorModel {
   constructor(data: Partial<ErrorModel> = {}) {
     const {
       constraints = null,
-      i18n = 'KIT.ERROR.UNKNOWN',
+      i18n = 'ERROR.UNKNOWN',
       key = 'UNKNOWN',
-      value = null
+      value = null,
     } = data || {};
 
     this.key = key;

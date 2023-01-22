@@ -1,8 +1,7 @@
-import PkFormControl from './pk-form-control.component';
+import PFormControl from './form-control.component.vue';
 
-export * from './base-control';
-export * from './form-array';
-export * from './form-control';
-export * from './form-group';
-
-export { PkFormControl };
+export { BaseControl } from './base-control';
+export { FormArray } from './form-array';
+export { FormControl } from './form-control';
+export { FormGroup } from './form-group';
+export { PFormControl };

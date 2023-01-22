@@ -5,37 +5,37 @@ import {
   ErrorModel,
   ObjectSchemaType
 } from '../schema';
+import { DATA_TYPES } from './constants';
 
 /**
  * Base Control
  */
 export class BaseControl<T = any> {
   items?: Array<BaseControl<T>> | never[] = [];
+
   properties?: Record<string, BaseControl<T>> = {};
 
   isDirty = false;
+
   isTouch = false;
+
   isFocus = false;
+
   isLoading = false;
+
   isValid = true;
+
   errors: ErrorModel[] = [];
 
   context: any;
 
-  data: T | null | undefined;
+  // data: T | null | undefined;
 
   schema: BaseSchemaType<T> | ArraySchemaType<T> | ObjectSchemaType<T>;
+
   parent: BaseControl<any> | null;
 
-  constructor(
-    schema: BaseSchemaType<T> | ArraySchemaType<T> | ObjectSchemaType<T>,
-    parent: BaseControl<any> | null = null,
-    context: any = null
-  ) {
-    this.parent = parent;
-    this.schema = schema;
-    this.context = context;
-  }
+  weakMap = new WeakMap<typeof this, unknown>();
 
   get isPrestine() {
     return this.isDirty === false && this.isTouch === false;
@@ -47,6 +47,18 @@ export class BaseControl<T = any> {
   get hasErrors() {
     return this.errors.length > 0;
   }
+  get data() {
+    return this.weakMap.get(this);
+  }
+  constructor(
+    schema: BaseSchemaType<T> | ArraySchemaType<T> | ObjectSchemaType<T>,
+    parent: BaseControl<any> | null = null,
+    context: any = null
+  ) {
+    this.parent = parent;
+    this.schema = schema;
+    this.context = context;
+  }
 
   /**
    * Set control dirty state to true
@@ -54,6 +66,7 @@ export class BaseControl<T = any> {
   setDirty() {
     this.isDirty = true;
     this.isTouch = true;
+
     if (this.parent) {
       this.parent.setDirty();
     }
@@ -64,6 +77,7 @@ export class BaseControl<T = any> {
    */
   setTouch() {
     this.isTouch = true;
+
     if (this.parent) {
       this.parent.setTouch();
     }
@@ -76,64 +90,51 @@ export class BaseControl<T = any> {
   setFocus(focus: boolean) {
     this.isFocus = focus;
     this.isTouch = true;
+
     if (this.parent) {
       this.parent.setFocus(focus);
     }
   }
 
   setData(data: any) {
-    if (
-      this.schema.type === 'array' ||
-      this.schema.type === 'object' ||
-      data === null ||
-      data === undefined ||
-      data === ''
-    ) {
-      (this.data as any) = data;
-    } else {
-      if (
-        this.schema.type === 'number' &&
-        data !== null &&
-        data !== undefined &&
-        data !== ''
-      ) {
-        (this.data as any) = Number(data);
-      }
+    const { type } = this.schema;
+    const isDataValid = data !== null && data !== undefined && data !== '';
 
-      if (
-        this.schema.type === 'string' &&
-        data !== null &&
-        data !== undefined &&
-        data !== ''
-      ) {
-        (this.data as any) = String(data);
-      }
+    switch (type) {
+      case DATA_TYPES.NUMBER:
+        this.weakMap.set(this, isDataValid ? Number(data) : data);
+        break;
 
-      if (
-        this.schema.type === 'boolean' &&
-        data !== null &&
-        data !== undefined &&
-        data !== ''
-      ) {
-        (this.data as any) = Boolean(data);
-      }
+      case DATA_TYPES.STRING:
+        this.weakMap.set(this, isDataValid ? String(data) : data);
+        break;
 
-      if (
-        this.schema.type === 'date' &&
-        data !== null &&
-        data !== undefined &&
-        data !== ''
-      ) {
-        (this.data as any) = new Date(data);
-      }
+      case DATA_TYPES.BOOLEAN:
+        this.weakMap.set(this, isDataValid ? Boolean(data) : data);
+        break;
+
+      case DATA_TYPES.DATE:
+        this.weakMap.set(this, isDataValid ? new Date(data) : data);
+        break;
+
+      case DATA_TYPES.ARRAY || DATA_TYPES.OBJECT:
+        this.weakMap.set(this, data);
+        break;
+      default:
+        break;
     }
   }
 
+  async validateAll(data: any = this.weakMap.get(this)) {
+    return this.validate(data, true);
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async validate(data: any = this.data, drill = false) {
+  async validate(data: any = this.weakMap.get(this), drill = false) {
     const { errors, isValid } = await this.schema.check(
       data,
-      this.parent?.data
+      this.parent?.weakMap.get(this.parent),
+      this.context
     );
 
     this.isValid = isValid;

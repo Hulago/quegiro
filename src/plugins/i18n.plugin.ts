@@ -1,15 +1,13 @@
-import { I18N_MAIN_CONTAINERS } from '@/containers/main';
-import { I18N, useI18n } from '@/next';
-import Vue from 'vue';
+import I18N_MAIN_CONTAINERS from '@/containers/i18n';
+import { I18N_NEXT, useI18n } from '@/next';
+import I18N_GENERAL from '@/i18n';
 
-import I18N_GENERAL from '@/modules/dashboard/i18n/translate';
+import { merge } from 'lodash-es';
 
-export type I18nDictionary = typeof I18N_GENERAL & typeof I18N_MAIN_CONTAINERS;
+export const { i18n } = useI18n(
+  merge(I18N_MAIN_CONTAINERS, I18N_GENERAL, I18N_NEXT)
+);
 
-Vue.use(I18N, {
-  messages: [I18N_GENERAL, I18N_MAIN_CONTAINERS]
-});
-
-const { vueI18nInstance: i18n } = useI18n();
-
-export { i18n };
+export type I18nDictionaryNews = typeof I18N_GENERAL &
+  typeof I18N_NEXT &
+  typeof I18N_MAIN_CONTAINERS;

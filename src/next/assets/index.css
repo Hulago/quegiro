@@ -1,0 +1,9 @@
+/* font */
+@import url('https://use.typekit.net/tfy2vlw.css');
+
+@import './ellipsis.css';
+@import './grid.css';
+
+.el-notification__content {
+  text-align: left !important;
+}

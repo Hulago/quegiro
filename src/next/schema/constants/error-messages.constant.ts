@@ -1,50 +1,63 @@
+/**
+|--------------------------------------------------------------------------
+| Copyright Websublime All Rights Reserved.
+|--------------------------------------------------------------------------
+|
+| Use of this source code is governed by an MIT-style license that can be
+| found in the LICENSE file at https://websublime.dev/license
+|
+*/
+
+/**
+ * @public
+ */
 const errorMessages = {
   array: {
-    maxLength: 'KIT.ERRORS.ARRAY.MAX_LENGTH',
-    minLength: 'KIT.ERRORS.ARRAY.MIN_LENGTH',
-    rangeLength: 'KIT.ERRORS.ARRAY.RANGE_LENGTH',
-    type: 'KIT.ERRORS.ARRAY.INVALID_TYPE'
+    maxLength: 'UI.ERRORS.ARRAY.MAX_LENGTH',
+    minLength: 'UI.ERRORS.ARRAY.MIN_LENGTH',
+    rangeLength: 'UI.ERRORS.ARRAY.RANGE_LENGTH',
+    type: 'UI.ERRORS.ARRAY.INVALID_TYPE'
   },
   base: {
-    isRequired: 'KIT.ERRORS.IS_REQUIRED',
+    isRequired: 'UI.ERRORS.IS_REQUIRED',
     isRequiredOrEmpty: '${name} is a required field'
   },
   boolean: {
-    type: 'KIT.ERRORS.BOOLEAN.INVALID_TYPE'
+    type: 'UI.ERRORS.BOOLEAN.INVALID_TYPE'
   },
   date: {
-    max: 'KIT.ERRORS.DATE.MAX',
-    min: 'KIT.ERRORS.DATE.MIN',
-    range: 'KIT.ERRORS.DATE.RANGE',
-    type: 'KIT.ERRORS.DATE.INVALID_TYPE'
+    max: 'UI.ERRORS.DATE.MAX',
+    min: 'UI.ERRORS.DATE.MIN',
+    range: 'UI.ERRORS.DATE.RANGE',
+    type: 'UI.ERRORS.DATE.INVALID_TYPE'
   },
   number: {
-    isInteger: 'KIT.ERRORS.NUMBER.IS_INTEGER',
-    isOneOf: 'KIT.ERRORS.NUMBER.IS_ONE_OF',
-    max: 'KIT.ERRORS.NUMBER.MAX',
-    min: 'KIT.ERRORS.NUMBER.MIN',
-    pattern: 'KIT.ERRORS.NUMBER.PATTERN',
-    range: 'KIT.ERRORS.NUMBER.RANGE',
-    type: 'KIT.ERRORS.NUMBER.INVALID_TYPE'
+    isInteger: 'UI.ERRORS.NUMBER.IS_INTEGER',
+    isOneOf: 'UI.ERRORS.NUMBER.IS_ONE_OF',
+    max: 'UI.ERRORS.NUMBER.MAX',
+    min: 'UI.ERRORS.NUMBER.MIN',
+    pattern: 'UI.ERRORS.NUMBER.PATTERN',
+    range: 'UI.ERRORS.NUMBER.RANGE',
+    type: 'UI.ERRORS.NUMBER.INVALID_TYPE'
   },
   object: {
-    type: 'KIT.ERRORS.OBJECT.INVALID_TYPE'
+    type: 'UI.ERRORS.OBJECT.INVALID_TYPE'
   },
   string: {
-    containsLetter: 'KIT.ERRORS.STRING.CONTAINS_LETTER',
-    containsLetterOnly: 'KIT.ERRORS.STRING.CONTAINS_LETTER_ONLY',
-    containsLowercaseLetter: 'KIT.ERRORS.STRING.CONTAINS_LOWERCASE_LETTER',
-    containsNumber: 'KIT.ERRORS.STRING.CONTAINS_NUMBER',
-    containsUppercaseLetter: 'KIT.ERRORS.STRING.CONTAINS_UPPERCASE_LETTER',
-    isEmail: 'KIT.ERRORS.STRING.IS_EMAIL',
-    isHex: 'KIT.ERRORS.STRING.IS_HEX',
-    isOneOf: 'KIT.ERRORS.STRING.IS_ONE_OF',
-    isURL: 'KIT.ERRORS.STRING.IS_URL',
-    maxLength: 'KIT.ERRORS.STRING.MAX_LENGTH',
-    minLength: 'KIT.ERRORS.STRING.MIN_LENGTH',
-    pattern: 'KIT.ERRORS.STRING.PATTERN',
-    rangeLength: 'KIT.ERRORS.STRING.RANGE_LENGTH',
-    type: 'KIT.ERRORS.STRING.INVALID_TYPE'
+    containsLetter: 'UI.ERRORS.STRING.CONTAINS_LETTER',
+    containsLetterOnly: 'UI.ERRORS.STRING.CONTAINS_LETTER_ONLY',
+    containsLowercaseLetter: 'UI.ERRORS.STRING.CONTAINS_LOWERCASE_LETTER',
+    containsNumber: 'UI.ERRORS.STRING.CONTAINS_NUMBER',
+    containsUppercaseLetter: 'UI.ERRORS.STRING.CONTAINS_UPPERCASE_LETTER',
+    isEmail: 'UI.ERRORS.STRING.IS_EMAIL',
+    isHex: 'UI.ERRORS.STRING.IS_HEX',
+    isOneOf: 'UI.ERRORS.STRING.IS_ONE_OF',
+    isURL: 'UI.ERRORS.STRING.IS_URL',
+    maxLength: 'UI.ERRORS.STRING.MAX_LENGTH',
+    minLength: 'UI.ERRORS.STRING.MIN_LENGTH',
+    pattern: 'UI.ERRORS.STRING.PATTERN',
+    rangeLength: 'UI.ERRORS.STRING.RANGE_LENGTH',
+    type: 'UI.ERRORS.STRING.INVALID_TYPE'
   }
 };
 
