@@ -1,0 +1,7 @@
+.p-form-input {
+  &__detail {
+    height: 24px;
+    margin-left: 7px;
+    color: var(--el-input-text-color,var(--el-text-color-regular));
+  }
+}

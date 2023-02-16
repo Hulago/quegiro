@@ -1,0 +1,20 @@
+.ag-header-cell {
+  padding-top: 0 !important;
+}
+
+.p-tree-filter {
+  .el-tag {
+    .el-popper {
+      position: fixed !important;
+    }
+  }
+
+  .el-tree__empty-block {
+    min-width: 150px;
+  }
+
+  input {
+    height: 16px;
+  }
+}
+

@@ -1,15 +1,27 @@
+/**
+|--------------------------------------------------------------------------
+| Copyright Websublime All Rights Reserved.
+|--------------------------------------------------------------------------
+|
+| Use of this source code is governed by an MIT-style license that can be
+| found in the LICENSE file at https://websublime.dev/license
+|
+*/
+
+import { ErrorModel } from './models/error.model';
+import { ArraySchemaType } from './schema-types/array.schema-type';
+import { BaseSchemaType } from './schema-types/base.schema-type';
 import { BooleanSchemaType } from './schema-types/boolean.schema-type';
+import { DateSchemaType } from './schema-types/date.schema-type';
 import { NumberSchemaType } from './schema-types/number.schema-type';
 import { ObjectSchemaType } from './schema-types/object.schema-type';
 import { StringSchemaType } from './schema-types/string.schema-type';
-import { ArraySchemaType } from './schema-types/array.schema-type';
-import { BaseSchemaType } from './schema-types/base.schema-type';
-import { DateSchemaType } from './schema-types/date.schema-type';
-import { ErrorModel } from './models/error.model';
 
 /**
  * Model Interface
  * Can implement a toJSON method to use with JSON.stringify
+ *
+ * @public
  */
 export interface Model {
   toJSON?(): any;
@@ -17,6 +29,8 @@ export interface Model {
 
 /**
  * Infer which schema type is base on the native type
+ *
+ * @public
  */
 export type InferSchemaType<T> = T extends number | null | undefined
   ? NumberSchemaType
@@ -34,6 +48,8 @@ export type InferSchemaType<T> = T extends number | null | undefined
 
 /**
  * Properties of ObjectSchemaType
+ *
+ * @public
  */
 export type Properties<T = any> =
   | {
@@ -54,6 +70,8 @@ export interface Rule<V = any, P = any, C = any> {
 
 /**
  * Validation funciton type
+ *
+ * @public
  */
 export type validationFnType<V, P, C> = (
   value: V,
@@ -61,10 +79,17 @@ export type validationFnType<V, P, C> = (
   stick?: C
 ) => boolean | Promise<boolean>;
 
+/**
+ * One of the values
+ *
+ * @public
+ */
 export type Maybe<T> = T | null | undefined;
 
 /**
  * Result from schema validation check.
+ *
+ * @public
  */
 export interface CheckResult {
   hasError: boolean;

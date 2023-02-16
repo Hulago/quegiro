@@ -1,0 +1,49 @@
+.p-ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: var(--p-line-clamp, 1);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: normal;
+  word-break: break-all;
+  letter-spacing: normal;
+}
+
+.p-ellipsis[lines='1'] {
+  --p-line-clamp: 1;
+}
+
+.p-ellipsis[lines='2'] {
+  --p-line-clamp: 2;
+}
+
+.p-ellipsis[lines='3'] {
+  --p-line-clamp: 3;
+}
+
+.p-ellipsis[lines='4'] {
+  --p-line-clamp: 4;
+}
+
+.p-ellipsis[lines='5'] {
+  --p-line-clamp: 5;
+}
+
+.p-ellipsis[lines='6'] {
+  --p-line-clamp: 6;
+}
+
+.p-ellipsis[lines='7'] {
+  --p-line-clamp: 7;
+}
+
+.p-ellipsis[lines='8'] {
+  --p-line-clamp: 8;
+}
+
+.p-ellipsis[lines='9'] {
+  --p-line-clamp: 9;
+}
+
+.p-ellipsis[lines='10'] {
+  --p-line-clamp: 10;
+}

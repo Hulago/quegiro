@@ -1,0 +1,1569 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: inherit;
+}
+
+:root {
+  --lineHeightVW: calc(var(--fontSizeVW) * 1.5);
+  --columnGap: 24px;
+  --rowGap: 24px;
+  --cellMaxWidth: 1fr;
+}
+
+.p-grid {
+  grid-column-gap: var(--columnGap);
+  grid-row-gap: var(--rowGap);
+}
+
+.p-grid.responsive {
+  grid-column-gap: var(--lineHeightVW);
+  grid-row-gap: var(--lineHeightVW);
+}
+
+.p-grid.collapse {
+  grid-row-gap: 0;
+  grid-column-gap: 0;
+}
+
+.p-grid.compact {
+  grid-row-gap: 0;
+}
+
+.p-cell[flex] {
+  display: flex !important;
+}
+
+.p-cell[flex-column] {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100%;
+}
+
+.p-cell[center] {
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.p-cell[center-start] {
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.p-cell[center-end] {
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.p-grid[gap='0'] {
+  grid-row-gap: calc(var(--spacer) * 0);
+  grid-column-gap: calc(var(--spacer) * 0);
+}
+
+.p-grid[gap='1'] {
+  grid-row-gap: calc(var(--spacer) * 1);
+  grid-column-gap: calc(var(--spacer) * 1);
+}
+
+.p-grid[gap='2'] {
+  grid-row-gap: calc(var(--spacer) * 2);
+  grid-column-gap: calc(var(--spacer) * 2);
+}
+
+.p-grid[gap='3'] {
+  grid-row-gap: calc(var(--spacer) * 3);
+  grid-column-gap: calc(var(--spacer) * 3);
+}
+
+.p-grid[gap='4'] {
+  grid-row-gap: calc(var(--spacer) * 4);
+  grid-column-gap: calc(var(--spacer) * 4);
+}
+
+.p-grid[gap='5'] {
+  grid-row-gap: calc(var(--spacer) * 5);
+  grid-column-gap: calc(var(--spacer) * 5);
+}
+
+.p-grid[gap='6'] {
+  grid-row-gap: calc(var(--spacer) * 6);
+  grid-column-gap: calc(var(--spacer) * 6);
+}
+
+/* Row Gap */
+
+.p-grid[row-gap='0'] {
+  grid-row-gap: calc(var(--spacer) * 0) !important;
+}
+
+.p-grid[row-gap='1'] {
+  grid-row-gap: calc(var(--spacer) * 1) !important;
+}
+
+.p-grid[row-gap='2'] {
+  grid-row-gap: calc(var(--spacer) * 2) !important;
+}
+
+.p-grid[row-gap='3'] {
+  grid-row-gap: calc(var(--spacer) * 3) !important;
+}
+
+.p-grid[row-gap='4'] {
+  grid-row-gap: calc(var(--spacer) * 4) !important;
+}
+
+.p-grid[row-gap='5'] {
+  grid-row-gap: calc(var(--spacer) * 5) !important;
+}
+
+.p-grid[row-gap='6'] {
+  grid-row-gap: calc(var(--spacer) * 6) !important;
+}
+
+/* Columns gap */
+
+.p-grid[column-gap='0'] {
+  grid-column-gap: calc(var(--spacer) * 0) !important;
+}
+
+.p-grid[column-gap='1'] {
+  grid-column-gap: calc(var(--spacer) * 1) !important;
+}
+
+.p-grid[column-gap='2'] {
+  grid-column-gap: calc(var(--spacer) * 2) !important;
+}
+
+.p-grid[column-gap='3'] {
+  grid-column-gap: calc(var(--spacer) * 3) !important;
+}
+
+.p-grid[column-gap='4'] {
+  grid-column-gap: calc(var(--spacer) * 4) !important;
+}
+
+.p-grid[column-gap='5'] {
+  grid-column-gap: calc(var(--spacer) * 5) !important;
+}
+
+.p-grid[column-gap='6'] {
+  grid-column-gap: calc(var(--spacer) * 6) !important;
+}
+
+/* Raster grid subsystem (rsms.me/raster) */
+.p-grid {
+  display: grid;
+  --grid-tc: repeat(12, minmax(0px, var(--cellMaxWidth)));
+  grid-template-columns: var(--grid-tc);
+  --grid-cs: 1; /* column start */
+  --grid-ce: -1; /* column end */
+  --grid-fit: 300px;
+  --grid-fill: 300px;
+}
+
+/* .p-cell -- cell or column */
+.p-grid > .p-cell {
+  display: block;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.p-grid[fit] {
+  --grid-tc: repeat(auto-fit, minmax(--grid-fit, var(--cellMaxWidth)));
+}
+
+.p-grid[fill] {
+  --grid-tc: repeat(auto-fill, minmax(--grid-fill, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='1'] {
+  --grid-tc: repeat(1, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='2'] {
+  --grid-tc: repeat(2, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='3'] {
+  --grid-tc: repeat(3, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='4'] {
+  --grid-tc: repeat(4, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='5'] {
+  --grid-tc: repeat(5, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='6'] {
+  --grid-tc: repeat(6, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='7'] {
+  --grid-tc: repeat(7, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='8'] {
+  --grid-tc: repeat(8, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='9'] {
+  --grid-tc: repeat(9, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='10'] {
+  --grid-tc: repeat(10, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='11'] {
+  --grid-tc: repeat(11, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='12'] {
+  --grid-tc: repeat(12, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='13'] {
+  --grid-tc: repeat(13, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='14'] {
+  --grid-tc: repeat(14, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='15'] {
+  --grid-tc: repeat(15, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='16'] {
+  --grid-tc: repeat(16, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='17'] {
+  --grid-tc: repeat(17, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='18'] {
+  --grid-tc: repeat(18, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='19'] {
+  --grid-tc: repeat(19, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='20'] {
+  --grid-tc: repeat(20, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='21'] {
+  --grid-tc: repeat(21, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='22'] {
+  --grid-tc: repeat(22, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='23'] {
+  --grid-tc: repeat(23, minmax(0px, var(--cellMaxWidth)));
+}
+
+.p-grid[columns='24'] {
+  --grid-tc: repeat(24, minmax(0px, var(--cellMaxWidth)));
+}
+
+/* span=start... */
+.p-grid > .p-cell[span^='1'] {
+  --grid-cs: 1;
+}
+
+.p-grid > .p-cell[span^='2'] {
+  --grid-cs: 2;
+}
+
+.p-grid > .p-cell[span^='3'] {
+  --grid-cs: 3;
+}
+
+.p-grid > .p-cell[span^='4'] {
+  --grid-cs: 4;
+}
+
+.p-grid > .p-cell[span^='5'] {
+  --grid-cs: 5;
+}
+
+.p-grid > .p-cell[span^='6'] {
+  --grid-cs: 6;
+}
+
+.p-grid > .p-cell[span^='7'] {
+  --grid-cs: 7;
+}
+
+.p-grid > .p-cell[span^='8'] {
+  --grid-cs: 8;
+}
+
+.p-grid > .p-cell[span^='9'] {
+  --grid-cs: 9;
+}
+
+.p-grid > .p-cell[span^='10'] {
+  --grid-cs: 10;
+}
+
+.p-grid > .p-cell[span^='11'] {
+  --grid-cs: 11;
+}
+
+.p-grid > .p-cell[span^='12'] {
+  --grid-cs: 12;
+}
+
+.p-grid > .p-cell[span^='13'] {
+  --grid-cs: 13;
+}
+
+.p-grid > .p-cell[span^='14'] {
+  --grid-cs: 14;
+}
+
+.p-grid > .p-cell[span^='15'] {
+  --grid-cs: 15;
+}
+
+.p-grid > .p-cell[span^='16'] {
+  --grid-cs: 16;
+}
+
+.p-grid > .p-cell[span^='17'] {
+  --grid-cs: 17;
+}
+
+.p-grid > .p-cell[span^='18'] {
+  --grid-cs: 18;
+}
+
+.p-grid > .p-cell[span^='19'] {
+  --grid-cs: 19;
+}
+
+.p-grid > .p-cell[span^='20'] {
+  --grid-cs: 20;
+}
+
+.p-grid > .p-cell[span^='21'] {
+  --grid-cs: 21;
+}
+
+.p-grid > .p-cell[span^='22'] {
+  --grid-cs: 22;
+}
+
+.p-grid > .p-cell[span^='23'] {
+  --grid-cs: 23;
+}
+
+.p-grid > .p-cell[span^='24'] {
+  --grid-cs: 24;
+}
+
+/* span=...+width, span=...-end */
+.p-grid > .p-cell[span$='+1'],
+.p-grid > .p-cell[span='1'] {
+  --grid-ce: 1;
+}
+
+.p-grid > .p-cell[span$='+2'],
+.p-grid > .p-cell[span$='-1'],
+.p-grid > .p-cell[span='2'] {
+  --grid-ce: 2;
+}
+
+.p-grid > .p-cell[span$='+3'],
+.p-grid > .p-cell[span$='-2'],
+.p-grid > .p-cell[span='3'] {
+  --grid-ce: 3;
+}
+
+.p-grid > .p-cell[span$='+4'],
+.p-grid > .p-cell[span$='-3'],
+.p-grid > .p-cell[span='4'] {
+  --grid-ce: 4;
+}
+
+.p-grid > .p-cell[span$='+5'],
+.p-grid > .p-cell[span$='-4'],
+.p-grid > .p-cell[span='5'] {
+  --grid-ce: 5;
+}
+
+.p-grid > .p-cell[span$='+6'],
+.p-grid > .p-cell[span$='-5'],
+.p-grid > .p-cell[span='6'] {
+  --grid-ce: 6;
+}
+
+.p-grid > .p-cell[span$='+7'],
+.p-grid > .p-cell[span$='-6'],
+.p-grid > .p-cell[span='7'] {
+  --grid-ce: 7;
+}
+
+.p-grid > .p-cell[span$='+8'],
+.p-grid > .p-cell[span$='-7'],
+.p-grid > .p-cell[span='8'] {
+  --grid-ce: 8;
+}
+
+.p-grid > .p-cell[span$='+9'],
+.p-grid > .p-cell[span$='-8'],
+.p-grid > .p-cell[span='9'] {
+  --grid-ce: 9;
+}
+
+.p-grid > .p-cell[span$='+10'],
+.p-grid > .p-cell[span$='-9'],
+.p-grid > .p-cell[span='10'] {
+  --grid-ce: 10;
+}
+
+.p-grid > .p-cell[span$='+11'],
+.p-grid > .p-cell[span$='-10'],
+.p-grid > .p-cell[span='11'] {
+  --grid-ce: 11;
+}
+
+.p-grid > .p-cell[span$='+12'],
+.p-grid > .p-cell[span$='-11'],
+.p-grid > .p-cell[span='12'] {
+  --grid-ce: 12;
+}
+
+.p-grid > .p-cell[span$='+13'],
+.p-grid > .p-cell[span$='-12'],
+.p-grid > .p-cell[span='13'] {
+  --grid-ce: 13;
+}
+
+.p-grid > .p-cell[span$='+14'],
+.p-grid > .p-cell[span$='-13'],
+.p-grid > .p-cell[span='14'] {
+  --grid-ce: 14;
+}
+
+.p-grid > .p-cell[span$='+15'],
+.p-grid > .p-cell[span$='-14'],
+.p-grid > .p-cell[span='15'] {
+  --grid-ce: 15;
+}
+
+.p-grid > .p-cell[span$='+16'],
+.p-grid > .p-cell[span$='-15'],
+.p-grid > .p-cell[span='16'] {
+  --grid-ce: 16;
+}
+
+.p-grid > .p-cell[span$='+17'],
+.p-grid > .p-cell[span$='-16'],
+.p-grid > .p-cell[span='17'] {
+  --grid-ce: 17;
+}
+
+.p-grid > .p-cell[span$='+18'],
+.p-grid > .p-cell[span$='-17'],
+.p-grid > .p-cell[span='18'] {
+  --grid-ce: 18;
+}
+
+.p-grid > .p-cell[span$='+19'],
+.p-grid > .p-cell[span$='-18'],
+.p-grid > .p-cell[span='19'] {
+  --grid-ce: 19;
+}
+
+.p-grid > .p-cell[span$='+20'],
+.p-grid > .p-cell[span$='-19'],
+.p-grid > .p-cell[span='20'] {
+  --grid-ce: 20;
+}
+
+.p-grid > .p-cell[span$='+21'],
+.p-grid > .p-cell[span$='-20'],
+.p-grid > .p-cell[span='21'] {
+  --grid-ce: 21;
+}
+
+.p-grid > .p-cell[span$='+22'],
+.p-grid > .p-cell[span$='-21'],
+.p-grid > .p-cell[span='22'] {
+  --grid-ce: 22;
+}
+
+.p-grid > .p-cell[span$='+23'],
+.p-grid > .p-cell[span$='-22'],
+.p-grid > .p-cell[span='23'] {
+  --grid-ce: 23;
+}
+
+.p-grid > .p-cell[span$='+24'],
+.p-grid > .p-cell[span$='-23'],
+.p-grid > .p-cell[span='24'] {
+  --grid-ce: 24;
+}
+
+.p-grid > .p-cell[span$='-24'] {
+  --grid-ce: 25;
+}
+
+/* connect vars */
+.p-grid > .p-cell[span] {
+  grid-column-end: span var(--grid-ce);
+}
+
+.p-grid > .p-cell[span*='+'],
+.p-grid > .p-cell[span*='-'],
+.p-grid > .p-cell[span*='..'] {
+  grid-column-start: var(--grid-cs);
+}
+
+.p-grid > .p-cell[span*='-'],
+.p-grid > .p-cell[span*='..'] {
+  grid-column-end: var(--grid-ce);
+}
+
+.p-grid > .p-cell[span='row'] {
+  grid-column: 1 / -1;
+}
+
+/* for window width >= 1921px */
+@media only screen and (min-width: 1905px) {
+  .p-grid[columns-xl='1'] {
+    --grid-tc: repeat(1, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xl='2'] {
+    --grid-tc: repeat(2, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xl='3'] {
+    --grid-tc: repeat(3, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xl='4'] {
+    --grid-tc: repeat(4, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xl='5'] {
+    --grid-tc: repeat(5, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xl='6'] {
+    --grid-tc: repeat(6, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xl='7'] {
+    --grid-tc: repeat(7, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xl='8'] {
+    --grid-tc: repeat(8, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xl='9'] {
+    --grid-tc: repeat(9, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xl='10'] {
+    --grid-tc: repeat(10, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xl='11'] {
+    --grid-tc: repeat(11, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xl='12'] {
+    --grid-tc: repeat(12, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  /* span-xl=start... */
+  .p-grid > .p-cell[span-xl^='1'] {
+    --grid-cs: 1;
+  }
+
+  .p-grid > .p-cell[span-xl^='2'] {
+    --grid-cs: 2;
+  }
+
+  .p-grid > .p-cell[span-xl^='3'] {
+    --grid-cs: 3;
+  }
+
+  .p-grid > .p-cell[span-xl^='4'] {
+    --grid-cs: 4;
+  }
+
+  .p-grid > .p-cell[span-xl^='5'] {
+    --grid-cs: 5;
+  }
+
+  .p-grid > .p-cell[span-xl^='6'] {
+    --grid-cs: 6;
+  }
+
+  .p-grid > .p-cell[span-xl^='7'] {
+    --grid-cs: 7;
+  }
+
+  .p-grid > .p-cell[span-xl^='8'] {
+    --grid-cs: 8;
+  }
+
+  .p-grid > .p-cell[span-xl^='9'] {
+    --grid-cs: 9;
+  }
+
+  .p-grid > .p-cell[span-xl^='10'] {
+    --grid-cs: 10;
+  }
+
+  .p-grid > .p-cell[span-xl^='11'] {
+    --grid-cs: 11;
+  }
+
+  .p-grid > .p-cell[span-xl^='12'] {
+    --grid-cs: 12;
+  }
+
+  /* span-xl=...+width, span-xl=...-end */
+  .p-grid > .p-cell[span-xl$='+1'],
+  .p-grid > .p-cell[span-xl='1'] {
+    --grid-ce: 1;
+  }
+
+  .p-grid > .p-cell[span-xl$='+2'],
+  .p-grid > .p-cell[span-xl$='-1'],
+  .p-grid > .p-cell[span-xl='2'] {
+    --grid-ce: 2;
+  }
+
+  .p-grid > .p-cell[span-xl$='+3'],
+  .p-grid > .p-cell[span-xl$='-2'],
+  .p-grid > .p-cell[span-xl='3'] {
+    --grid-ce: 3;
+  }
+
+  .p-grid > .p-cell[span-xl$='+4'],
+  .p-grid > .p-cell[span-xl$='-3'],
+  .p-grid > .p-cell[span-xl='4'] {
+    --grid-ce: 4;
+  }
+
+  .p-grid > .p-cell[span-xl$='+5'],
+  .p-grid > .p-cell[span-xl$='-4'],
+  .p-grid > .p-cell[span-xl='5'] {
+    --grid-ce: 5;
+  }
+
+  .p-grid > .p-cell[span-xl$='+6'],
+  .p-grid > .p-cell[span-xl$='-5'],
+  .p-grid > .p-cell[span-xl='6'] {
+    --grid-ce: 6;
+  }
+
+  .p-grid > .p-cell[span-xl$='+7'],
+  .p-grid > .p-cell[span-xl$='-6'],
+  .p-grid > .p-cell[span-xl='7'] {
+    --grid-ce: 7;
+  }
+
+  .p-grid > .p-cell[span-xl$='+8'],
+  .p-grid > .p-cell[span-xl$='-7'],
+  .p-grid > .p-cell[span-xl='8'] {
+    --grid-ce: 8;
+  }
+
+  .p-grid > .p-cell[span-xl$='+9'],
+  .p-grid > .p-cell[span-xl$='-8'],
+  .p-grid > .p-cell[span-xl='9'] {
+    --grid-ce: 9;
+  }
+
+  .p-grid > .p-cell[span-xl$='+10'],
+  .p-grid > .p-cell[span-xl$='-9'],
+  .p-grid > .p-cell[span-xl='10'] {
+    --grid-ce: 10;
+  }
+
+  .p-grid > .p-cell[span-xl$='+11'],
+  .p-grid > .p-cell[span-xl$='-10'],
+  .p-grid > .p-cell[span-xl='11'] {
+    --grid-ce: 11;
+  }
+
+  .p-grid > .p-cell[span-xl$='+12'],
+  .p-grid > .p-cell[span-xl$='-11'],
+  .p-grid > .p-cell[span-xl='12'] {
+    --grid-ce: 12;
+  }
+
+  .p-grid > .p-cell[span-xl$='-12'] {
+    --grid-ce: 13;
+  }
+
+  /* connect vars */
+  .p-grid > .p-cell[span-xl] {
+    grid-column-end: span var(--grid-ce);
+  }
+
+  .p-grid > .p-cell[span-xl*='+'],
+  .p-grid > .p-cell[span-xl*='-'],
+  .p-grid > .p-cell[span-xl*='..'] {
+    grid-column-start: var(--grid-cs);
+  }
+
+  .p-grid > .p-cell[span-xl*='-'],
+  .p-grid > .p-cell[span-xl*='..'] {
+    grid-column-end: var(--grid-ce);
+  }
+
+  .p-grid > .p-cell[span-xl='row'] {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Desktop */
+@media only screen and (max-width: 1904px) {
+  .p-grid[columns-lg='1'] {
+    --grid-tc: repeat(1, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-lg='2'] {
+    --grid-tc: repeat(2, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-lg='3'] {
+    --grid-tc: repeat(3, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-lg='4'] {
+    --grid-tc: repeat(4, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-lg='5'] {
+    --grid-tc: repeat(5, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-lg='6'] {
+    --grid-tc: repeat(6, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-lg='7'] {
+    --grid-tc: repeat(7, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-lg='8'] {
+    --grid-tc: repeat(8, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-lg='9'] {
+    --grid-tc: repeat(9, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-lg='10'] {
+    --grid-tc: repeat(10, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-lg='11'] {
+    --grid-tc: repeat(11, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-lg='12'] {
+    --grid-tc: repeat(12, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  /* span-lg=start... */
+  .p-grid > .p-cell[span-lg^='1'] {
+    --grid-cs: 1;
+  }
+
+  .p-grid > .p-cell[span-lg^='2'] {
+    --grid-cs: 2;
+  }
+
+  .p-grid > .p-cell[span-lg^='3'] {
+    --grid-cs: 3;
+  }
+
+  .p-grid > .p-cell[span-lg^='4'] {
+    --grid-cs: 4;
+  }
+
+  .p-grid > .p-cell[span-lg^='5'] {
+    --grid-cs: 5;
+  }
+
+  .p-grid > .p-cell[span-lg^='6'] {
+    --grid-cs: 6;
+  }
+
+  .p-grid > .p-cell[span-lg^='7'] {
+    --grid-cs: 7;
+  }
+
+  .p-grid > .p-cell[span-lg^='8'] {
+    --grid-cs: 8;
+  }
+
+  .p-grid > .p-cell[span-lg^='9'] {
+    --grid-cs: 9;
+  }
+
+  .p-grid > .p-cell[span-lg^='10'] {
+    --grid-cs: 10;
+  }
+
+  .p-grid > .p-cell[span-lg^='11'] {
+    --grid-cs: 11;
+  }
+
+  .p-grid > .p-cell[span-lg^='12'] {
+    --grid-cs: 12;
+  }
+
+  /* span-lg=...+width, span-lg=...-end */
+  .p-grid > .p-cell[span-lg$='+1'],
+  .p-grid > .p-cell[span-lg='1'] {
+    --grid-ce: 1;
+  }
+
+  .p-grid > .p-cell[span-lg$='+2'],
+  .p-grid > .p-cell[span-lg$='-1'],
+  .p-grid > .p-cell[span-lg='2'] {
+    --grid-ce: 2;
+  }
+
+  .p-grid > .p-cell[span-lg$='+3'],
+  .p-grid > .p-cell[span-lg$='-2'],
+  .p-grid > .p-cell[span-lg='3'] {
+    --grid-ce: 3;
+  }
+
+  .p-grid > .p-cell[span-lg$='+4'],
+  .p-grid > .p-cell[span-lg$='-3'],
+  .p-grid > .p-cell[span-lg='4'] {
+    --grid-ce: 4;
+  }
+
+  .p-grid > .p-cell[span-lg$='+5'],
+  .p-grid > .p-cell[span-lg$='-4'],
+  .p-grid > .p-cell[span-lg='5'] {
+    --grid-ce: 5;
+  }
+
+  .p-grid > .p-cell[span-lg$='+6'],
+  .p-grid > .p-cell[span-lg$='-5'],
+  .p-grid > .p-cell[span-lg='6'] {
+    --grid-ce: 6;
+  }
+
+  .p-grid > .p-cell[span-lg$='+7'],
+  .p-grid > .p-cell[span-lg$='-6'],
+  .p-grid > .p-cell[span-lg='7'] {
+    --grid-ce: 7;
+  }
+
+  .p-grid > .p-cell[span-lg$='+8'],
+  .p-grid > .p-cell[span-lg$='-7'],
+  .p-grid > .p-cell[span-lg='8'] {
+    --grid-ce: 8;
+  }
+
+  .p-grid > .p-cell[span-lg$='+9'],
+  .p-grid > .p-cell[span-lg$='-8'],
+  .p-grid > .p-cell[span-lg='9'] {
+    --grid-ce: 9;
+  }
+
+  .p-grid > .p-cell[span-lg$='+10'],
+  .p-grid > .p-cell[span-lg$='-9'],
+  .p-grid > .p-cell[span-lg='10'] {
+    --grid-ce: 10;
+  }
+
+  .p-grid > .p-cell[span-lg$='+11'],
+  .p-grid > .p-cell[span-lg$='-10'],
+  .p-grid > .p-cell[span-lg='11'] {
+    --grid-ce: 11;
+  }
+
+  .p-grid > .p-cell[span-lg$='+12'],
+  .p-grid > .p-cell[span-lg$='-11'],
+  .p-grid > .p-cell[span-lg='12'] {
+    --grid-ce: 12;
+  }
+
+  .p-grid > .p-cell[span-lg$='-12'] {
+    --grid-ce: 13;
+  }
+
+  /* connect vars */
+  .p-grid > .p-cell[span-lg] {
+    grid-column-end: span var(--grid-ce);
+  }
+
+  .p-grid > .p-cell[span-lg*='+'],
+  .p-grid > .p-cell[span-lg*='-'],
+  .p-grid > .p-cell[span-lg*='..'] {
+    grid-column-start: var(--grid-cs);
+  }
+
+  .p-grid > .p-cell[span-lg*='-'],
+  .p-grid > .p-cell[span-lg*='..'] {
+    grid-column-end: var(--grid-ce);
+  }
+
+  .p-grid > .p-cell[span-lg='row'] {
+    grid-column: 1 / -1;
+  }
+}
+
+/* large table to laptop */
+@media only screen and (max-width: 1263px) {
+  .p-grid[columns-md='1'] {
+    --grid-tc: repeat(1, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-md='2'] {
+    --grid-tc: repeat(2, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-md='3'] {
+    --grid-tc: repeat(3, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-md='4'] {
+    --grid-tc: repeat(4, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-md='5'] {
+    --grid-tc: repeat(5, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-md='6'] {
+    --grid-tc: repeat(6, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-md='7'] {
+    --grid-tc: repeat(7, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-md='8'] {
+    --grid-tc: repeat(8, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-md='9'] {
+    --grid-tc: repeat(9, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-md='10'] {
+    --grid-tc: repeat(10, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-md='11'] {
+    --grid-tc: repeat(11, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-md='12'] {
+    --grid-tc: repeat(12, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  /* span-md=start... */
+  .p-grid > .p-cell[span-md^='1'] {
+    --grid-cs: 1;
+  }
+
+  .p-grid > .p-cell[span-md^='2'] {
+    --grid-cs: 2;
+  }
+
+  .p-grid > .p-cell[span-md^='3'] {
+    --grid-cs: 3;
+  }
+
+  .p-grid > .p-cell[span-md^='4'] {
+    --grid-cs: 4;
+  }
+
+  .p-grid > .p-cell[span-md^='5'] {
+    --grid-cs: 5;
+  }
+
+  .p-grid > .p-cell[span-md^='6'] {
+    --grid-cs: 6;
+  }
+
+  .p-grid > .p-cell[span-md^='7'] {
+    --grid-cs: 7;
+  }
+
+  .p-grid > .p-cell[span-md^='8'] {
+    --grid-cs: 8;
+  }
+
+  .p-grid > .p-cell[span-md^='9'] {
+    --grid-cs: 9;
+  }
+
+  .p-grid > .p-cell[span-md^='10'] {
+    --grid-cs: 10;
+  }
+
+  .p-grid > .p-cell[span-md^='11'] {
+    --grid-cs: 11;
+  }
+
+  .p-grid > .p-cell[span-md^='12'] {
+    --grid-cs: 12;
+  }
+
+  /* span-md=...+width, span-md=...-end */
+  .p-grid > .p-cell[span-md$='+1'],
+  .p-grid > .p-cell[span-md='1'] {
+    --grid-ce: 1;
+  }
+
+  .p-grid > .p-cell[span-md$='+2'],
+  .p-grid > .p-cell[span-md$='-1'],
+  .p-grid > .p-cell[span-md='2'] {
+    --grid-ce: 2;
+  }
+
+  .p-grid > .p-cell[span-md$='+3'],
+  .p-grid > .p-cell[span-md$='-2'],
+  .p-grid > .p-cell[span-md='3'] {
+    --grid-ce: 3;
+  }
+
+  .p-grid > .p-cell[span-md$='+4'],
+  .p-grid > .p-cell[span-md$='-3'],
+  .p-grid > .p-cell[span-md='4'] {
+    --grid-ce: 4;
+  }
+
+  .p-grid > .p-cell[span-md$='+5'],
+  .p-grid > .p-cell[span-md$='-4'],
+  .p-grid > .p-cell[span-md='5'] {
+    --grid-ce: 5;
+  }
+
+  .p-grid > .p-cell[span-md$='+6'],
+  .p-grid > .p-cell[span-md$='-5'],
+  .p-grid > .p-cell[span-md='6'] {
+    --grid-ce: 6;
+  }
+
+  .p-grid > .p-cell[span-md$='+7'],
+  .p-grid > .p-cell[span-md$='-6'],
+  .p-grid > .p-cell[span-md='7'] {
+    --grid-ce: 7;
+  }
+
+  .p-grid > .p-cell[span-md$='+8'],
+  .p-grid > .p-cell[span-md$='-7'],
+  .p-grid > .p-cell[span-md='8'] {
+    --grid-ce: 8;
+  }
+
+  .p-grid > .p-cell[span-md$='+9'],
+  .p-grid > .p-cell[span-md$='-8'],
+  .p-grid > .p-cell[span-md='9'] {
+    --grid-ce: 9;
+  }
+
+  .p-grid > .p-cell[span-md$='+10'],
+  .p-grid > .p-cell[span-md$='-9'],
+  .p-grid > .p-cell[span-md='10'] {
+    --grid-ce: 10;
+  }
+
+  .p-grid > .p-cell[span-md$='+11'],
+  .p-grid > .p-cell[span-md$='-10'],
+  .p-grid > .p-cell[span-md='11'] {
+    --grid-ce: 11;
+  }
+
+  .p-grid > .p-cell[span-md$='+12'],
+  .p-grid > .p-cell[span-md$='-11'],
+  .p-grid > .p-cell[span-md='12'] {
+    --grid-ce: 12;
+  }
+
+  .p-grid > .p-cell[span-md$='-12'] {
+    --grid-ce: 13;
+  }
+
+  /* connect vars */
+  .p-grid > .p-cell[span-md] {
+    grid-column-end: span var(--grid-ce);
+  }
+
+  .p-grid > .p-cell[span-md*='+'],
+  .p-grid > .p-cell[span-md*='-'],
+  .p-grid > .p-cell[span-md*='..'] {
+    grid-column-start: var(--grid-cs);
+  }
+
+  .p-grid > .p-cell[span-md*='-'],
+  .p-grid > .p-cell[span-md*='..'] {
+    grid-column-end: var(--grid-ce);
+  }
+
+  .p-grid > .p-cell[span-md='row'] {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Small to medium table */
+@media only screen and (max-width: 959px) {
+  .p-grid[columns-sm='1'] {
+    --grid-tc: repeat(1, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-sm='2'] {
+    --grid-tc: repeat(2, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-sm='3'] {
+    --grid-tc: repeat(3, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-sm='4'] {
+    --grid-tc: repeat(4, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-sm='5'] {
+    --grid-tc: repeat(5, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-sm='6'] {
+    --grid-tc: repeat(6, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-sm='7'] {
+    --grid-tc: repeat(7, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-sm='8'] {
+    --grid-tc: repeat(8, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-sm='9'] {
+    --grid-tc: repeat(9, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-sm='10'] {
+    --grid-tc: repeat(10, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-sm='11'] {
+    --grid-tc: repeat(11, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-sm='12'] {
+    --grid-tc: repeat(12, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  /* span-sm=start... */
+  .p-grid > .p-cell[span-sm^='1'] {
+    --grid-cs: 1;
+  }
+
+  .p-grid > .p-cell[span-sm^='2'] {
+    --grid-cs: 2;
+  }
+
+  .p-grid > .p-cell[span-sm^='3'] {
+    --grid-cs: 3;
+  }
+
+  .p-grid > .p-cell[span-sm^='4'] {
+    --grid-cs: 4;
+  }
+
+  .p-grid > .p-cell[span-sm^='5'] {
+    --grid-cs: 5;
+  }
+
+  .p-grid > .p-cell[span-sm^='6'] {
+    --grid-cs: 6;
+  }
+
+  .p-grid > .p-cell[span-sm^='7'] {
+    --grid-cs: 7;
+  }
+
+  .p-grid > .p-cell[span-sm^='8'] {
+    --grid-cs: 8;
+  }
+
+  .p-grid > .p-cell[span-sm^='9'] {
+    --grid-cs: 9;
+  }
+
+  .p-grid > .p-cell[span-sm^='10'] {
+    --grid-cs: 10;
+  }
+
+  .p-grid > .p-cell[span-sm^='11'] {
+    --grid-cs: 11;
+  }
+
+  .p-grid > .p-cell[span-sm^='12'] {
+    --grid-cs: 12;
+  }
+
+  /* span-sm=...+width, span-sm=...-end */
+  .p-grid > .p-cell[span-sm$='+1'],
+  .p-grid > .p-cell[span-sm='1'] {
+    --grid-ce: 1;
+  }
+
+  .p-grid > .p-cell[span-sm$='+2'],
+  .p-grid > .p-cell[span-sm$='-1'],
+  .p-grid > .p-cell[span-sm='2'] {
+    --grid-ce: 2;
+  }
+
+  .p-grid > .p-cell[span-sm$='+3'],
+  .p-grid > .p-cell[span-sm$='-2'],
+  .p-grid > .p-cell[span-sm='3'] {
+    --grid-ce: 3;
+  }
+
+  .p-grid > .p-cell[span-sm$='+4'],
+  .p-grid > .p-cell[span-sm$='-3'],
+  .p-grid > .p-cell[span-sm='4'] {
+    --grid-ce: 4;
+  }
+
+  .p-grid > .p-cell[span-sm$='+5'],
+  .p-grid > .p-cell[span-sm$='-4'],
+  .p-grid > .p-cell[span-sm='5'] {
+    --grid-ce: 5;
+  }
+
+  .p-grid > .p-cell[span-sm$='+6'],
+  .p-grid > .p-cell[span-sm$='-5'],
+  .p-grid > .p-cell[span-sm='6'] {
+    --grid-ce: 6;
+  }
+
+  .p-grid > .p-cell[span-sm$='+7'],
+  .p-grid > .p-cell[span-sm$='-6'],
+  .p-grid > .p-cell[span-sm='7'] {
+    --grid-ce: 7;
+  }
+
+  .p-grid > .p-cell[span-sm$='+8'],
+  .p-grid > .p-cell[span-sm$='-7'],
+  .p-grid > .p-cell[span-sm='8'] {
+    --grid-ce: 8;
+  }
+
+  .p-grid > .p-cell[span-sm$='+9'],
+  .p-grid > .p-cell[span-sm$='-8'],
+  .p-grid > .p-cell[span-sm='9'] {
+    --grid-ce: 9;
+  }
+
+  .p-grid > .p-cell[span-sm$='+10'],
+  .p-grid > .p-cell[span-sm$='-9'],
+  .p-grid > .p-cell[span-sm='10'] {
+    --grid-ce: 10;
+  }
+
+  .p-grid > .p-cell[span-sm$='+11'],
+  .p-grid > .p-cell[span-sm$='-10'],
+  .p-grid > .p-cell[span-sm='11'] {
+    --grid-ce: 11;
+  }
+
+  .p-grid > .p-cell[span-sm$='+12'],
+  .p-grid > .p-cell[span-sm$='-11'],
+  .p-grid > .p-cell[span-sm='12'] {
+    --grid-ce: 12;
+  }
+
+  .p-grid > .p-cell[span-sm$='-12'] {
+    --grid-ce: 13;
+  }
+
+  /* connect vars */
+  .p-grid > .p-cell[span-sm] {
+    grid-column-end: span var(--grid-ce);
+  }
+
+  .p-grid > .p-cell[span-sm*='+'],
+  .p-grid > .p-cell[span-sm*='-'],
+  .p-grid > .p-cell[span-sm*='..'] {
+    grid-column-start: var(--grid-cs);
+  }
+
+  .p-grid > .p-cell[span-sm*='-'],
+  .p-grid > .p-cell[span-sm*='..'] {
+    grid-column-end: var(--grid-ce);
+  }
+
+  .p-grid > .p-cell[span-sm='row'] {
+    grid-column: 1 / -1;
+  }
+}
+
+/* for window width <= 600 */
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .p-grid {
+    --columnGap: 16px;
+    --rowGap: 16px;
+  }
+
+  .p-grid[columns-xs='1'] {
+    --grid-tc: repeat(1, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xs='2'] {
+    --grid-tc: repeat(2, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xs='3'] {
+    --grid-tc: repeat(3, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xs='4'] {
+    --grid-tc: repeat(4, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xs='5'] {
+    --grid-tc: repeat(5, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xs='6'] {
+    --grid-tc: repeat(6, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xs='7'] {
+    --grid-tc: repeat(7, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xs='8'] {
+    --grid-tc: repeat(8, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xs='9'] {
+    --grid-tc: repeat(9, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xs='10'] {
+    --grid-tc: repeat(10, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xs='11'] {
+    --grid-tc: repeat(11, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  .p-grid[columns-xs='12'] {
+    --grid-tc: repeat(12, minmax(0px, var(--cellMaxWidth)));
+  }
+
+  /* span-xs=start... */
+  .p-grid > .p-cell[span-xs^='1'] {
+    --grid-cs: 1;
+  }
+
+  .p-grid > .p-cell[span-xs^='2'] {
+    --grid-cs: 2;
+  }
+
+  .p-grid > .p-cell[span-xs^='3'] {
+    --grid-cs: 3;
+  }
+
+  .p-grid > .p-cell[span-xs^='4'] {
+    --grid-cs: 4;
+  }
+
+  .p-grid > .p-cell[span-xs^='5'] {
+    --grid-cs: 5;
+  }
+
+  .p-grid > .p-cell[span-xs^='6'] {
+    --grid-cs: 6;
+  }
+
+  .p-grid > .p-cell[span-xs^='7'] {
+    --grid-cs: 7;
+  }
+
+  .p-grid > .p-cell[span-xs^='8'] {
+    --grid-cs: 8;
+  }
+
+  .p-grid > .p-cell[span-xs^='9'] {
+    --grid-cs: 9;
+  }
+
+  .p-grid > .p-cell[span-xs^='10'] {
+    --grid-cs: 10;
+  }
+
+  .p-grid > .p-cell[span-xs^='11'] {
+    --grid-cs: 11;
+  }
+
+  .p-grid > .p-cell[span-xs^='12'] {
+    --grid-cs: 12;
+  }
+
+  /* span-xs=...+width, span-xs=...-end */
+  .p-grid > .p-cell[span-xs$='+1'],
+  .p-grid > .p-cell[span-xs='1'] {
+    --grid-ce: 1;
+  }
+
+  .p-grid > .p-cell[span-xs$='+2'],
+  .p-grid > .p-cell[span-xs$='-1'],
+  .p-grid > .p-cell[span-xs='2'] {
+    --grid-ce: 2;
+  }
+
+  .p-grid > .p-cell[span-xs$='+3'],
+  .p-grid > .p-cell[span-xs$='-2'],
+  .p-grid > .p-cell[span-xs='3'] {
+    --grid-ce: 3;
+  }
+
+  .p-grid > .p-cell[span-xs$='+4'],
+  .p-grid > .p-cell[span-xs$='-3'],
+  .p-grid > .p-cell[span-xs='4'] {
+    --grid-ce: 4;
+  }
+
+  .p-grid > .p-cell[span-xs$='+5'],
+  .p-grid > .p-cell[span-xs$='-4'],
+  .p-grid > .p-cell[span-xs='5'] {
+    --grid-ce: 5;
+  }
+
+  .p-grid > .p-cell[span-xs$='+6'],
+  .p-grid > .p-cell[span-xs$='-5'],
+  .p-grid > .p-cell[span-xs='6'] {
+    --grid-ce: 6;
+  }
+
+  .p-grid > .p-cell[span-xs$='+7'],
+  .p-grid > .p-cell[span-xs$='-6'],
+  .p-grid > .p-cell[span-xs='7'] {
+    --grid-ce: 7;
+  }
+
+  .p-grid > .p-cell[span-xs$='+8'],
+  .p-grid > .p-cell[span-xs$='-7'],
+  .p-grid > .p-cell[span-xs='8'] {
+    --grid-ce: 8;
+  }
+
+  .p-grid > .p-cell[span-xs$='+9'],
+  .p-grid > .p-cell[span-xs$='-8'],
+  .p-grid > .p-cell[span-xs='9'] {
+    --grid-ce: 9;
+  }
+
+  .p-grid > .p-cell[span-xs$='+10'],
+  .p-grid > .p-cell[span-xs$='-9'],
+  .p-grid > .p-cell[span-xs='10'] {
+    --grid-ce: 10;
+  }
+
+  .p-grid > .p-cell[span-xs$='+11'],
+  .p-grid > .p-cell[span-xs$='-10'],
+  .p-grid > .p-cell[span-xs='11'] {
+    --grid-ce: 11;
+  }
+
+  .p-grid > .p-cell[span-xs$='+12'],
+  .p-grid > .p-cell[span-xs$='-11'],
+  .p-grid > .p-cell[span-xs='12'] {
+    --grid-ce: 12;
+  }
+
+  .p-grid > .p-cell[span-xs$='-12'] {
+    --grid-ce: 13;
+  }
+
+  /* connect vars */
+  .p-grid > .p-cell[span-xs] {
+    grid-column-end: span var(--grid-ce);
+  }
+
+  .p-grid > .p-cell[span-xs*='+'],
+  .p-grid > .p-cell[span-xs*='-'],
+  .p-grid > .p-cell[span-xs*='..'] {
+    grid-column-start: var(--grid-cs);
+  }
+
+  .p-grid > .p-cell[span-xs*='-'],
+  .p-grid > .p-cell[span-xs*='..'] {
+    grid-column-end: var(--grid-ce);
+  }
+
+  .p-grid > .p-cell[span-xs='row'] {
+    grid-column: 1 / -1;
+  }
+}
+
+/* .debug can be added to a .p-grid to visualize its effective cells */
+.p-grid.debug > * {
+  --color: rgba(248, 110, 91, 0.3);
+  background-image: linear-gradient(
+    to bottom,
+    var(--color) 0%,
+    var(--color) 100%
+  );
+}
+
+.p-grid.debug > :nth-child(6n + 2) {
+  --color: rgba(103, 126, 208, 0.3);
+}
+
+.p-grid.debug > :nth-child(6n + 3) {
+  --color: rgba(224, 174, 72, 0.3);
+}
+
+.p-grid.debug > :nth-child(6n + 4) {
+  --color: rgba(77, 214, 115, 0.3);
+}
+
+.p-grid.debug > :nth-child(6n + 5) {
+  --color: rgba(217, 103, 219, 0.3);
+}
+
+.p-grid.debug > :nth-child(6n + 6) {
+  --color: rgba(94, 204, 211, 0.3);
+}
+
+.p-grid.debug > :nth-child(6n + 7) {
+  --color: rgba(248, 110, 91, 0.3);
+}

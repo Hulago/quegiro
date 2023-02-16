@@ -1,0 +1,48 @@
+$--colors: (
+  "black": #333333,
+  "primary": (
+    "base": #333333,
+  ),
+  "success": (
+    "base": #11AD47,
+  ),
+  "warning": (
+    "base": #F1C40F,
+  ),
+  "danger": (
+    "base": #E07A21,
+  ),
+  "error": (
+    "base": #CA3921,
+  ),
+  "info": (
+    "base": #909399,
+  ),
+);
+
+$font-family : 'proxima-nova', "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+"Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+
+// we can add this to custom namespace, default is 'el'
+@forward "element-plus/theme-chalk/src/mixins/config.scss" with (
+  $namespace: "el"
+);
+
+// You should use them in scss, because we calculate it by sass.
+// comment next lines to use default color
+@forward "element-plus/theme-chalk/src/common/var.scss" with (
+  // do not use same name, it will override.
+  $colors: $--colors,
+  $button-padding-horizontal: ("default": 50px)
+);
+
+// if you want to import all
+// @use "element-plus/theme-chalk/src/index.scss" as *;
+
+// You can comment it to hide debug info.
+// @debug $--colors;
+
+// custom dark variables
+@use "./dark.scss";
+// import dark theme
+@use "element-plus/theme-chalk/src/dark/css-vars.scss" as *;

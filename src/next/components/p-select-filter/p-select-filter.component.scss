@@ -1,0 +1,18 @@
+.ag-header-cell {
+  padding-top: 0 !important;
+}
+
+.p-select-filter {
+  .el-tag {
+    .el-popper {
+      position: fixed !important;
+    }
+  }
+}
+
+.p-select-filter__popper {
+  .el-select-dropdown__list {
+    min-width: 150px !important;
+  }
+  
+}
