@@ -1,7 +1,17 @@
 <template>
   <el-container class="account" direction="vertical">
-    <p-toolbar title="account">
+    <p-toolbar title="account" @back="handleBack">
       <template #content>
+        <el-date-picker
+          v-model="dateFilter"
+          type="datetimerange"
+          start-placeholder="Start Date"
+          end-placeholder="End Date"
+          :default-time="defaultTime"
+          style="min-width: 300px"
+          class="mr-2"
+        />
+
         <el-input
           v-model="searchCriteria"
           style="min-width: 400px"

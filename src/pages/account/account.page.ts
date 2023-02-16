@@ -1,6 +1,6 @@
 import { useAccount } from '@/composables';
 
-import { get } from 'lodash-es';
+import { useRouter } from 'vue-router';
 
 import { AccountModel } from '@/composables/account/account.model';
 import { useAccountColumns } from '@/composables/account/account.columns';
@@ -29,6 +29,8 @@ export default defineComponent({
     TransactionStateRender
   },
   setup() {
+    const { back } = useRouter();
+
     const { startLoader, stopLoader } = useApplicationContext();
 
     const { noRowsOverlay } = useOverlay();
@@ -144,19 +146,46 @@ export default defineComponent({
       currentTransaction.value = item;
     }
 
-    const selectedAccount = computed(() =>
-      account.value.filter(item =>
-        item.description
-          ?.toLowerCase()
-          .includes(searchCriteria.value.toLowerCase())
-      )
-    );
+    const selectedAccount = computed(() => {
+      const [beginDate = null, endDate = null] = dateFilter.value || [];
+
+      return account.value
+        .filter(item =>
+          item.description
+            ?.toLowerCase()
+            .includes(searchCriteria.value.toLowerCase())
+        )
+        .filter(
+          item =>
+            beginDate === null ||
+            new Date(item.date) > new Date(beginDate as string)
+        )
+        .filter(
+          item =>
+            endDate === null ||
+            new Date(item.date) < new Date(endDate as string)
+        );
+    });
 
     const handleSearch = () => {
       console.log('Search');
     };
 
+    const dateFilter = ref([]);
+
+    const defaultTime: [Date, Date] = [
+      new Date(2000, 1, 1, 0, 0, 0),
+      new Date(2000, 2, 1, 23, 59, 59)
+    ];
+
+    const handleBack = () => {
+      back();
+    };
+
     return {
+      dateFilter,
+      defaultTime,
+
       currencyRender,
       currentTransaction,
       isTransactionModalVisible,
@@ -171,6 +200,7 @@ export default defineComponent({
       searchCriteria,
       selectedAccount,
       handleSearch,
+      handleBack,
 
       // grid
       columnDefs,

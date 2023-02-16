@@ -23,6 +23,8 @@ import {
 } from '@/composables';
 import { PToolbar, useApplicationContext } from '@/next';
 
+import { useRouter } from 'vue-router';
+
 export default defineComponent({
   metaInfo: {
     title: 'Data',
@@ -44,6 +46,8 @@ export default defineComponent({
     PToolbar
   },
   setup() {
+    const { back } = useRouter();
+
     const { startLoader, stopLoader, notifySuccess } = useApplicationContext();
 
     const uploadAccount = ref<UploadInstance>();
@@ -161,6 +165,10 @@ export default defineComponent({
       }
     }
 
+    const handleBack = () => {
+      back();
+    };
+
     return {
       accountFiles,
       transactionFiles,
@@ -174,6 +182,8 @@ export default defineComponent({
       transactions,
 
       isLoading,
+
+      handleBack,
 
       hasAccountFile,
       hasTransactionFile

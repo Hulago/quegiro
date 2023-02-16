@@ -14,25 +14,21 @@ With our application, you can rest easy knowing that your tax compliance is accu
 
 TODO:
 
-Home: Add disclamer. Add information about degiro.
+Home:
+
+Setup Table: i18n.
 
 Toolbar Add dark mode.
-Toolbar - back button
 
-Transactions
-Filter between dates
-show agregated data
-show account detail information for each orderId
+Data:
+Load transaction clear account
+Account clear transaction
 
 Categories
-Finish categories page.
 Create a pie chart for categories.
 
 Sales
-Filter between dates.
-show agregated data.
-show detail information about the sale. If possibel which lot was used to calculate the data.
-Add agregation button.
+Show information about sale and buy order id.
 
 Account
 Show account information.
@@ -42,3 +38,6 @@ MVP - Add google ads.
 Share with others.
 
 Add translations.
+
+WRITE - Desires manifest.
+Read Books.

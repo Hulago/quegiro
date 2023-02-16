@@ -21,6 +21,10 @@ export function useProduct() {
   async function saveProducts() {
     try {
       await setItem('products', unref(products));
+
+      // if (products.value.length === 0) {
+      //   debugger;
+      // }
     } catch (e) {
       console.error('Error saving products');
       console.error(e);

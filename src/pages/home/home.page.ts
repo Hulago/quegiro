@@ -30,16 +30,14 @@ export default defineComponent({
   setup() {
     const message = 'Welcome to Quegiro';
 
-    const router = useRouter();
+    const { back, push } = useRouter();
 
     const handleBack = () => {
-      console.log('Back');
+      back();
     };
 
     const handleStart = () => {
-      console.log('AAAA');
-
-      router.push({
+      push({
         name: ROUTES.DATA
       });
     };

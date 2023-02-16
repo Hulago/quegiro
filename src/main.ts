@@ -8,10 +8,12 @@ import 'uno.css';
 
 import 'element-plus/theme-chalk/src/message.scss';
 
+import { router } from './plugins/router.plugin';
+
 import AppPage from './pages/app/app.page.vue';
 
 import { agGrid } from './plugins/ag-grid.plugin';
-import { router } from './plugins/router.plugin';
+
 import { i18n } from './plugins/i18n.plugin';
 import { ui } from '@/next';
 

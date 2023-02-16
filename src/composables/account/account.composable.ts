@@ -39,6 +39,10 @@ export function useAccount() {
   async function saveAccount() {
     try {
       await setItem('account', unref(account));
+
+      // if(account.value.length === 0) {
+      //   debugger;
+      // }
     } catch (e) {
       console.error('Erro saving account to localstorage');
       console.error(e);

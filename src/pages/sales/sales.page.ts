@@ -1,6 +1,10 @@
-import { useTransactions, useSales } from '@/composables';
+import { useSales } from '@/composables';
 
-import { get } from 'lodash-es';
+import { get, groupBy } from 'lodash-es';
+
+import { useRouter } from 'vue-router';
+
+import { format } from 'date-fns';
 
 import { SalesModel } from '@/composables/sales/sales.model';
 import { useSalesColumns } from '@/composables/sales/sales.columns';
@@ -29,6 +33,8 @@ export default defineComponent({
     SalesDeltaRender
   },
   setup() {
+    const { back } = useRouter();
+
     const { startLoader, stopLoader } = useApplicationContext();
 
     const { noRowsOverlay } = useOverlay();
@@ -158,22 +164,138 @@ export default defineComponent({
       currentSale.value = item;
     }
 
-    const selectedSales = computed(() =>
-      sales.value
+    const dateFilter = ref([]);
+
+    const defaultTime: [Date, Date] = [
+      new Date(2000, 1, 1, 0, 0, 0),
+      new Date(2000, 2, 1, 23, 59, 59)
+    ];
+
+    const selectedSales = computed(() => {
+      const [beginDate = null, endDate = null] = dateFilter.value || [];
+
+      let salesData: SalesModel[] = [];
+
+      if (isAggregated.value) {
+        salesData = [];
+
+        const data = groupBy(
+          sales.value,
+          sale =>
+            format(new Date(sale.sellDate as Date), 'yyyy-MM') +
+            format(new Date(sale.buyDate as Date), 'yyyy-MM') +
+            sale.isin
+        );
+
+        Object.keys(data).forEach(key => {
+          const sales = data[key] || [];
+
+          const sale = sales.reduce(
+            (prev, next) => {
+              prev.buyDate = format(new Date(next.buyDate as Date), 'yyyy-MM');
+              prev.buyOrderId = prev.buyOrderId + ',' + next.buyOrderId;
+              prev.buyPrice += next.buyPrice;
+              prev.cost += next.cost;
+              prev.currency = next.currency;
+              prev.exchange = prev.exchange + ',' + next.exchange;
+              prev.sellDate = format(
+                new Date(next.sellDate as Date),
+                'yyyy-MM'
+              );
+              prev.isin = next.isin;
+              prev.name = next.name;
+              prev.qty += next.qty;
+              prev.sellOrderId = prev.sellOrderId + ',' + next.sellOrderId;
+              prev.sellPrice += next.sellPrice;
+              prev.totalBuyPrice += next.totalBuyPrice;
+              prev.totalSellPrice += next.totalSellPrice;
+
+              return prev;
+            },
+            new SalesModel({
+              buyOrderId: '',
+              buyPrice: 0,
+              cost: 0,
+              exchange: '',
+
+              qty: 0,
+
+              sellPrice: 0,
+              totalBuyPrice: 0,
+              totalSellPrice: 0
+            })
+          );
+
+          sale.buyPrice = Math.round(sale.buyPrice / sales.length);
+          sale.sellPrice = Math.round(sale.sellPrice / sales.length);
+
+          salesData.push(sale);
+        });
+
+        console.log(data);
+      } else {
+        salesData = sales.value;
+      }
+
+      return salesData
         .filter(item =>
           item.name?.toLowerCase().includes(searchCriteria.value.toLowerCase())
+        )
+        .filter(
+          item =>
+            beginDate === null ||
+            new Date(item.sellDate as string) > new Date(beginDate as string)
+        )
+        .filter(
+          item =>
+            endDate === null ||
+            new Date(item.sellDate as string) < new Date(endDate as string)
         )
         .map(item => ({
           ...item,
           delta: item.totalSellPrice - item.totalBuyPrice
-        }))
+        }));
+    });
+
+    const totalBuy = computed(
+      () =>
+        Math.round(
+          selectedSales.value.reduce((prev, next) => {
+            prev = prev + next.totalBuyPrice;
+            return prev;
+          }, 0) * 100
+        ) / 100
+    );
+
+    const totalSell = computed(
+      () =>
+        Math.round(
+          selectedSales.value.reduce((prev, next) => {
+            prev = prev + next.totalSellPrice;
+            return prev;
+          }, 0) * 100
+        ) / 100
     );
 
     const handleSearch = () => {
       console.log('Search');
     };
 
+    const handleBack = () => {
+      back();
+    };
+
+    const isAggregated = ref(false);
+
     return {
+      isAggregated,
+
+      totalBuy,
+      totalSell,
+
+      dateFilter,
+      defaultTime,
+
       currencyRender,
       currentSale,
       isSalesModalVisible,
@@ -188,6 +310,7 @@ export default defineComponent({
       searchCriteria,
       selectedSales,
       handleSearch,
+      handleBack,
 
       // grid
       columnDefs,

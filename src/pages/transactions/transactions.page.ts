@@ -1,6 +1,8 @@
-import { useTransactions } from '@/composables';
+import { AccountModel, useAccount, useTransactions } from '@/composables';
 
 import { get } from 'lodash-es';
+
+import { useRouter } from 'vue-router';
 
 import { TransactionModel } from '@/composables/transactions/transaction.model';
 import { useTransactionColumns } from '@/composables/transactions/transaction.columns';
@@ -29,12 +31,16 @@ export default defineComponent({
     TransactionStateRender
   },
   setup() {
+    const { back } = useRouter();
+
     const { startLoader, stopLoader } = useApplicationContext();
 
     const { noRowsOverlay } = useOverlay();
 
     const { loadTransactions, processTransactions, transactions } =
       useTransactions();
+
+    const { loadAccount, account } = useAccount();
 
     const searchCriteria = ref<string>('');
 
@@ -136,6 +142,7 @@ export default defineComponent({
     onMounted(async () => {
       isLoading.value = true;
       await loadTransactions();
+      await loadAccount();
 
       console.log('Load transactions', transactions.value);
 
@@ -184,7 +191,49 @@ export default defineComponent({
         );
     });
 
+    const totalBuy = computed(
+      () =>
+        Math.round(
+          selectedTransactions.value.reduce((prev, next) => {
+            prev = prev + (next.isBuy ? next.transactionPrice : 0);
+            return prev;
+          }, 0) * 100
+        ) / 100
+    );
+
+    const totalSell = computed(
+      () =>
+        Math.round(
+          selectedTransactions.value.reduce((prev, next) => {
+            prev = prev + (next.isSale ? next.transactionPrice : 0);
+            return prev;
+          }, 0) * 100
+        ) / 100
+    );
+
+    const handleBack = () => {
+      back();
+    };
+
+    const isAccountModalVisible = ref(false);
+
+    const accountData = ref<AccountModel[]>([]);
+
+    function handleAccountData() {
+      accountData.value = account.value.filter(
+        item => item.orderId === currentTransaction.value?.orderId
+      );
+      isAccountModalVisible.value = true;
+    }
+
     return {
+      isAccountModalVisible,
+      handleAccountData,
+      accountData,
+
+      totalBuy,
+      totalSell,
+
       dateFilter,
       defaultTime,
 
@@ -202,6 +251,7 @@ export default defineComponent({
       searchCriteria,
       selectedTransactions,
       handleSearch,
+      handleBack,
 
       // grid
       columnDefs,

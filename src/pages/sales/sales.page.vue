@@ -1,10 +1,35 @@
 <template>
   <el-container class="transactions" direction="vertical">
-    <p-toolbar title="Sales">
+    <p-toolbar title="Sales" @back="handleBack">
       <template #content>
+        <el-tag class="mr-2" type="info">Total Buy: {{ totalBuy }}€</el-tag>
+        <el-tag class="mr-2" type="info">Total Sell: {{ totalSell }}€</el-tag>
+        <el-tag class="mr-2" :type="totalSell > totalBuy ? 'success' : 'error'">
+          Delta: {{ Math.round(totalSell - totalBuy) }}€
+        </el-tag>
+
+        <el-date-picker
+          v-model="dateFilter"
+          type="datetimerange"
+          start-placeholder="Start Date"
+          end-placeholder="End Date"
+          :default-time="defaultTime"
+          style="min-width: 300px"
+          class="mr-2"
+        />
+
+        <el-tooltip :content="'Show agregate data by month'">
+          <el-switch
+            v-model="isAggregated"
+            active-text="Aggregated data"
+            inactive-text="Full data"
+            class="mr-2"
+          />
+        </el-tooltip>
+
         <el-input
           v-model="searchCriteria"
-          style="min-width: 400px"
+          style="min-width: 200px"
           class="mr-3"
           :timeout="0"
           clearable
@@ -45,15 +70,15 @@
     </el-container>
 
     <el-dialog
-      v-model="isTransactionModalVisible"
-      :title="'Transaction detail'"
-      class="transaction-modal"
-      @close="isTransactionModalVisible = false"
+      v-model="isSalesModalVisible"
+      :title="'Sale detail'"
+      class="sales-modal"
+      @close="isSalesModalVisible = false"
     >
       <el-descriptions
         class="margin-top"
         title="Transaction detail"
-        :column="4"
+        :column="2"
         border
       >
         <template #extra>
@@ -62,101 +87,61 @@
 
         <el-descriptions-item :span="2">
           <template #label>
-            <div class="cell-item">Date</div>
+            <div class="cell-item">Name</div>
+          </template>
+          <b>
+            {{ currentSale?.name }}
+          </b>
+        </el-descriptions-item>
+
+        <el-descriptions-item>
+          <template #label>
+            <div class="cell-item">Sell Date</div>
           </template>
           <b>
             <p-date-render
-              :value="currentTransaction?.transactionDate"
+              :value="currentSale?.sellDate"
               align="left"
               date-format="DD MMM YYYY, HH:mm"
             />
           </b>
         </el-descriptions-item>
 
-        <el-descriptions-item :span="2">
+        <el-descriptions-item>
           <template #label>
-            <div class="cell-item">Order Id</div>
-          </template>
-          <b>{{ currentTransaction?.orderId }}</b>
-        </el-descriptions-item>
-
-        <el-descriptions-item :span="2">
-          <template #label>
-            <div class="cell-item">Name</div>
+            <div class="cell-item">Buy Date</div>
           </template>
           <b>
-            {{ currentTransaction?.name }}
-          </b>
-        </el-descriptions-item>
-
-        <el-descriptions-item :span="2">
-          <template #label>
-            <div class="cell-item">ISIN</div>
-          </template>
-          <b>
-            {{ currentTransaction?.isin }}
+            <p-date-render
+              :value="currentSale?.buyDate"
+              align="left"
+              date-format="DD MMM YYYY, HH:mm"
+            />
           </b>
         </el-descriptions-item>
 
         <el-descriptions-item>
           <template #label>
-            <div class="cell-item">State</div>
+            <div class="cell-item">Sell Order Id</div>
           </template>
-          <b>
-            {{ currentTransaction?.state }}
-          </b>
+          <b>{{ currentSale?.sellOrderId }}</b>
         </el-descriptions-item>
 
-        <el-descriptions-item :span="1">
+        <el-descriptions-item>
           <template #label>
-            <div class="cell-item">Remain</div>
+            <div class="cell-item">Buy Order Id</div>
           </template>
-          <b>
-            <p-number-render
-              :value="currentTransaction?.remain"
-              :decimal-scale="0"
-            />
-          </b>
+          <b>{{ currentSale?.buyOrderId }}</b>
         </el-descriptions-item>
 
-        <el-descriptions-item :span="1">
+        <el-descriptions-item :span="2">
           <template #label>
-            <div class="cell-item">Exchange</div>
-          </template>
-          <b>
-            {{ currentTransaction?.exchange }}
-          </b>
-        </el-descriptions-item>
-
-        <el-descriptions-item :span="1">
-          <template #label>
-            <div class="cell-item">Exchange From</div>
-          </template>
-          <b>
-            {{ currentTransaction?.exchangeFrom }}
-          </b>
-        </el-descriptions-item>
-
-        <el-descriptions-item :span="1">
-          <template #label>
-            <div class="cell-item">Qty</div>
-          </template>
-          <b>
-            <p-number-render
-              :value="currentTransaction?.qty"
-              :decimal-scale="0"
-            />
-          </b>
-        </el-descriptions-item>
-
-        <el-descriptions-item :span="1">
-          <template #label>
-            <div class="cell-item">Local price</div>
+            <div class="cell-item">Transaction Cost</div>
           </template>
           <b>
             <p-currency-render
-              :value="currentTransaction?.localTransactionPrice"
-              :currency="currentTransaction?.localTransactionCurrency"
+              :value="currentSale?.cost"
+              :currency="currentSale?.currency"
               :decimal-scale="2"
             />
           </b>
@@ -164,58 +149,93 @@
 
         <el-descriptions-item :span="2">
           <template #label>
-            <div class="cell-item">Total Local price</div>
+            <div class="cell-item">Qty</div>
+          </template>
+          <b>
+            <p-number-render :value="currentSale?.qty" :decimal-scale="0" />
+          </b>
+        </el-descriptions-item>
+
+        <el-descriptions-item>
+          <template #label>
+            <div class="cell-item">Sell Price</div>
           </template>
           <b>
             <p-currency-render
-              :value="currentTransaction?.localTotalTransactionPrice"
-              :currency="currentTransaction?.localTotalTransactionCurrency"
+              :value="currentSale?.sellPrice"
+              :currency="currentSale?.currency"
               :decimal-scale="2"
             />
           </b>
         </el-descriptions-item>
 
-        <el-descriptions-item :span="1">
+        <el-descriptions-item>
           <template #label>
-            <div class="cell-item">Exchange Rate</div>
-          </template>
-          <b>
-            <p-number-render
-              :value="currentTransaction?.exchangeRate"
-              :decimal-scale="3"
-            />
-          </b>
-        </el-descriptions-item>
-
-        <el-descriptions-item :span="1">
-          <template #label>
-            <div class="cell-item">Transaction Cost</div>
+            <div class="cell-item">Buy Price</div>
           </template>
           <b>
             <p-currency-render
-              :value="currentTransaction?.transactionCost"
-              :currency="currentTransaction?.transactionCostCurrency"
+              :value="currentSale?.buyPrice"
+              :currency="currentSale?.currency"
               :decimal-scale="2"
             />
           </b>
         </el-descriptions-item>
 
-        <el-descriptions-item :span="1">
+        <el-descriptions-item>
           <template #label>
-            <div class="cell-item">Total Price</div>
+            <div class="cell-item">Total Sell Price</div>
           </template>
           <b>
             <p-currency-render
-              :value="currentTransaction?.transactionPrice"
-              :currency="currentTransaction?.transactionCurrency"
+              :value="currentSale?.totalSellPrice"
+              :currency="currentSale?.currency"
               :decimal-scale="2"
             />
           </b>
+        </el-descriptions-item>
+
+        <el-descriptions-item>
+          <template #label>
+            <div class="cell-item">Total Buy Price</div>
+          </template>
+          <b>
+            <p-currency-render
+              :value="currentSale?.totalBuyPrice"
+              :currency="currentSale?.currency"
+              :decimal-scale="2"
+            />
+          </b>
+        </el-descriptions-item>
+
+        <el-descriptions-item :span="2">
+          <template #label>
+            <div class="cell-item">Delta</div>
+          </template>
+          <div flex items-center justify-end>
+            <el-tag
+              :type="
+                currentSale?.totalSellPrice > currentSale?.totalBuyPrice
+                  ? 'success'
+                  : 'error'
+              "
+            >
+              <b>
+                <p-currency-render
+                  :value="
+                    currentSale?.totalSellPrice - currentSale?.totalBuyPrice
+                  "
+                  :currency="currentSale?.currency"
+                  :decimal-scale="2"
+                />
+              </b>
+            </el-tag>
+          </div>
         </el-descriptions-item>
       </el-descriptions>
 
       <template #footer>
-        <el-button type="primary" @click="isTransactionModalVisible = false">
+        <el-button type="primary" @click="isSalesModalVisible = false">
           Close
         </el-button>
       </template>

@@ -1,6 +1,6 @@
 <template>
   <el-container class="data" direction="vertical">
-    <p-toolbar title="Import data">
+    <p-toolbar title="Import data" @back="handleBack">
       <template #content>
         <el-button type="warning" @click="handleClear">
           Clear all data

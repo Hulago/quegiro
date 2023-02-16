@@ -2,74 +2,84 @@ import {
   defineComponent,
   onBeforeMount,
   onBeforeUnmount,
-  reactive,
+  ref,
+  computed,
   toRefs
 } from 'vue';
-import { Category, useTransactions } from '@/composables';
+import { useCategory, useProduct, useTransactions } from '@/composables';
 import mdiDelete from '~icons/mdi/delete';
 
-interface CategoryState {
-  categoryName: string | null;
-  isNotificationVisible: boolean;
-  notificationText: string;
-  notificationColor: string;
-}
+import { useRouter } from 'vue-router';
 
-import { PToolbar } from '@/next';
+import { PToolbar, isEmptyString, useApplicationContext } from '@/next';
+import { CategoryModel } from '@/composables/categories/category.model';
+import { ProductModel } from '@/composables/product/product.model';
 
 export default defineComponent({
   components: {
     PToolbar
   },
   setup() {
+    const { startLoader, stopLoader, notifySuccess, notifyError } =
+      useApplicationContext();
+
     const {
-      addCategory,
       categories,
       loadCategories,
-      loadProducts,
-      products,
+      addCategory,
       removeCategory,
-      saveCategories,
-      saveProducts
-    } = useTransactions();
+      saveCategories
+    } = useCategory();
 
-    const state = reactive<CategoryState>({
-      categoryName: null,
-      isNotificationVisible: false,
-      notificationColor: 'warning',
-      notificationText: ''
-    });
+    const { products, loadProducts, saveProducts } = useProduct();
 
-    function warning(message: string) {
-      state.notificationColor = 'warning';
-      state.isNotificationVisible = true;
-      state.notificationText = message;
-    }
+    const { back } = useRouter();
 
-    function success(message: string) {
-      state.notificationColor = 'success';
-      state.isNotificationVisible = true;
-      state.notificationText = message;
-    }
+    const categoryName = ref('');
+    const isCategoryModalVisible = ref(false);
 
     async function handleCreateCategory() {
       try {
-        if (state.categoryName !== null) {
-          await addCategory(state.categoryName);
-          state.categoryName = null;
+        startLoader();
+
+        if (!isEmptyString(categoryName.value)) {
+          await addCategory(categoryName.value);
+
+          categoryName.value = '';
         }
+
+        notifySuccess('Create category', 'Category created');
       } catch (e: any) {
-        warning(e);
+        console.error(e);
+
+        notifyError('Create category', 'Error saving data');
+      } finally {
+        isCategoryModalVisible.value = false;
+        stopLoader();
       }
     }
 
-    async function handleRemoveCategory(category: Category) {
-      await removeCategory(category);
+    async function handleRemoveCategory(category: CategoryModel) {
+      try {
+        startLoader();
+
+        await removeCategory(category);
+
+        notifySuccess('Remove category', 'Category removed');
+      } catch (e: any) {
+        console.error(e);
+
+        notifyError('Remove category', 'Error saving data');
+      } finally {
+        stopLoader();
+      }
     }
 
     onBeforeMount(async () => {
       await loadProducts();
       await loadCategories();
+
+      console.log(categories);
     });
 
     onBeforeUnmount(async () => {
@@ -77,16 +87,40 @@ export default defineComponent({
       await saveCategories();
     });
 
+    const handleBack = () => {
+      back();
+    };
+
+    const categoryItems = computed(() =>
+      categories.value.map(item => ({
+        value: item.categoryId,
+        label: item.name
+      }))
+    );
+
+    function changeCategory(product: ProductModel, categoryId: any) {
+      const prod = products.value.find(item => item.isin === product.isin);
+
+      if (prod) {
+        prod.categoryId = categoryId;
+      }
+
+      saveProducts();
+    }
+
     return {
-      ...toRefs(state),
+      changeCategory,
+      categoryItems,
+      isCategoryModalVisible,
+      categoryName,
       categories,
+      handleBack,
       handleCreateCategory,
       handleRemoveCategory,
       icons: {
         mdiDelete
       },
-      products,
-      success
+      products
     };
   }
 });

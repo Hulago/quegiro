@@ -1,6 +1,6 @@
 <template>
   <el-container class="dashboard" direction="vertical">
-    <p-toolbar :title="'Dashboard'">
+    <p-toolbar :title="'Dashboard'" @back="handleBack">
       <template #content>
         <!-- <el-button type="warning" @click="handleClear">
           Clear all data

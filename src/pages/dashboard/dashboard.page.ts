@@ -5,7 +5,10 @@ import {
   useSales,
   useData
 } from '@/composables';
+
 import { defineComponent, onMounted, ref } from 'vue';
+
+import { useRouter } from 'vue-router';
 
 import { PToolbar } from '@/next';
 
@@ -31,6 +34,8 @@ export default defineComponent({
   //   ]
   // },
   setup() {
+    const { back } = useRouter();
+
     const isLoading = ref(false);
 
     const buysVsSalesChart = useLineChart();
@@ -215,8 +220,13 @@ export default defineComponent({
       gainsVsLossesYearChart.refreshChart();
     }
 
+    const handleBack = () => {
+      back();
+    };
+
     return {
       isLoading,
+      handleBack,
       buysVsSalesChartRef,
       totalPorfolioChartRef,
       buysVsSalesChartYearRef,

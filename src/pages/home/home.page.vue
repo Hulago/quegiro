@@ -11,9 +11,14 @@
           <p>
             Introducing our new tax calculation application for stock
             transactions. Our user-friendly platform makes it easy to import
-            your transaction data in the form of a CSV file. Our system will
-            automatically process the information and calculate all of the
-            necessary tax entries for you to declare to the tax authorities.
+            your transaction data in the form of a CSV file (
+            <code>
+              <a href="https://www.degiro.com/">Degiro</a>
+              only for now
+            </code>
+            ). Our system will automatically process the information and
+            calculate all of the necessary tax entries for you to declare to the
+            tax authorities.
           </p>
 
           <p>
@@ -38,6 +43,12 @@
             compliance is accurate, secure and up-to-date. Say goodbye to
             tedious manual calculations and hello to streamlined, efficient and
             safe tax compliance with our application.
+          </p>
+
+          <p class="font-600">
+            Disclaimer: We are not responsible for any incorrect tax
+            declarations. All values must be confirmed according to the rules
+            and regulations set forth by the relevant tax authorities.
           </p>
 
           <el-button type="primary" round size="large" @click="handleStart">

@@ -1,7 +1,10 @@
 <template>
   <el-container class="transactions" direction="vertical">
-    <p-toolbar title="Transactions">
+    <p-toolbar title="Transactions" @back="handleBack">
       <template #content>
+        <el-tag class="mr-2" type="success">Total Buy: {{ totalBuy }}€</el-tag>
+        <el-tag class="mr-2" type="error">Total Sell: {{ totalSell }}€</el-tag>
+
         <el-date-picker
           v-model="dateFilter"
           type="datetimerange"
@@ -67,7 +70,9 @@
         border
       >
         <template #extra>
-          <el-button type="primary">Account details</el-button>
+          <el-button type="primary" @click="handleAccountData">
+            Account details
+          </el-button>
         </template>
 
         <el-descriptions-item :span="2">
@@ -223,6 +228,41 @@
           </b>
         </el-descriptions-item>
       </el-descriptions>
+
+      <el-dialog v-model="isAccountModalVisible" title="Account information">
+        <el-table :data="accountData" height="250" style="width: 100%">
+          <el-table-column prop="date" label="Date" width="120">
+            <template #default="{ row }">
+              <p-date-render
+                :value="row.date"
+                align="left"
+                date-format="DD MMM YYYY, HH:mm"
+              />
+            </template>
+          </el-table-column>
+          <el-table-column prop="product" label="Product" width="200" />
+          <el-table-column prop="description" label="Description" width="300" />
+          <el-table-column prop="value" label="Value">
+            <template #default="{ row }">
+              <p-currency-render
+                :value="row.value"
+                :currency="row.currencyValue"
+                :decimal-scale="2"
+              />
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="exchangeRate"
+            label="Exchange Rate"
+          ></el-table-column>
+        </el-table>
+
+        <template #footer>
+          <el-button type="primary" @click="isAccountModalVisible = false">
+            Close
+          </el-button>
+        </template>
+      </el-dialog>
 
       <template #footer>
         <el-button type="primary" @click="isTransactionModalVisible = false">

@@ -59,6 +59,10 @@ export function useCategory() {
   async function saveCategories() {
     try {
       await setItem('categories', unref(categories));
+
+      // if (categories.value.length === 0) {
+      //   debugger;
+      // }
     } catch (e) {
       console.error('Error saving categories');
       console.error(e);

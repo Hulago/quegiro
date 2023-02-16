@@ -249,7 +249,7 @@ export function useTransactions() {
             isSale: Number(qty) < 0,
             state: 'OPEN',
             time,
-            totalTransactionPrice: Number(totalTransactionPrice),
+            totalTransactionPrice: Math.abs(Number(totalTransactionPrice)),
             totalTransactionCurrency: totalTransactionCurrency,
             transactionCost: Math.abs(Number(transactionCost)),
             transactionCostCurrency,

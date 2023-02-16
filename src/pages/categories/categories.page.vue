@@ -1,43 +1,86 @@
 <template>
   <el-container class="dashboard" direction="vertical">
-    <p-toolbar :title="'Categories'">
+    <p-toolbar :title="'Categories'" @back="handleBack">
       <template #content>
-        <!-- <el-button type="warning" @click="handleClear">
-          Clear all data
-        </el-button> -->
+        <el-button
+          type="primary"
+          size="small"
+          @click="isCategoryModalVisible = true"
+        >
+          Create category
+        </el-button>
       </template>
     </p-toolbar>
 
     <el-container class="mt-4" direction="vertical">
       <el-row :gutter="20">
-        <el-col :span="12">
-          <el-input
-            v-model="input3"
-            class="w-50 m-2"
-            placeholder="Please Input"
-            :prefix-icon="Search"
-          />
-          <el-table :data="[]" style="width: 100%">
-            <el-table-column prop="date" label="Product" />
-            <el-table-column fixed="right" label="Operations" width="120">
-              <template #default>
-                <el-button
-                  link
-                  type="primary"
-                  size="small"
-                  @click="handleClick"
-                >
-                  Detail
-                </el-button>
-                <el-button link type="primary" size="small">Edit</el-button>
+        <el-col :span="16">
+          <el-table :data="products" style="width: 100%">
+            <el-table-column prop="isin" label="ISIN" />
+            <el-table-column prop="name" label="Name" />
+            <el-table-column prop="exchange" label="Exchange" />
+            <el-table-column fixed="right" label="Category">
+              <template #default="{ row }">
+                <el-select-v2
+                  v-model="row.categoryId"
+                  :options="categoryItems"
+                  clearable
+                  @change="changeCategory(row, row.categoryId)"
+                />
               </template>
             </el-table-column>
           </el-table>
         </el-col>
 
-        <el-col :span="12">Category list</el-col>
+        <el-col :span="8">
+          <el-table :data="categories" style="width: 100%">
+            <el-table-column prop="name" label="Name" />
+            <el-table-column fixed="right" label="Action">
+              <template #default="{ row }">
+                <el-button
+                  type="primary"
+                  size="small"
+                  :icon="icons.mdiDelete"
+                  @click="handleRemoveCategory(row)"
+                >
+                  Remove
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-col>
       </el-row>
     </el-container>
+
+    <el-dialog
+      v-model="isCategoryModalVisible"
+      title="Create category"
+      class="category-modal"
+      @close="isCategoryModalVisible = false"
+      @keyup.enter="handleCreateCategory"
+    >
+      <el-form
+        :label-width="130"
+        label-position="left"
+        require-asterisk-position="right"
+      >
+        <el-form-item label="Category Name">
+          <el-input v-model="categoryName" />
+        </el-form-item>
+      </el-form>
+
+      <template #footer>
+        <el-button @click="isCategoryModalVisible = false">Cancel</el-button>
+
+        <el-button
+          type="primary"
+          :disabled="categoryName === ''"
+          @click="handleCreateCategory"
+        >
+          Save
+        </el-button>
+      </template>
+    </el-dialog>
   </el-container>
 
   <!-- <v-col class="categories">
