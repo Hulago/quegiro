@@ -220,9 +220,13 @@ export default defineComponent({
     const accountData = ref<AccountModel[]>([]);
 
     function handleAccountData() {
+      accountData.value = [];
       accountData.value = account.value.filter(
-        item => item.orderId === currentTransaction.value?.orderId
+        item =>
+          item.orderId === currentTransaction.value?.orderId &&
+          currentTransaction.value?.orderId !== ''
       );
+
       isAccountModalVisible.value = true;
     }
 

@@ -14,15 +14,12 @@ With our application, you can rest easy knowing that your tax compliance is accu
 
 TODO:
 
+Review i18n.
+
 Home:
-
-Setup Table: i18n.
-
 Toolbar Add dark mode.
 
-Data:
-Load transaction clear account
-Account clear transaction
+Transaction:
 
 Categories
 Create a pie chart for categories.

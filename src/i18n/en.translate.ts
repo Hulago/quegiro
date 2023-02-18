@@ -1,19 +1,28 @@
 /* eslint-disable quotes */
 /* eslint-disable max-len */
 export default {
-  ACTION: {},
+  ACTION: {
+    CANCEL: 'Cancel',
+    CONFIRM: 'Confirm',
+    RESET: 'Reset'
+  },
   ERROR: {},
   HEADER: {},
   LABEL: {
+    ACCOUNT: 'Account',
     APP: 'Quegiro',
+    PINNED: 'Pinned',
     CATEGORIES: 'Categories',
+    COLLAPSE_MENU: 'Collapse Menu',
+    COLUMN: 'Column',
+    COLUMNS_AUTO_FIT: 'Auto fit',
     DASHBOARD: 'Dashboard',
     DATA: 'Data',
-    SALES: 'Sales',
-    TRANSACTIONS: 'Transactions',
-    COLLAPSE_MENU: 'Collapse Menu',
     EXPAND_MENU: 'Expand Menu',
-    ACCOUNT: 'Account'
+    SALES: 'Sales',
+    SETUP_TABLE: 'Setup table',
+    SHOW_COLUMN: 'Show column',
+    TRANSACTIONS: 'Transactions'
   },
   SENTENCE: {},
   SUCCESS: {},

@@ -193,7 +193,7 @@ export default defineComponent({
           const sale = sales.reduce(
             (prev, next) => {
               prev.buyDate = format(new Date(next.buyDate as Date), 'yyyy-MM');
-              prev.buyOrderId = prev.buyOrderId + ',' + next.buyOrderId;
+              prev.buyOrderId = prev.buyOrderId + ',' + (next.buyOrderId || '');
               prev.buyPrice += next.buyPrice;
               prev.cost += next.cost;
               prev.currency = next.currency;
@@ -205,7 +205,8 @@ export default defineComponent({
               prev.isin = next.isin;
               prev.name = next.name;
               prev.qty += next.qty;
-              prev.sellOrderId = prev.sellOrderId + ',' + next.sellOrderId;
+              prev.sellOrderId =
+                prev.sellOrderId + ',' + (next.sellOrderId || '');
               prev.sellPrice += next.sellPrice;
               prev.totalBuyPrice += next.totalBuyPrice;
               prev.totalSellPrice += next.totalSellPrice;
@@ -231,8 +232,6 @@ export default defineComponent({
 
           salesData.push(sale);
         });
-
-        console.log(data);
       } else {
         salesData = sales.value;
       }

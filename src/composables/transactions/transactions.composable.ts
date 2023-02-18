@@ -22,7 +22,7 @@ const transactions = ref<TransactionModel[]>([]);
 const { getItem, setItem } = useStorage('QUEGIRO');
 
 export function useTransactions() {
-  const { loadSales, sales, saveSales } = useSales();
+  const { loadSales, sales, saveSales, resetSales } = useSales();
 
   const { loadCategories } = useCategory();
 
@@ -55,6 +55,8 @@ export function useTransactions() {
   }
 
   async function processSales() {
+    await resetSales();
+
     let iterations = 0;
 
     sales.value = [];
@@ -175,6 +177,8 @@ export function useTransactions() {
         ),
         (trans: any) =>
           trans.orderId +
+          trans.exchange +
+          trans.exchangeFrom +
           trans.transactionCost +
           trans.qty +
           trans.localTransactionPrice

@@ -76,14 +76,14 @@ export default defineComponent({
     const { getItem, setItem, removeItem } = useStorage('PLazyGrid');
 
     const labels = {
-      setupTable: t('MAIN.LABEL.SETUP_TABLE'),
-      columnsAutoFix: t('MAIN.LABEL.COLUMNS_AUTO_FIT'),
-      column: t('MAIN.LABEL.COLUMN'),
-      showColumn: t('MAIN.LABEL.SHOW_COLUMN'),
-      pinned: t('MAIN.LABEL.PINNED'),
-      cancel: t('MAIN.ACTION.CANCEL'),
-      reset: t('MAIN.ACTION.RESET'),
-      confirm: t('MAIN.ACTION.CONFIRM')
+      setupTable: t('APP.LABEL.SETUP_TABLE'),
+      columnsAutoFix: t('APP.LABEL.COLUMNS_AUTO_FIT'),
+      column: t('APP.LABEL.COLUMN'),
+      showColumn: t('APP.LABEL.SHOW_COLUMN'),
+      pinned: t('APP.LABEL.PINNED'),
+      cancel: t('APP.ACTION.CANCEL'),
+      reset: t('APP.ACTION.RESET'),
+      confirm: t('APP.ACTION.CONFIRM')
     };
 
     const columnState = ref<ColumnState[]>([]);
