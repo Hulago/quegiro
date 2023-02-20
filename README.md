@@ -24,9 +24,6 @@ Transaction:
 Categories
 Create a pie chart for categories.
 
-Sales
-Show information about sale and buy order id.
-
 Account
 Show account information.
 Create a chart of dividends.

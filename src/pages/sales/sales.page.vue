@@ -81,9 +81,9 @@
         :column="2"
         border
       >
-        <template #extra>
+        <!-- <template #extra>
           <el-button type="primary">Account details</el-button>
-        </template>
+        </template> -->
 
         <el-descriptions-item :span="2">
           <template #label>

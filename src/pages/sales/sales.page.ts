@@ -1,5 +1,7 @@
 import { useSales } from '@/composables';
 
+import { watch } from 'vue';
+
 import { get, groupBy } from 'lodash-es';
 
 import { useRouter } from 'vue-router';
@@ -33,6 +35,8 @@ export default defineComponent({
     SalesDeltaRender
   },
   setup() {
+    const isAggregated = ref(false);
+
     const { back } = useRouter();
 
     const { startLoader, stopLoader } = useApplicationContext();
@@ -97,46 +101,52 @@ export default defineComponent({
       sellOrderIdColumn
     } = useSalesColumns();
 
-    columnDefs.value = [
-      sellDateColumn(),
-      buyDateColumn(),
-      nameColumn(),
-      isinColumn(),
-      exchangeColumn(),
-      quantityColumn(),
-      sellTotalPriceColumn(),
-      sellPriceColumn(),
-      buyTotalPriceColumn(),
-      buyPriceColumn(),
-      costColumn(),
-      deltaColumn(),
-      buyOrderIdColumn(),
-      sellOrderIdColumn(),
+    function initColumns() {
+      columnDefs.value = [
+        sellDateColumn({
+          dateFormat: isAggregated.value ? 'MMM YYYY' : 'DD MMM YYYY HH:mm'
+        }),
+        buyDateColumn({
+          dateFormat: isAggregated.value ? 'MMM YYYY' : 'DD MMM YYYY HH:mm'
+        }),
+        nameColumn(),
+        isinColumn(),
+        exchangeColumn(),
+        quantityColumn(),
+        sellTotalPriceColumn(),
+        sellPriceColumn(),
+        buyTotalPriceColumn(),
+        buyPriceColumn(),
+        costColumn(),
+        deltaColumn(),
+        buyOrderIdColumn(),
+        sellOrderIdColumn(),
 
-      {
-        colId: 'Actions',
-        sortable: false,
-        maxWidth: 32 * 1 + 8, // 32 for each button + 8 pading,
-        minWidth: 32 * 1 + 8, // 32 for each button + 8 pading,
-        cellRenderer: 'PButtonRender',
-        cellRendererParams: {
-          isMultiple: true,
-          attrs(data: any, context: { emit: any }) {
-            return [
-              {
-                label: 'view',
-                size: 'small',
-                circle: true,
-                icon: mdiEye,
-                onClick() {
-                  context.emit('view-detail', data);
+        {
+          colId: 'Actions',
+          sortable: false,
+          maxWidth: 32 * 1 + 8, // 32 for each button + 8 pading,
+          minWidth: 32 * 1 + 8, // 32 for each button + 8 pading,
+          cellRenderer: 'PButtonRender',
+          cellRendererParams: {
+            isMultiple: true,
+            attrs(data: any, context: { emit: any }) {
+              return [
+                {
+                  label: 'view',
+                  size: 'small',
+                  circle: true,
+                  icon: mdiEye,
+                  onClick() {
+                    context.emit('view-detail', data);
+                  }
                 }
-              }
-            ];
+              ];
+            }
           }
         }
-      }
-    ];
+      ];
+    }
 
     defaultColDef.value = {
       sortable: true,
@@ -144,13 +154,20 @@ export default defineComponent({
       resizable: true
     };
 
-    onMounted(async () => {
+    async function init() {
       isLoading.value = true;
+
+      initColumns();
+
       await loadSales();
 
       console.log('Load sales', sales.value);
 
       isLoading.value = false;
+    }
+
+    onMounted(() => {
+      init();
     });
 
     const isAgTableModal = ref(false);
@@ -284,7 +301,9 @@ export default defineComponent({
       back();
     };
 
-    const isAggregated = ref(false);
+    watch(isAggregated, () => {
+      init();
+    });
 
     return {
       isAggregated,

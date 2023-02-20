@@ -19,20 +19,21 @@ export default defineComponent({
   components: {
     PToolbar
   },
-  // metaInfo: {
-  //   title: 'Dashboard',
-  //   meta: [
-  //     { charset: 'utf-8' },
-  //     {
-  //       name: 'google-site-verification',
-  //       content: 'PBkQrOSqcjgQtk1Ee-wlNSRK3VcQb3KewbsXawGmWh8'
-  //     },
-  //     {
-  //       name: 'description',
-  //       content: 'Home dashboard for Quegiro'
-  //     }
-  //   ]
-  // },
+  metaInfo: {
+    title: 'Dashboard',
+    meta: [
+      { charset: 'utf-8' },
+      {
+        name: 'google-site-verification',
+        content: 'PBkQrOSqcjgQtk1Ee-wlNSRK3VcQb3KewbsXawGmWh8'
+      },
+      {
+        name: 'description',
+        content:
+          'Introducing our new tax calculation application for stock transactions. Our user-friendly platform makes it easy to import your transaction data in the form of a CSV file. Our system will automatically process the information and calculate all of the necessary tax entries for you to declare to the tax authorities.'
+      }
+    ]
+  },
   setup() {
     const { back } = useRouter();
 
