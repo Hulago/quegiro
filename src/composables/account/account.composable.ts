@@ -88,7 +88,7 @@ export function useAccount() {
         return format(new Date(item.date), 'Qo yyyy');
       });
 
-    return uniq(years);
+    return orderBy(uniq(years));
   }
 
   function getDividendsPerYear() {
@@ -97,9 +97,11 @@ export function useAccount() {
       item => format(new Date(item.date), 'Qo yyyy')
     );
 
-    console.log('Dividend data', dividendData, account.value);
+    const years = getDividendsYears();
 
-    const res = Object.keys(dividendData).map(year =>
+    console.log('Dividend data', dividendData, years);
+
+    const res = years.map(year =>
       Math.round(
         dividendData[year].reduce((prev, next) => (prev += next.value), 0)
       )
