@@ -1,4 +1,4 @@
-import { orderBy, uniq, uniqBy } from 'lodash-es';
+import { orderBy, uniq, uniqBy, groupBy } from 'lodash-es';
 import { format, parse } from 'date-fns';
 import { useStorage } from '@/next';
 import { computed, ref, unref } from 'vue';
@@ -71,12 +71,43 @@ export function useAccount() {
   }
 
   function getAccountYears() {
-    const years = orderBy(account.value, ['dateValue']).map(item => {
-      const date = parse(item.date, DAY_FORMAT, new Date());
-      return format(date, 'yyyy');
+    const years = orderBy(account.value, ['date']).map(item => {
+      // const date = parse(item.date, DAY_FORMAT, new Date());
+      return format(new Date(item.date), 'Qo yyyy');
     });
 
     return uniq(years);
+  }
+
+  function getDividendsYears() {
+    const years = orderBy(
+      account.value.filter(item => item.description.match(/dividend/i)),
+      ['dateValue']
+    ).map(item => {
+      console.log(item.date);
+      return format(new Date(item.date), 'Qo yyyy');
+    });
+
+    return uniq(years);
+  }
+
+  function getDividendsPerYear() {
+    const dividendData = groupBy(
+      unref(account).filter(item => item.description.match(/dividend/i)),
+      item => format(new Date(item.date), 'Qo yyyy')
+    );
+
+    console.log('Dividend data', dividendData, account.value);
+
+    const res = Object.keys(dividendData).map(year =>
+      Math.round(
+        dividendData[year].reduce((prev, next) => (prev += next.value), 0)
+      )
+    );
+
+    console.log('RES', res);
+
+    return res;
   }
 
   function addAccount(item: AccountModel) {
@@ -176,6 +207,8 @@ export function useAccount() {
     processAccountCVS,
     processAccount,
     resetAccount,
-    saveAccount
+    saveAccount,
+    getDividendsYears,
+    getDividendsPerYear
   };
 }

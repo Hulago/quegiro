@@ -3,7 +3,8 @@ import {
   useTransactions,
   useBarChart,
   useSales,
-  useData
+  useData,
+  useAccount
 } from '@/composables';
 
 import { defineComponent, onMounted, ref } from 'vue';
@@ -43,11 +44,16 @@ export default defineComponent({
     const totalPorfolioChart = useLineChart();
     const buysVsSalesYearChart = useBarChart();
 
+    const dividendChart = useBarChart();
+
     const gainsVsLossesMonthChart = useBarChart();
     const gainsVsLossesYearChart = useBarChart();
 
     const { loadTransactions } = useTransactions();
     const { loadSales } = useSales();
+
+    const { loadAccount, getDividendsYears, getDividendsPerYear } =
+      useAccount();
 
     const {
       getTransactionMonths,
@@ -68,18 +74,22 @@ export default defineComponent({
     const buysVsSalesChartYearRef = ref(null);
     const totalPorfolioChartRef = ref(null);
 
-    const gainsVsLossesMonthChartRef = ref(null);
+    const dividendChartRef = ref(null);
 
+    const gainsVsLossesMonthChartRef = ref(null);
     const gainsVsLossesYearChartRef = ref(null);
 
     onMounted(async () => {
       isLoading.value = true;
       await loadTransactions();
       await loadSales();
+      await loadAccount();
 
       initBuysVsSalesChart();
       initTotalPorfolioChart();
       initBuysVsSalesYearChart();
+
+      initDividendChart();
 
       initGainsVsLossesMonthChart();
 
@@ -126,6 +136,19 @@ export default defineComponent({
       );
 
       buysVsSalesYearChart.refreshChart();
+    }
+
+    function initDividendChart() {
+      dividendChart.options.yAxis.type = 'value';
+      dividendChart.initChart(dividendChartRef.value as any, 'Dividend / Year');
+
+      dividendChart.setXValues(getDividendsYears());
+
+      dividendChart.addSeries('Dividend', getDividendsPerYear());
+
+      dividendChart.setMaxY(max([...getDividendsPerYear()]));
+
+      dividendChart.refreshChart();
     }
 
     function initTotalPorfolioChart() {
@@ -232,7 +255,8 @@ export default defineComponent({
       totalPorfolioChartRef,
       buysVsSalesChartYearRef,
       gainsVsLossesMonthChartRef,
-      gainsVsLossesYearChartRef
+      gainsVsLossesYearChartRef,
+      dividendChartRef
     };
   }
 });

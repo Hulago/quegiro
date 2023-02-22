@@ -59,6 +59,16 @@
             <div ref="gainsVsLossesYearChartRef" class="dashboard__graph" />
           </p-fieldset>
         </el-col>
+
+        <el-col :span="12">
+          <p-fieldset
+            :is-loading="isLoading"
+            :element-loading-text="'Loading'"
+            :title="'Dividends'"
+          >
+            <div ref="dividendChartRef" class="dashboard__graph" />
+          </p-fieldset>
+        </el-col>
       </el-row>
     </el-container>
   </el-container>
