@@ -71,22 +71,22 @@ export function useAccount() {
   }
 
   function getAccountYears() {
-    const years = orderBy(account.value, ['date']).map(item => {
-      // const date = parse(item.date, DAY_FORMAT, new Date());
-      return format(new Date(item.date), 'Qo yyyy');
-    });
+    const years = orderBy(account.value, ['date'])
+      .filter(item => item.description.match(/dividend/i))
+      .map(item => {
+        // const date = parse(item.date, DAY_FORMAT, new Date());
+        return format(new Date(item.date), 'Qo yyyy');
+      });
 
     return uniq(years);
   }
 
   function getDividendsYears() {
-    const years = orderBy(
-      account.value.filter(item => item.description.match(/dividend/i)),
-      ['dateValue']
-    ).map(item => {
-      console.log(item.date);
-      return format(new Date(item.date), 'Qo yyyy');
-    });
+    const years = orderBy(account.value, ['date'])
+      .filter(item => item.description.match(/dividend/i))
+      .map(item => {
+        return format(new Date(item.date), 'Qo yyyy');
+      });
 
     return uniq(years);
   }

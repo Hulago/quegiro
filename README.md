@@ -26,12 +26,10 @@ Create a pie chart for categories.
 
 Account
 Show account information.
-Create a chart of dividends.
 
 MVP - Add google ads.
 Share with others.
 
 Add translations.
 
-WRITE - Desires manifest.
-Read Books.
+Migrate to nuxt for better SEO.
