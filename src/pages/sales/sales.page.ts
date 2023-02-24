@@ -26,6 +26,8 @@ import mdiEye from '~icons/mdi/eye';
 import mdiSearch from '~icons/mdi/search';
 import mdiTableCog from '~icons/mdi/table-cog';
 
+import { useHead } from '@vueuse/head';
+
 import { PToolbar, PButtonRender } from '@/next';
 
 export default defineComponent({
@@ -35,6 +37,22 @@ export default defineComponent({
     SalesDeltaRender
   },
   setup() {
+    useHead({
+      title: 'Sales',
+      meta: [
+        { charset: 'utf-8' },
+        {
+          name: 'google-site-verification',
+          content: 'PBkQrOSqcjgQtk1Ee-wlNSRK3VcQb3KewbsXawGmWh8'
+        },
+        {
+          name: 'description',
+          content:
+            'Import data from Degiro into Quegiro. All data will be store in local storage indexDB.'
+        }
+      ]
+    });
+
     const isAggregated = ref(false);
 
     const { back } = useRouter();

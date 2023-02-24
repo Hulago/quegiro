@@ -2,10 +2,14 @@ import { defineComponent } from 'vue';
 
 import { PToolbar } from '@/next';
 
+import {} from '@vueuse/head';
+
 import { useRouter } from 'vue-router';
 import { ROUTES } from '@/constants/routes.constant';
 
 import HomeSvg from '@/components/svgs/home.svg.vue';
+
+import { useHead } from '@vueuse/head';
 
 export default defineComponent({
   name: 'Home',
@@ -13,22 +17,22 @@ export default defineComponent({
     PToolbar,
     HomeSvg
   },
-  metaInfo: {
-    title: 'Home',
-    meta: [
-      { charset: 'utf-8' },
-      {
-        name: 'google-site-verification',
-        content: 'PBkQrOSqcjgQtk1Ee-wlNSRK3VcQb3KewbsXawGmWh8'
-      },
-      {
-        name: 'description',
-        content:
-          'Introducing our new tax calculation application for stock transactions. Our user-friendly platform makes it easy to import your transaction data in the form of a CSV file. Our system will automatically process the information and calculate all of the necessary tax entries for you to declare to the tax authorities.'
-      }
-    ]
-  },
   setup() {
+    useHead({
+      title: 'Home',
+      meta: [
+        { charset: 'utf-8' },
+        {
+          name: 'google-site-verification',
+          content: 'PBkQrOSqcjgQtk1Ee-wlNSRK3VcQb3KewbsXawGmWh8'
+        },
+        {
+          name: 'description',
+          content: 'declaração IRS dividendos valias ações'
+        }
+      ]
+    });
+
     const message = 'Welcome to Quegiro';
 
     const { back, push } = useRouter();

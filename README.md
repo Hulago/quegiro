@@ -19,6 +19,11 @@ Review i18n.
 Home:
 Toolbar Add dark mode.
 
+Refactor vueuseHead
+Translate to portuguese.
+Translation. Add i18n.
+PT by default.
+
 Transaction:
 
 Categories
@@ -33,3 +38,4 @@ Share with others.
 Add translations.
 
 Migrate to nuxt for better SEO.
+Course of SEO.

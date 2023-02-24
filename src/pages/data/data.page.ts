@@ -25,27 +25,30 @@ import { PToolbar, useApplicationContext } from '@/next';
 
 import { useRouter } from 'vue-router';
 
+import { useHead } from '@vueuse/head';
+
 export default defineComponent({
-  metaInfo: {
-    title: 'Data',
-    meta: [
-      { charset: 'utf-8' },
-      {
-        name: 'google-site-verification',
-        content: 'PBkQrOSqcjgQtk1Ee-wlNSRK3VcQb3KewbsXawGmWh8'
-      },
-      {
-        name: 'description',
-        content:
-          'Import data from Degiro into Quegiro. All data will be store in local storage indexDB.'
-      }
-    ]
-  },
   components: {
     DataSvg,
     PToolbar
   },
   setup() {
+    useHead({
+      title: 'Data',
+      meta: [
+        { charset: 'utf-8' },
+        {
+          name: 'google-site-verification',
+          content: 'PBkQrOSqcjgQtk1Ee-wlNSRK3VcQb3KewbsXawGmWh8'
+        },
+        {
+          name: 'description',
+          content:
+            'Import data from Degiro into Quegiro. All data will be store in local storage indexDB.'
+        }
+      ]
+    });
+
     const { back } = useRouter();
 
     const { startLoader, stopLoader, notifySuccess } = useApplicationContext();

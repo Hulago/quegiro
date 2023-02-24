@@ -17,6 +17,8 @@ import { agGrid } from './plugins/ag-grid.plugin';
 import { i18n } from './plugins/i18n.plugin';
 import { ui } from '@/next';
 
+import { createHead } from '@vueuse/head';
+
 async function main() {
   const env = useEnvironment();
 
@@ -27,6 +29,7 @@ async function main() {
 
   agGrid(app);
   app.use(ui);
+  app.use(createHead());
   // app.use(ElementPlus);
 
   const vm = app.mount('#app');

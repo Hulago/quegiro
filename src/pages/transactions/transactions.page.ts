@@ -24,6 +24,8 @@ import mdiTableCog from '~icons/mdi/table-cog';
 
 import { PToolbar, PButtonRender } from '@/next';
 
+import { useHead } from '@vueuse/head';
+
 export default defineComponent({
   components: {
     PToolbar,
@@ -31,6 +33,22 @@ export default defineComponent({
     TransactionStateRender
   },
   setup() {
+    useHead({
+      title: 'Data',
+      meta: [
+        { charset: 'utf-8' },
+        {
+          name: 'google-site-verification',
+          content: 'PBkQrOSqcjgQtk1Ee-wlNSRK3VcQb3KewbsXawGmWh8'
+        },
+        {
+          name: 'description',
+          content:
+            'Import data from Degiro into Quegiro. All data will be store in local storage indexDB.'
+        }
+      ]
+    });
+
     const { back } = useRouter();
 
     const { startLoader, stopLoader } = useApplicationContext();
