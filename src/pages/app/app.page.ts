@@ -42,14 +42,14 @@ export default defineComponent({
           name: ROUTES.TRANSACTIONS
         }
       },
-      {
-        id: '4',
-        icon: mdiShapeOutline,
-        label: t('APP.LABEL.CATEGORIES'),
-        to: {
-          name: ROUTES.CATEGORIES
-        }
-      },
+      // {
+      //   id: '4',
+      //   icon: mdiShapeOutline,
+      //   label: t('APP.LABEL.CATEGORIES'),
+      //   to: {
+      //     name: ROUTES.CATEGORIES
+      //   }
+      // },
       {
         id: '5',
         icon: mdiCashLock,
