@@ -44,7 +44,15 @@ export default defineComponent({
         {
           name: 'description',
           content:
-            'Import data from Degiro into Quegiro. All data will be store in local storage indexDB.'
+            'Todas as transações importadas do seu broker para consulta fácil'
+        },
+        {
+          property: 'og:site_name',
+          content: 'Quegiro'
+        },
+        {
+          property: 'og:url',
+          content: 'https://quegiro.netlify.app/transactions'
         }
       ]
     });

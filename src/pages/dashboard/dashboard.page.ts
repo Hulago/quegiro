@@ -26,6 +26,7 @@ export default defineComponent({
   setup() {
     useHead({
       title: 'Dashboard',
+
       meta: [
         { charset: 'utf-8' },
         {
@@ -35,7 +36,15 @@ export default defineComponent({
         {
           name: 'description',
           content:
-            'Introducing our new tax calculation application for stock transactions. Our user-friendly platform makes it easy to import your transaction data in the form of a CSV file. Our system will automatically process the information and calculate all of the necessary tax entries for you to declare to the tax authorities.'
+            'Dashboard onde pode ver em gráficos as principais métricas das suas transações.'
+        },
+        {
+          property: 'og:site_name',
+          content: 'Quegiro'
+        },
+        {
+          property: 'og:url',
+          content: 'https://quegiro.netlify.app/dashboard'
         }
       ]
     });

@@ -28,7 +28,16 @@ export default defineComponent({
         },
         {
           name: 'description',
-          content: 'declaração IRS dividendos valias ações'
+          content:
+            'Aplicação que permite importar as transacções do seu broker para mais facilmente declarar o seu IRS e calcular as suas mais valias'
+        },
+        {
+          property: 'og:site_name',
+          content: 'Quegiro'
+        },
+        {
+          property: 'og:url',
+          content: 'https://quegiro.netlify.app/home'
         }
       ]
     });

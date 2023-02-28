@@ -19,7 +19,6 @@ Review i18n.
 Home:
 Toolbar Add dark mode.
 
-Refactor vueuseHead
 Translate to portuguese.
 Translation. Add i18n.
 PT by default.
