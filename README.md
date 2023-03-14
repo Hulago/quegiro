@@ -14,27 +14,19 @@ With our application, you can rest easy knowing that your tax compliance is accu
 
 TODO:
 
-Review i18n.
-
 Home:
 Toolbar Add dark mode.
 
+Review i18n.
 Translate to portuguese.
-Translation. Add i18n.
+Add translations. Add i18n.
 PT by default.
 
-Transaction:
-
-Categories
-Create a pie chart for categories.
-
-Account
-Show account information.
-
 MVP - Add google ads.
-Share with others.
 
-Add translations.
+Share with others.
+Add into site comments
+Add other tags
 
 Migrate to nuxt for better SEO.
 Course of SEO.
