@@ -1,9 +1,9 @@
 <template>
   <el-container class="data" direction="vertical">
-    <p-toolbar title="Import data" @back="handleBack">
+    <p-toolbar :title="labels.importData" @back="handleBack">
       <template #content>
         <el-button type="warning" @click="handleClear">
-          Clear all data
+          {{ labels.clearAllData }}
         </el-button>
       </template>
     </p-toolbar>
@@ -15,16 +15,15 @@
             style="font-size: var(--el-font-size-large)"
             class="mb-2 font-600"
           >
-            Transaction
+            {{ labels.transactions }}
           </div>
 
           <p style="font-size: var(--el-font-size-small)" class="mb-2">
-            Welcome to the Import Transactions section of our application.
+            {{ labels.sentence.data1 }}
           </p>
 
           <p style="font-size: var(--el-font-size-small)" class="mb-2">
-            Here, you will be able to import all of your transactions from your
-            broker in CSV format.
+            {{ labels.sentence.data2 }}
           </p>
 
           <el-card shadow="never">
@@ -36,7 +35,7 @@
             >
               <template #trigger>
                 <el-button type="primary" plain>
-                  select transaction file
+                  {{ labels.selectTransactionFile }}
                 </el-button>
               </template>
 
@@ -47,40 +46,41 @@
                 :disabled="!hasTransactionFile"
                 @click="handleLoadTransations"
               >
-                Load transactions
+                {{ labels.loadTransactions }}
               </el-button>
 
               <template #tip>
-                <div class="el-upload__tip">Upload transaction csv file</div>
+                <div class="el-upload__tip">
+                  {{ labels.uploadTransactionCSVFile }}
+                </div>
               </template>
             </el-upload>
           </el-card>
 
           <p style="font-size: var(--el-font-size-small)" class="mb-2">
-            To begin, go to
+            {{ labels.toBeginGoTo }}
             <code>
               <b>inbox</b>
-              (section) >
-              <b>transaction</b>
+              ({{ labels.section }}) >
+              <b>{{ labels.transactions }}</b>
               (tab)
             </code>
-            in
-            <b>Degiro</b>
-            application.
+            &nbsp;
+
+            {{ labels.inDegiroApplication }}.
           </p>
 
           <p style="font-size: var(--el-font-size-small)" class="mb-2">
-            Select the date range for the transactions you would like to export.
+            {{ labels.sentence.data3 }}
           </p>
 
           <p style="font-size: var(--el-font-size-small)" class="mb-2">
-            <b>Note:</b>
-            To proper calculate sell value, you should export all data.
+            <b>{{ labels.note }}:</b>
+            {{ labels.sentence.data4 }}
           </p>
 
           <p style="font-size: var(--el-font-size-small)" class="mb-2">
-            Once you have selected date range, click export button and select
-            CSV format. You can find the exported file in your downloads folder,
+            {{ labels.sentence.data5 }}
           </p>
 
           <el-divider></el-divider>
@@ -89,17 +89,15 @@
             style="font-size: var(--el-font-size-large)"
             class="mb-2 font-600"
           >
-            Account
+            {{ labels.accountAndBalance }}
           </div>
 
           <p style="font-size: var(--el-font-size-small)" class="mb-2">
-            Welcome to the Import Account information section of our
-            application.
+            {{ labels.sentence.data6 }}
           </p>
 
           <p style="font-size: var(--el-font-size-small)" class="mb-2">
-            Here, you will be able to import all of your account information
-            balance from your broker in CSV format.
+            {{ labels.sentence.data7 }}
           </p>
 
           <el-card shadow="never">
@@ -110,7 +108,9 @@
               :auto-upload="false"
             >
               <template #trigger>
-                <el-button type="primary" plain>select account file</el-button>
+                <el-button type="primary" plain>
+                  {{ labels.selectAccountFile }}
+                </el-button>
               </template>
 
               <el-button
@@ -120,35 +120,34 @@
                 :disabled="!hasAccountFile"
                 @click="handleLoadAccount"
               >
-                Load Account
+                {{ labels.loadAccount }}
               </el-button>
 
               <template #tip>
-                <div class="el-upload__tip">Upload account csv file</div>
+                <div class="el-upload__tip">
+                  {{ labels.uploadAccountCSVFile }}
+                </div>
               </template>
             </el-upload>
           </el-card>
 
           <p style="font-size: var(--el-font-size-small)" class="mb-2">
-            To begin, go to
+            {{ labels.toBeginGoTo }}
             <code>
               <b>inbox</b>
-              (section) >
-              <b>Account Overview</b>
+              ({{ labels.section }}) >
+              <b>{{ labels.accountOverview }}</b>
               (tab)
             </code>
-            in
-            <b>Degiro</b>
-            application.
+            {{ labels.inDegiroApplication }}.
           </p>
 
           <p style="font-size: var(--el-font-size-small)" class="mb-2">
-            Select the date range you would like to export.
+            {{ labels.sentence.data8 }}
           </p>
 
           <p style="font-size: var(--el-font-size-small)" class="mb-2">
-            Once you have selected date range, click export button and select
-            CSV format. You can find the exported file in your downloads folder.
+            {{ labels.sentence.data9 }}
           </p>
         </el-col>
 
@@ -157,7 +156,7 @@
           class="flex flex-col items-center justify-center"
           style="display: flex !important"
         >
-          <h1>Import data</h1>
+          <h1>{{ labels.importData }}</h1>
           <DataSvg width="30vw" height="30vw" />
         </el-col>
       </el-row>

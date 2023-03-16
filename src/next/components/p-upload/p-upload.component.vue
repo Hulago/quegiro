@@ -91,14 +91,14 @@
       v-if="dialogUrlIsImage"
       :src="dialogUrl"
       alt="Preview Image"
-      class="lead-form-image-modal__item-thumbnail"
+      class="p-uplod-form-image-modal__item-thumbnail"
     />
 
     <video
       v-if="dialogUrlIsVideo"
       :src="dialogUrl"
       alt="Preview Image"
-      class="lead-form-image-modal__item-thumbnail"
+      class="p-upload-form-image-modal__item-thumbnail"
       controls
     />
   </el-dialog>

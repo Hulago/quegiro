@@ -1,6 +1,6 @@
 <template>
   <el-container class="dashboard" direction="vertical">
-    <p-toolbar :title="'Dashboard'" @back="handleBack">
+    <p-toolbar :title="labels.dashboard" @back="handleBack">
       <template #content>
         <!-- <el-button type="warning" @click="handleClear">
           Clear all data
@@ -13,8 +13,8 @@
         <el-col :span="12">
           <p-fieldset
             :is-loading="isLoading"
-            :element-loading-text="'Loading'"
-            :title="'Sales & Buys'"
+            :element-loading-text="labels.loading"
+            :title="labels.buysAndSales"
           >
             <div ref="buysVsSalesChartRef" class="dashboard__graph" />
           </p-fieldset>
@@ -23,8 +23,8 @@
         <el-col :span="12">
           <p-fieldset
             :is-loading="isLoading"
-            :element-loading-text="'Loading'"
-            :title="'Portfolio'"
+            :element-loading-text="labels.loading"
+            :title="labels.portfolio"
           >
             <div ref="totalPorfolioChartRef" class="dashboard__graph" />
           </p-fieldset>
@@ -33,8 +33,8 @@
         <el-col :span="12">
           <p-fieldset
             :is-loading="isLoading"
-            :element-loading-text="'Loading'"
-            :title="'Sales & Buys / Year'"
+            :element-loading-text="labels.loading"
+            :title="labels.buysAndSalesPerYear"
           >
             <div ref="buysVsSalesChartYearRef" class="dashboard__graph" />
           </p-fieldset>
@@ -43,8 +43,8 @@
         <el-col :span="12">
           <p-fieldset
             :is-loading="isLoading"
-            :element-loading-text="'Loading'"
-            :title="'Gain & Losses / Month'"
+            :element-loading-text="labels.loading"
+            :title="labels.gainsAndLossesPerMonth"
           >
             <div ref="gainsVsLossesMonthChartRef" class="dashboard__graph" />
           </p-fieldset>
@@ -53,8 +53,8 @@
         <el-col :span="12">
           <p-fieldset
             :is-loading="isLoading"
-            :element-loading-text="'Loading'"
-            :title="'Gain & Losses / Year'"
+            :element-loading-text="labels.loading"
+            :title="labels.gainsAndLossesPerYear"
           >
             <div ref="gainsVsLossesYearChartRef" class="dashboard__graph" />
           </p-fieldset>
@@ -63,8 +63,8 @@
         <el-col :span="12">
           <p-fieldset
             :is-loading="isLoading"
-            :element-loading-text="'Loading'"
-            :title="'Dividends'"
+            :element-loading-text="labels.loading"
+            :title="labels.dividends"
           >
             <div ref="dividendChartRef" class="dashboard__graph" />
           </p-fieldset>

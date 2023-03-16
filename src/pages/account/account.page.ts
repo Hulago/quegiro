@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router';
 
 import { AccountModel } from '@/composables/account/account.model';
 import { useAccountColumns } from '@/composables/account/account.columns';
+import { useLabels } from '@/composables/labels/labels.composable';
 
 import TransactionStateRender from '@/components/transaction-state-render/transaction-state-render.component.vue';
 
@@ -53,6 +54,8 @@ export default defineComponent({
         }
       ]
     });
+
+    const { labels } = useLabels();
 
     const { back } = useRouter();
 
@@ -120,29 +123,6 @@ export default defineComponent({
       valueColumn(),
       exchangeRateColumn(),
       balanceColumn()
-      // {
-      //   colId: 'Actions',
-      //   sortable: false,
-      //   maxWidth: 32 * 1 + 8, // 32 for each button + 8 pading,
-      //   minWidth: 32 * 1 + 8, // 32 for each button + 8 pading,
-      //   cellRenderer: 'PButtonRender',
-      //   cellRendererParams: {
-      //     isMultiple: true,
-      //     attrs(data: any, context: { emit: any }) {
-      //       return [
-      //         {
-      //           label: 'view',
-      //           size: 'small',
-      //           circle: true,
-      //           icon: mdiEye,
-      //           onClick() {
-      //             context.emit('view-detail', data);
-      //           }
-      //         }
-      //       ];
-      //     }
-      //   }
-      // }
     ];
 
     defaultColDef.value = {
@@ -154,8 +134,6 @@ export default defineComponent({
     onMounted(async () => {
       isLoading.value = true;
       await loadAccount();
-
-      console.log(account.value);
 
       isLoading.value = false;
     });
@@ -235,7 +213,9 @@ export default defineComponent({
       handleShowTableConfig,
 
       setColumnApi,
-      setGridApi
+      setGridApi,
+
+      labels
     };
   }
 });

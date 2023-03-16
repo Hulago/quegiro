@@ -11,7 +11,11 @@ import { deburr, get } from 'lodash-es';
 
 import type { ColDef } from 'ag-grid-community';
 
+import { useLabels } from '../labels/labels.composable';
+
 export function useAccountColumns() {
+  const { labels } = useLabels();
+
   const currencyColumn = ({
     sortable = true,
     field = 'unknown',
@@ -109,7 +113,7 @@ export function useAccountColumns() {
   const descriptionColumn = ({
     sortable = true,
     field = 'description',
-    headerName = 'Description',
+    headerName = labels.descripton,
     ...options
   }: any = {}) =>
     stringColumn({
@@ -122,7 +126,7 @@ export function useAccountColumns() {
   const orderIdColumn = ({
     sortable = true,
     field = 'orderId',
-    headerName = 'Order Id',
+    headerName = labels.orderId,
     ...options
   }: any = {}) =>
     stringColumn({
@@ -135,20 +139,22 @@ export function useAccountColumns() {
   const isinColumn = ({
     sortable = true,
     field = 'isin',
-    headerName = 'ISIN',
+    headerName = labels.isin,
+    headerTooltip = labels.isinTooltip,
     ...options
   }: any = {}) =>
     stringColumn({
       sortable,
       field,
       headerName,
+      headerTooltip,
       ...(options || {})
     });
 
   const productColumn = ({
     sortable = true,
     field = 'product',
-    headerName = 'Product',
+    headerName = labels.product,
     ...options
   }: any = {}) =>
     numberColumn({
@@ -162,7 +168,7 @@ export function useAccountColumns() {
   const accountDateColumn = ({
     sortable = true,
     field = 'date',
-    headerName = 'Date',
+    headerName = labels.date,
     ...options
   }: any = {}) =>
     dateColumn({
@@ -176,7 +182,7 @@ export function useAccountColumns() {
     sortable = true,
     field = 'value',
     currency = 'currencyValue',
-    headerName = 'Value',
+    headerName = labels.value,
     ...options
   }: any = {}) =>
     currencyColumn({
@@ -189,7 +195,7 @@ export function useAccountColumns() {
     sortable = true,
     field = 'balance',
     currency = 'currencyBalance',
-    headerName = 'Balance',
+    headerName = labels.balance,
     ...options
   }: any = {}) =>
     currencyColumn({
@@ -201,7 +207,7 @@ export function useAccountColumns() {
   const exchangeRateColumn = ({
     sortable = true,
     field = 'exchangeRate',
-    headerName = 'Exchange Rate',
+    headerName = labels.exchangeRate,
     ...options
   }: any = {}) =>
     numberColumn({

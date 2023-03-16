@@ -7,6 +7,8 @@ import {
   useAccount
 } from '@/composables';
 
+import { useLabels } from '@/composables/labels/labels.composable';
+
 import { defineComponent, onMounted, ref } from 'vue';
 
 import { useRouter } from 'vue-router';
@@ -48,6 +50,8 @@ export default defineComponent({
         }
       ]
     });
+
+    const { labels } = useLabels();
 
     const { back } = useRouter();
 
@@ -115,14 +119,14 @@ export default defineComponent({
       buysVsSalesChart.options.yAxis.type = 'value';
       buysVsSalesChart.initChart(
         buysVsSalesChartRef.value as any,
-        'Sales & Buys'
+        labels.buysAndSales
       );
 
       buysVsSalesChart.setXValues(getTransactionMonths());
 
-      buysVsSalesChart.addSeries('Buys', getBuysPerMonth());
+      buysVsSalesChart.addSeries(labels.buys, getBuysPerMonth());
 
-      buysVsSalesChart.addSeries('Sells', getSalesPerMonth());
+      buysVsSalesChart.addSeries(labels.sells, getSalesPerMonth());
 
       buysVsSalesChart.setMaxY(
         max([...getBuysPerMonth(), ...(getSalesPerMonth() as any)])
@@ -135,14 +139,14 @@ export default defineComponent({
       buysVsSalesYearChart.options.yAxis.type = 'value';
       buysVsSalesYearChart.initChart(
         buysVsSalesChartYearRef.value as any,
-        'Sales & Buys / Year'
+        labels.buysAndSalesPerYear
       );
 
       buysVsSalesYearChart.setXValues(getTransactionYears());
 
-      buysVsSalesYearChart.addSeries('Buys', getBuysPerYear());
+      buysVsSalesYearChart.addSeries(labels.buys, getBuysPerYear());
 
-      buysVsSalesYearChart.addSeries('Sells', getSalesPerYear());
+      buysVsSalesYearChart.addSeries(labels.sells, getSalesPerYear());
 
       buysVsSalesYearChart.setMaxY(
         max([...getBuysPerYear(), ...(getSalesPerYear() as any)])
@@ -153,11 +157,14 @@ export default defineComponent({
 
     function initDividendChart() {
       dividendChart.options.yAxis.type = 'value';
-      dividendChart.initChart(dividendChartRef.value as any, 'Dividend / Year');
+      dividendChart.initChart(
+        dividendChartRef.value as any,
+        labels.dividendPerYear
+      );
 
       dividendChart.setXValues(getDividendsYears());
 
-      dividendChart.addSeries('Dividend', getDividendsPerYear());
+      dividendChart.addSeries(labels.dividend, getDividendsPerYear());
 
       dividendChart.setMaxY(max([...getDividendsPerYear()]));
 
@@ -168,12 +175,12 @@ export default defineComponent({
       totalPorfolioChart.options.yAxis.type = 'value';
       totalPorfolioChart.initChart(
         totalPorfolioChartRef.value as any,
-        'Portfolio'
+        labels.portfolio
       );
 
       totalPorfolioChart.setXValues(getTransactionMonths());
 
-      totalPorfolioChart.addSeries('Buys', getBuysPerMonth(), {
+      totalPorfolioChart.addSeries(labels.buys, getBuysPerMonth(), {
         areaStyle: {},
         stack: 'total'
       });
@@ -194,10 +201,10 @@ export default defineComponent({
         (item, index) => Math.round((item - sales[index]) * 100) / 100
       );
 
-      totalPorfolioChart.addSeries('Portfolio', portfolio);
+      totalPorfolioChart.addSeries(labels.portfolio, portfolio);
 
       totalPorfolioChart.addSeries(
-        'Sales',
+        labels.sales,
         getSalesPerMonth().map(item => item * -1),
         { areaStyle: {}, stack: 'total' }
       );
@@ -217,18 +224,18 @@ export default defineComponent({
       gainsVsLossesMonthChart.options.yAxis.type = 'value';
       gainsVsLossesMonthChart.initChart(
         gainsVsLossesMonthChartRef.value as any,
-        'Gains vs Losses / Month'
+        labels.gainsAndLossesPerYear
       );
 
       gainsVsLossesMonthChart.setXValues(getMonthsOnSales());
 
       const gains = getGainsPerMonth();
 
-      gainsVsLossesMonthChart.addSeries('Gains', gains);
+      gainsVsLossesMonthChart.addSeries(labels.gains, gains);
 
       const losses = getLossesPerMonth();
 
-      gainsVsLossesMonthChart.addSeries('Losses', losses);
+      gainsVsLossesMonthChart.addSeries(labels.losses, losses);
 
       gainsVsLossesMonthChart.setMaxY(max([...gains, ...(losses as any)]));
 
@@ -239,18 +246,18 @@ export default defineComponent({
       gainsVsLossesYearChart.options.yAxis.type = 'value';
       gainsVsLossesYearChart.initChart(
         gainsVsLossesYearChartRef.value as any,
-        'Gains vs Losses / Years'
+        labels.gainsAndLossesPerYear
       );
 
       gainsVsLossesYearChart.setXValues(getYearsOnSales());
 
       const gains = getGainsPerYear();
 
-      gainsVsLossesYearChart.addSeries('Gains', gains);
+      gainsVsLossesYearChart.addSeries(labels.gains, gains);
 
       const losses = getLossesPerYear();
 
-      gainsVsLossesYearChart.addSeries('Losses', losses);
+      gainsVsLossesYearChart.addSeries(labels.losses, losses);
 
       gainsVsLossesYearChart.setMaxY(max([...gains, ...(losses as any)]));
 
@@ -269,7 +276,8 @@ export default defineComponent({
       buysVsSalesChartYearRef,
       gainsVsLossesMonthChartRef,
       gainsVsLossesYearChartRef,
-      dividendChartRef
+      dividendChartRef,
+      labels
     };
   }
 });

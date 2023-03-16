@@ -11,6 +11,8 @@ import { format } from 'date-fns';
 import { SalesModel } from '@/composables/sales/sales.model';
 import { useSalesColumns } from '@/composables/sales/sales.columns';
 
+import { useLabels } from '@/composables/labels/labels.composable';
+
 import SalesDeltaRender from '@/components/sales-delta-render/sales-delta-render.component.vue';
 
 import {
@@ -61,6 +63,8 @@ export default defineComponent({
       ]
     });
 
+    const { labels } = useLabels();
+
     const isAggregated = ref(false);
 
     const { back } = useRouter();
@@ -91,8 +95,8 @@ export default defineComponent({
       lazy: false,
       options: {
         ...noRowsOverlay({
-          title: 'No sales',
-          description: 'No sales',
+          title: labels.noSales,
+          description: labels.noSalesDescription,
           hasButton: false
         }),
         floatingFiltersHeight: 30,
@@ -364,7 +368,9 @@ export default defineComponent({
       handleShowTableConfig,
 
       setColumnApi,
-      setGridApi
+      setGridApi,
+
+      labels
     };
   }
 });

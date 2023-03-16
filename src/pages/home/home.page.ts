@@ -11,6 +11,8 @@ import HomeSvg from '@/components/svgs/home.svg.vue';
 
 import { useHead } from '@vueuse/head';
 
+import { useLabels } from '@/composables/labels/labels.composable';
+
 export default defineComponent({
   name: 'Home',
   components: {
@@ -42,6 +44,8 @@ export default defineComponent({
       ]
     });
 
+    const { labels } = useLabels();
+
     const message = 'Welcome to Quegiro';
 
     const { back, push } = useRouter();
@@ -59,7 +63,8 @@ export default defineComponent({
     return {
       message,
       handleBack,
-      handleStart
+      handleStart,
+      labels
     };
   }
 });

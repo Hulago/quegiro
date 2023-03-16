@@ -7,6 +7,8 @@ import { useRouter } from 'vue-router';
 import { TransactionModel } from '@/composables/transactions/transaction.model';
 import { useTransactionColumns } from '@/composables/transactions/transaction.columns';
 
+import { useLabels } from '@/composables/labels/labels.composable';
+
 import TransactionStateRender from '@/components/transaction-state-render/transaction-state-render.component.vue';
 
 import {
@@ -57,6 +59,8 @@ export default defineComponent({
       ]
     });
 
+    const { labels } = useLabels();
+
     const { back } = useRouter();
 
     const { startLoader, stopLoader } = useApplicationContext();
@@ -88,8 +92,8 @@ export default defineComponent({
       lazy: false,
       options: {
         ...noRowsOverlay({
-          title: 'No transactions',
-          description: 'No transactions',
+          title: labels.noTransactions,
+          description: labels.noTransactionsDescription,
           hasButton: false
         }),
         floatingFiltersHeight: 30,
@@ -169,8 +173,6 @@ export default defineComponent({
       isLoading.value = true;
       await loadTransactions();
       await loadAccount();
-
-      console.log('Load transactions', transactions.value);
 
       processTransactions();
       isLoading.value = false;
@@ -291,7 +293,8 @@ export default defineComponent({
       handleShowTableConfig,
 
       setColumnApi,
-      setGridApi
+      setGridApi,
+      labels
     };
   }
 });

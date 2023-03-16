@@ -1,15 +1,19 @@
 <template>
   <el-container class="transactions" direction="vertical">
-    <p-toolbar title="Transactions" @back="handleBack">
+    <p-toolbar :title="labels.transactions" @back="handleBack">
       <template #content>
-        <el-tag class="mr-2" type="success">Total Buy: {{ totalBuy }}€</el-tag>
-        <el-tag class="mr-2" type="error">Total Sell: {{ totalSell }}€</el-tag>
+        <el-tag class="mr-2" type="success">
+          Total {{ labels.buys }}: {{ totalBuy }}€
+        </el-tag>
+        <el-tag class="mr-2" type="error">
+          Total {{ labels.sales }}: {{ totalSell }}€
+        </el-tag>
 
         <el-date-picker
           v-model="dateFilter"
           type="datetimerange"
-          start-placeholder="Start Date"
-          end-placeholder="End Date"
+          :start-placeholder="labels.startDate"
+          :end-placeholder="labels.endDate"
           :default-time="defaultTime"
           style="min-width: 300px"
           class="mr-2"
@@ -21,7 +25,7 @@
           class="mr-3"
           :timeout="0"
           clearable
-          placeholder="Search"
+          :placeholder="labels.search"
           @keyup.enter="handleSearch"
           @clear="handleSearch"
         >
@@ -30,7 +34,7 @@
           </template>
         </el-input>
 
-        <el-tooltip :content="'Setup table'">
+        <el-tooltip :content="labels.setupTable">
           <el-button
             circle
             :icon="icons.mdiTableCog"
@@ -59,25 +63,25 @@
 
     <el-dialog
       v-model="isTransactionModalVisible"
-      :title="'Transaction detail'"
+      :title="labels.transactionDetail"
       class="transaction-modal"
       @close="isTransactionModalVisible = false"
     >
       <el-descriptions
         class="margin-top"
-        title="Transaction detail"
+        :title="labels.transactionDetail"
         :column="4"
         border
       >
         <template #extra>
           <el-button type="primary" @click="handleAccountData">
-            Account details
+            {{ labels.accountMovementsDetail }}
           </el-button>
         </template>
 
         <el-descriptions-item :span="2">
           <template #label>
-            <div class="cell-item">Date</div>
+            <div class="cell-item">{{ labels.date }}</div>
           </template>
           <b>
             <p-date-render
@@ -90,14 +94,14 @@
 
         <el-descriptions-item :span="2">
           <template #label>
-            <div class="cell-item">Order Id</div>
+            <div class="cell-item">{{ labels.orderId }}</div>
           </template>
           <b>{{ currentTransaction?.orderId }}</b>
         </el-descriptions-item>
 
         <el-descriptions-item :span="2">
           <template #label>
-            <div class="cell-item">Name</div>
+            <div class="cell-item">{{ labels.product }}</div>
           </template>
           <b>
             {{ currentTransaction?.name }}
@@ -106,7 +110,7 @@
 
         <el-descriptions-item :span="2">
           <template #label>
-            <div class="cell-item">ISIN</div>
+            <div class="cell-item">{{ labels.isin }}</div>
           </template>
           <b>
             {{ currentTransaction?.isin }}
@@ -115,7 +119,7 @@
 
         <el-descriptions-item>
           <template #label>
-            <div class="cell-item">State</div>
+            <div class="cell-item">{{ labels.state }}</div>
           </template>
           <b>
             {{ currentTransaction?.state }}
@@ -124,7 +128,7 @@
 
         <el-descriptions-item :span="1">
           <template #label>
-            <div class="cell-item">Remain</div>
+            <div class="cell-item">{{ labels.remain }}</div>
           </template>
           <b>
             <p-number-render
@@ -136,7 +140,7 @@
 
         <el-descriptions-item :span="1">
           <template #label>
-            <div class="cell-item">Exchange</div>
+            <div class="cell-item">{{ labels.stockExchange }}</div>
           </template>
           <b>
             {{ currentTransaction?.exchange }}
@@ -145,7 +149,7 @@
 
         <el-descriptions-item :span="1">
           <template #label>
-            <div class="cell-item">Exchange From</div>
+            <div class="cell-item">{{ labels.stockExchangeFrom }}</div>
           </template>
           <b>
             {{ currentTransaction?.exchangeFrom }}
@@ -154,7 +158,7 @@
 
         <el-descriptions-item :span="1">
           <template #label>
-            <div class="cell-item">Qty</div>
+            <div class="cell-item">{{ labels.quantity }}</div>
           </template>
           <b>
             <p-number-render
@@ -166,7 +170,7 @@
 
         <el-descriptions-item :span="1">
           <template #label>
-            <div class="cell-item">Local price</div>
+            <div class="cell-item">{{ labels.localPrice }}</div>
           </template>
           <b>
             <p-currency-render
@@ -179,7 +183,7 @@
 
         <el-descriptions-item :span="2">
           <template #label>
-            <div class="cell-item">Total Local price</div>
+            <div class="cell-item">Total {{ labels.localPrice }}</div>
           </template>
           <b>
             <p-currency-render
@@ -192,7 +196,7 @@
 
         <el-descriptions-item :span="1">
           <template #label>
-            <div class="cell-item">Exchange Rate</div>
+            <div class="cell-item">{{ labels.exchangeRate }}</div>
           </template>
           <b>
             <p-number-render
@@ -204,7 +208,7 @@
 
         <el-descriptions-item :span="1">
           <template #label>
-            <div class="cell-item">Transaction Cost</div>
+            <div class="cell-item">{{ labels.transactionCost }}</div>
           </template>
           <b>
             <p-currency-render
@@ -217,7 +221,7 @@
 
         <el-descriptions-item :span="1">
           <template #label>
-            <div class="cell-item">Total Price</div>
+            <div class="cell-item">{{ labels.totalPrice }}</div>
           </template>
           <b>
             <p-currency-render
@@ -231,7 +235,7 @@
 
       <el-dialog v-model="isAccountModalVisible" title="Account information">
         <el-table :data="accountData" height="250" style="width: 100%">
-          <el-table-column prop="date" label="Date" width="120">
+          <el-table-column prop="date" :label="labels.date" width="120">
             <template #default="{ row }">
               <p-date-render
                 :value="row.date"
@@ -240,9 +244,13 @@
               />
             </template>
           </el-table-column>
-          <el-table-column prop="product" label="Product" width="200" />
-          <el-table-column prop="description" label="Description" width="300" />
-          <el-table-column prop="value" label="Value">
+          <el-table-column prop="product" :label="labels.product" width="200" />
+          <el-table-column
+            prop="description"
+            :label="labels.descripton"
+            width="300"
+          />
+          <el-table-column prop="value" :label="labels.value">
             <template #default="{ row }">
               <p-currency-render
                 :value="row.value"
@@ -253,13 +261,13 @@
           </el-table-column>
           <el-table-column
             prop="exchangeRate"
-            label="Exchange Rate"
+            :label="labels.exchangeRate"
           ></el-table-column>
         </el-table>
 
         <template #footer>
           <el-button type="primary" @click="isAccountModalVisible = false">
-            Close
+            {{ labels.action.close }}
           </el-button>
         </template>
       </el-dialog>

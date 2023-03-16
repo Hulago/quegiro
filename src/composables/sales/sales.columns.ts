@@ -11,7 +11,11 @@ import { deburr, get } from 'lodash-es';
 
 import type { ColDef } from 'ag-grid-community';
 
+import { useLabels } from '@/composables/labels/labels.composable';
+
 export function useSalesColumns() {
+  const { labels } = useLabels();
+
   const currencyColumn = ({
     sortable = true,
     field = 'unknown',
@@ -109,7 +113,7 @@ export function useSalesColumns() {
   const nameColumn = ({
     sortable = true,
     field = 'name',
-    headerName = 'Name',
+    headerName = labels.product,
     ...options
   }: any = {}) =>
     stringColumn({
@@ -122,7 +126,7 @@ export function useSalesColumns() {
   const buyOrderIdColumn = ({
     sortable = true,
     field = 'buyOrderId',
-    headerName = 'Buy order Id',
+    headerName = labels.buyOrderId,
     ...options
   }: any = {}) =>
     stringColumn({
@@ -135,7 +139,7 @@ export function useSalesColumns() {
   const sellOrderIdColumn = ({
     sortable = true,
     field = 'sellOrderId',
-    headerName = 'Sell order Id',
+    headerName = labels.sellOrderId,
     ...options
   }: any = {}) =>
     stringColumn({
@@ -148,7 +152,7 @@ export function useSalesColumns() {
   const exchangeColumn = ({
     sortable = true,
     field = 'exchange',
-    headerName = 'Exchange',
+    headerName = labels.stockExchange,
     ...options
   }: any = {}) =>
     stringColumn({
@@ -161,20 +165,22 @@ export function useSalesColumns() {
   const isinColumn = ({
     sortable = true,
     field = 'isin',
-    headerName = 'ISIN',
+    headerName = labels.isin,
+    headerTooltip = labels.isinTooltip,
     ...options
   }: any = {}) =>
     stringColumn({
       sortable,
       field,
       headerName,
+      headerTooltip,
       ...(options || {})
     });
 
   const quantityColumn = ({
     sortable = true,
     field = 'qty',
-    headerName = 'Quantity',
+    headerName = labels.quantity,
     ...options
   }: any = {}) =>
     numberColumn({
@@ -187,7 +193,7 @@ export function useSalesColumns() {
   const buyDateColumn = ({
     sortable = true,
     field = 'buyDate',
-    headerName = 'Buy date',
+    headerName = labels.buyDate,
     ...options
   }: any = {}) =>
     dateColumn({
@@ -200,7 +206,7 @@ export function useSalesColumns() {
   const sellDateColumn = ({
     sortable = true,
     field = 'sellDate',
-    headerName = 'Sell date',
+    headerName = labels.sellDate,
     ...options
   }: any = {}) =>
     dateColumn({
@@ -214,7 +220,7 @@ export function useSalesColumns() {
     sortable = true,
     field = 'sellPrice',
     currency = 'currency',
-    headerName = 'Sell price',
+    headerName = labels.sellPrice,
     ...options
   }: any = {}) =>
     currencyColumn({
@@ -227,7 +233,7 @@ export function useSalesColumns() {
     sortable = true,
     field = 'totalSellPrice',
     currency = 'currency',
-    headerName = 'Sell total price',
+    headerName = labels.sellTotalPrice,
     ...options
   }: any = {}) =>
     currencyColumn({
@@ -240,7 +246,7 @@ export function useSalesColumns() {
     sortable = true,
     field = 'buyPrice',
     currency = 'currency',
-    headerName = 'Buy price',
+    headerName = labels.buyPrice,
     ...options
   }: any = {}) =>
     currencyColumn({
@@ -253,7 +259,7 @@ export function useSalesColumns() {
     sortable = true,
     field = 'totalBuyPrice',
     currency = 'currency',
-    headerName = 'Buy total price',
+    headerName = labels.buyTotalPrice,
     ...options
   }: any = {}) =>
     currencyColumn({
@@ -266,7 +272,7 @@ export function useSalesColumns() {
     sortable = true,
     field = 'cost',
     currency = 'currency',
-    headerName = 'Cost',
+    headerName = labels.cost,
     ...options
   }: any = {}) =>
     currencyColumn({

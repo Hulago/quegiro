@@ -11,7 +11,10 @@ import { deburr, get } from 'lodash-es';
 
 import type { ColDef } from 'ag-grid-community';
 
+import { useLabels } from '@/composables/labels/labels.composable';
+
 export function useTransactionColumns() {
+  const { labels } = useLabels();
   const currencyColumn = ({
     sortable = true,
     field = 'unknown',
@@ -109,7 +112,7 @@ export function useTransactionColumns() {
   const nameColumn = ({
     sortable = true,
     field = 'name',
-    headerName = 'Name',
+    headerName = labels.product,
     ...options
   }: any = {}) =>
     stringColumn({
@@ -122,7 +125,7 @@ export function useTransactionColumns() {
   const orderIdColumn = ({
     sortable = true,
     field = 'orderId',
-    headerName = 'Order Id',
+    headerName = labels.orderId,
     ...options
   }: any = {}) =>
     stringColumn({
@@ -135,7 +138,7 @@ export function useTransactionColumns() {
   const exchangeColumn = ({
     sortable = true,
     field = 'exchange',
-    headerName = 'Exchange',
+    headerName = labels.stockExchange,
     ...options
   }: any = {}) =>
     stringColumn({
@@ -148,13 +151,15 @@ export function useTransactionColumns() {
   const isinColumn = ({
     sortable = true,
     field = 'isin',
-    headerName = 'ISIN',
+    headerName = labels.isin,
+    headerTooltip = labels.isinTooltip,
     ...options
   }: any = {}) =>
     stringColumn({
       sortable,
       field,
       headerName,
+      headerTooltip,
       ...(options || {})
     });
 
@@ -162,7 +167,7 @@ export function useTransactionColumns() {
     sortable = true,
     field = 'qty',
     editable = false,
-    headerName = 'State',
+    headerName = labels.state,
     ...options
   } = {}) =>
     ({
@@ -181,7 +186,7 @@ export function useTransactionColumns() {
   const remainColumn = ({
     sortable = true,
     field = 'remain',
-    headerName = 'Remain',
+    headerName = labels.remain,
     ...options
   }: any = {}) =>
     numberColumn({
@@ -194,7 +199,7 @@ export function useTransactionColumns() {
   const exchangeRateColumn = ({
     sortable = true,
     field = 'exchangeRate',
-    headerName = 'Exchange Rate',
+    headerName = labels.exchangeRate,
     ...options
   }: any = {}) =>
     numberColumn({
@@ -208,7 +213,7 @@ export function useTransactionColumns() {
   const quantityColumn = ({
     sortable = true,
     field = 'qty',
-    headerName = 'Quantity',
+    headerName = labels.quantity,
     ...options
   }: any = {}) =>
     numberColumn({
@@ -221,7 +226,7 @@ export function useTransactionColumns() {
   const transactionDateColumn = ({
     sortable = true,
     field = 'transactionDate',
-    headerName = 'Date',
+    headerName = labels.date,
     ...options
   }: any = {}) =>
     dateColumn({
@@ -235,7 +240,7 @@ export function useTransactionColumns() {
     sortable = true,
     field = 'localTotalTransactionPrice',
     currency = 'localTotalTransactionCurrency',
-    headerName = 'Local Total Transaction Price',
+    headerName = labels.totalLocalPrice,
     ...options
   }: any = {}) =>
     currencyColumn({
@@ -248,7 +253,7 @@ export function useTransactionColumns() {
     sortable = true,
     field = 'localTransactionPrice',
     currency = 'localTransactionCurrency',
-    headerName = 'Local Transaction Price',
+    headerName = labels.localPrice,
     ...options
   }: any = {}) =>
     currencyColumn({
@@ -261,7 +266,7 @@ export function useTransactionColumns() {
     sortable = true,
     field = 'transactionPrice',
     currency = 'transactionCurrency',
-    headerName = 'Transaction Price',
+    headerName = labels.transactionPrice,
     ...options
   }: any = {}) =>
     currencyColumn({
@@ -274,7 +279,7 @@ export function useTransactionColumns() {
     sortable = true,
     field = 'transactionCost',
     currency = 'transactionCostCurrency',
-    headerName = 'Transaction Cost',
+    headerName = labels.transactionCost,
     ...options
   }: any = {}) =>
     currencyColumn({

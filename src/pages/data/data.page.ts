@@ -6,13 +6,13 @@ import {
   ref
 } from 'vue';
 
-import type {
-  ElMessageBox,
-  UploadUserFile,
-  UploadInstance
-} from 'element-plus';
+import type { UploadUserFile, UploadInstance } from 'element-plus';
+
+import { ElMessageBox } from 'element-plus';
 
 import DataSvg from '@/components/svgs/data.svg.vue';
+
+import { useLabels } from '@/composables/labels/labels.composable';
 
 import {
   useTransactions,
@@ -43,7 +43,7 @@ export default defineComponent({
         },
         {
           name: 'description',
-          content: 'Data onde pode importar as suas transações do seu broker.'
+          content: 'Data, onde pode importar as suas transações do seu broker.'
         },
         {
           property: 'og:site_name',
@@ -57,6 +57,8 @@ export default defineComponent({
     });
 
     const { back } = useRouter();
+
+    const { labels } = useLabels();
 
     const { startLoader, stopLoader, notifySuccess } = useApplicationContext();
 
@@ -97,11 +99,11 @@ export default defineComponent({
 
     async function handleClear() {
       await ElMessageBox.confirm(
-        'Upon confirmation, all data will be deleted from local storage',
-        'Clear all data',
+        labels.sentence.clearAllData,
+        labels.clearAllData,
         {
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
+          confirmButtonText: labels.action.confirm,
+          cancelButtonText: labels.action.cancel,
           type: 'warning'
         }
       );
@@ -146,7 +148,7 @@ export default defineComponent({
         isLoading.value = false;
         stopLoader();
         accountFiles.value = [];
-        notifySuccess('Account', 'Account information loaded');
+        notifySuccess(labels.account, labels.success.accountInformationLoaded);
       }
     }
 
@@ -171,7 +173,10 @@ export default defineComponent({
         isLoading.value = false;
         stopLoader();
         transactionFiles.value = [];
-        notifySuccess('Transactions', 'Transaction information loaded');
+        notifySuccess(
+          labels.transactions,
+          labels.success.transactionInformationLoaded
+        );
       }
     }
 
@@ -196,7 +201,8 @@ export default defineComponent({
       handleBack,
 
       hasAccountFile,
-      hasTransactionFile
+      hasTransactionFile,
+      labels
     };
   }
 });
