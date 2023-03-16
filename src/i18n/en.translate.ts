@@ -2,6 +2,7 @@
 /* eslint-disable max-len */
 export default {
   ACTION: {
+    BACK: 'Back',
     CANCEL: 'Cancel',
     CONFIRM: 'Confirm',
     RESET: 'Reset',

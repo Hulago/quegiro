@@ -2,6 +2,7 @@
 /* eslint-disable max-len */
 export default {
   ACTION: {
+    BACK: 'Voltar',
     CANCEL: 'Cancelar',
     CONFIRM: 'Confirmar',
     RESET: 'Reset',
@@ -66,7 +67,7 @@ export default {
       'Carregar ficheiro CSV de informação sobre a sua carteira',
     UPLOAD_TRANSACTION_CSV_FILE: 'Carregar ficheiro CSV de transações',
     VALUE: 'Valor',
-    WELCOME: 'Benvindo à Quegiro',
+    WELCOME: 'Bem-vindo à Quegiro',
     FULL_DATA: 'Todos os dados',
     AGGREGATED_DATA: 'Dados agregados',
     AGGREGATED_DATA_TOOLTIP: 'Agregar dados por mês',

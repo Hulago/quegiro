@@ -1,6 +1,10 @@
 <template>
   <el-container class="news-form" direction="vertical">
-    <p-toolbar :back="'back'" :title="'Welcome'" @back="handleBack">
+    <p-toolbar
+      :back="labels.action.back"
+      :title="labels.welcome"
+      @back="handleBack"
+    >
       <template #content></template>
     </p-toolbar>
 
