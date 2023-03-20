@@ -12,6 +12,25 @@
         {{ item.title }}
       </el-breadcrumb-item>
     </el-breadcrumb>
+
+    <el-dropdown size="large">
+      <el-icon :size="32" color="white">
+        <MdiCog />
+      </el-icon>
+
+      <template #dropdown>
+        <el-dropdown-menu>
+          <el-dropdown-item @click="handleLang('pt-PT')">
+            <el-icon><CircleFlagsPt /></el-icon>
+            pt-PT - Português
+          </el-dropdown-item>
+          <el-dropdown-item @click="handleLang('en-US')">
+            <el-icon><CircleFlagsUs /></el-icon>
+            en-US - Inglês
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </template>
+    </el-dropdown>
   </el-header>
 </template>
 <script lang="ts" src="./app-toolbar.component.ts"></script>

@@ -99,7 +99,8 @@ export default {
     TOTAL_LOCAL_PRICE: 'Total local price',
     TOTAL_PRICE: 'Total price',
     STOCK_EXCHANGE_FROM: 'Exchange from',
-    TRANSACTION_PRICE: 'Transaction price'
+    TRANSACTION_PRICE: 'Transaction price',
+    CONTACT: 'contact'
   },
   SENTENCE: {
     CLEAR_ALL_DATA:
@@ -133,7 +134,8 @@ export default {
     HOME7:
       'Disclaimer: We are not responsible for any incorrect tax declarations. All values must be confirmed according to the rules and regulations set forth by the relevant tax authorities.',
     HOME8: 'Start here',
-    HOME9: ''
+    HOME9:
+      'If you have questions about the the application, suggestions for improvement or want to report any issue, you can always contact us'
   },
   SUCCESS: {},
   TOOLTIP: {}

@@ -228,6 +228,13 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
+"@iconify-json/circle-flags@^1.1.33":
+  version "1.1.33"
+  resolved "https://registry.npmjs.org/@iconify-json/circle-flags/-/circle-flags-1.1.33.tgz#c86387ee438aabf85aca7b788c6d1168027728dd"
+  integrity sha512-leIjzSNchGgqNf7yJc6MGmLZq3avkClsSnW1L1zV2HwwdxzDihZQEV0WjLwQlTyz+syySB/VoYD6bHT/9M8hFA==
+  dependencies:
+    "@iconify/types" "*"
+
 "@iconify-json/ep@^1.1.4":
   version "1.1.7"
   resolved "https://registry.npmjs.org/@iconify-json/ep/-/ep-1.1.7.tgz#69372588bad51a56ba240dea7dd2e2c06b41b835"

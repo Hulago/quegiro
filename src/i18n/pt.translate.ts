@@ -101,7 +101,8 @@ export default {
     TOTAL_LOCAL_PRICE: 'Preço total local',
     TOTAL_PRICE: 'Preço total',
     STOCK_EXCHANGE_FROM: 'Bolsa de origem',
-    TRANSACTION_PRICE: 'Preço da transação'
+    TRANSACTION_PRICE: 'Preço da transação',
+    CONTACT: 'contactar'
   },
   SENTENCE: {
     CLEAR_ALL_DATA:
@@ -123,20 +124,21 @@ export default {
     DATA9:
       'Depois de selecionar o intervalo de datas, clique no botão exportar e selecione o formato CSV. Pode encontrar o arquivo exportado na pasta de downloads.',
     HOME1:
-      'Novo aplicativo para ajudar na declaração de impostos para transações com ações. Esta aplicação facilita a importação de seus dados de transação na forma de um arquivo CSV (',
+      'Novo aplicativo para ajudar na declaração de impostos para transações com ações. Esta aplicação facilita a importação dos seus dados de transação na forma de um arquivo CSV (',
     HOME2: 'só por enquanto',
     HOME3:
-      '). Aplicação processará automaticamente as informações e calculará as mais e menos valias de ações necessárias para você declarar ao fisco.',
+      '). Aplicação processará automaticamente as informações e calculará as mais e menos valias de ações necessárias para declarar ao fisco.',
     HOME4:
       'Uma das características do aplicativo é usar o método "primeiro a entrar, primeiro a sair" para processar as transações, garantindo que todas as transação sejam tratadas corretamente do ponto de vista fiscal. Além disso, a aplicação leva em consideração os custos de transação, garantindo que você pague apenas os impostos devidos.',
     HOME5:
       'Levamos a segurança dos seus dados muito a sério, e é por isso que todas as informações são armazenadas localmente no seu dispositivo. Isso significa que você não precisa se preocupar com violações de dados ou serviços externos a aceder às suas informações. Além disso, assim que a página é carregada, pode desligar a internet e você pode usar a aplicação offline.',
     HOME6:
-      'A Aplicação, irá ajudar no preenchimento das declarações ficais. Diga adeus aos tediosos cálculos manuais e olá à conformidade fiscal simplificada, eficiente e segura.',
+      'A aplicação, irá ajudar no preenchimento das declarações ficais. Diga adeus aos tediosos cálculos manuais e olá à conformidade fiscal simplificada, eficiente e segura.',
     HOME7:
       'Isenção de responsabilidade: não somos responsáveis por quaisquer declarações fiscais incorretas. Todos os valores devem ser confirmados de acordo com as normas e regulamentos estabelecidos pelas autoridades fiscais competentes.',
     HOME8: 'Comece aqui',
-    HOME9: ''
+    HOME9:
+      'Caso tenha dúvidas sobre o funcionamento da aplicação, sugestões de melhoria ou quiser reportar possíveis problemas podem sempre nos'
   },
   SUCCESS: {
     ACCOUNT_INFORMATION_LOADED:

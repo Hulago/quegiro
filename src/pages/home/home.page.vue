@@ -40,6 +40,16 @@
           <el-button type="primary" round size="large" @click="handleStart">
             <b>{{ labels.sentence.home8 }}</b>
           </el-button>
+
+          <p>
+            <code>{{ labels.note }}:</code>
+            {{ labels.sentence.home9 }}
+            <span>
+              <a href="mailto:quegiro.mail@gmail.com">
+                ({{ labels.contact }}: quegiro.mail@gmail.com)
+              </a>
+            </span>
+          </p>
         </el-col>
 
         <el-col

@@ -47,6 +47,7 @@
     "*": "prettier -w -u"
   },
   "devDependencies": {
+    "@iconify-json/circle-flags": "^1.1.33",
     "@iconify-json/ep": "^1.1.4",
     "@iconify-json/line-md": "^1.1.11",
     "@iconify-json/mdi": "^1.1.20",

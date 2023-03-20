@@ -85,6 +85,7 @@ export function useLabels(data: any = {}) {
     noTransactionsDescription: t('APP.LABEL.NO_TRANSACTIONS_DESCRIPTION'),
     totalLocalPrice: t('APP.LABEL.TOTAL_LOCAL_PRICE'),
     transactionPrice: t('APP.LABEL.TRANSACTION_PRICE'),
+    contact: t('APP.LABEL.CONTACT', { format: 'plain' }),
 
     action: {
       back: t('APP.ACTION.BACK'),

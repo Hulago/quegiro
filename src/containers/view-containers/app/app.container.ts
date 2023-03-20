@@ -1,10 +1,10 @@
 import { Menu as IconMenu, Message, Setting } from '@element-plus/icons-vue';
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
 
 import AppToolbar from '@/containers/components/app-toolbar/app-toolbar.component.vue';
 import AppMenu from '@/containers/components/app-menu/app-menu.component.vue';
 
-import { useApplicationContext, isDark, toggleDark } from '@/next';
+import { useApplicationContext, isDark, toggleDark, useI18n } from '@/next';
 
 import type { MenuItem } from '@/containers/types';
 import { useRouter } from 'vue-router';
@@ -26,6 +26,8 @@ export default defineComponent({
 
     const router = useRouter();
 
+    const { i18n } = useI18n();
+
     const handleHome = () => {
       router.push({ name: ROUTES.HOME });
     };
@@ -42,7 +44,10 @@ export default defineComponent({
       }
     };
 
+    const locale = computed(() => i18n.global.locale);
+
     return {
+      locale,
       IconMenu,
       Message,
       Setting,

@@ -1,5 +1,5 @@
 import { useEnvironment } from '@/next';
-import { createApp } from 'vue';
+import { createApp, unref } from 'vue';
 
 import 'element-plus/dist/index.css';
 import '~/styles/index.scss';
@@ -18,6 +18,7 @@ import { i18n } from './plugins/i18n.plugin';
 import { ui } from '@/next';
 
 import { createHead } from '@vueuse/head';
+import { useStorage } from '@vueuse/core';
 
 async function main() {
   const env = useEnvironment();
@@ -31,6 +32,9 @@ async function main() {
   app.use(ui);
   app.use(createHead());
   // app.use(ElementPlus);
+
+  const currentLang = useStorage('currentLang', 'pt-PT');
+  i18n.global.locale.value = unref(currentLang);
 
   const vm = app.mount('#app');
 

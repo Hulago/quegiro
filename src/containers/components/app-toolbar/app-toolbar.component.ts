@@ -6,9 +6,22 @@ import { PAvatar } from '@/next';
 
 import { isDark, toggleDark, useI18n } from '@/next';
 
+import { useRouter } from 'vue-router';
+
+import { ROUTES } from '@/constants/routes.constant';
+
+import { useStorage } from '@vueuse/core';
+
+import MdiCog from '~icons/mdi/cog';
+import CircleFlagsPt from '~icons/circle-flags/pt';
+import CircleFlagsUs from '~icons/circle-flags/us';
+
 export default defineComponent({
   components: {
-    PAvatar
+    PAvatar,
+    MdiCog,
+    CircleFlagsPt,
+    CircleFlagsUs
   },
   props: {
     breadcrumb: {
@@ -22,7 +35,9 @@ export default defineComponent({
   },
   emits: ['home'],
   setup(props, { emit }) {
-    const { t } = useI18n();
+    const { t, i18n } = useI18n();
+
+    const currentLang = useStorage('currentLang', 'pt-PT');
 
     /**
      * It emits a user-profile event.
@@ -31,11 +46,18 @@ export default defineComponent({
       emit('home');
     };
 
+    const handleLang = (lang: string) => {
+      currentLang.value = lang;
+      i18n.global.locale.value = lang;
+      window.location.reload();
+    };
+
     return {
       isDark,
       toggleDark,
       t,
-      handleClickHome
+      handleClickHome,
+      handleLang
     };
   }
 });
