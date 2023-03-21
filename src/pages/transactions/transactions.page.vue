@@ -67,12 +67,20 @@
       class="transaction-modal"
       @close="isTransactionModalVisible = false"
     >
-      <el-descriptions
-        class="margin-top"
-        :title="labels.transactionDetail"
-        :column="4"
-        border
-      >
+      <el-descriptions class="margin-top" :column="4" border>
+        <template #title>
+          {{ labels.transactionDetail }}
+          <el-tag
+            size="small"
+            class="ml-4"
+            :type="currentTransaction?.isBuy ? 'success' : 'error'"
+          >
+            <span v-if="currentTransaction?.isBuy">
+              {{ labels.buy }}
+            </span>
+            <span v-else>{{ labels.sale }}</span>
+          </el-tag>
+        </template>
         <template #extra>
           <el-button type="primary" @click="handleAccountData">
             {{ labels.accountMovementsDetail }}
@@ -274,7 +282,7 @@
 
       <template #footer>
         <el-button type="primary" @click="isTransactionModalVisible = false">
-          Close
+          {{ labels.action.close }}
         </el-button>
       </template>
     </el-dialog>

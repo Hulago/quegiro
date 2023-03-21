@@ -168,6 +168,8 @@ export default defineComponent({
           processTransactions();
 
           await processSales();
+
+          await saveTransactions();
         }
 
         isLoading.value = false;
