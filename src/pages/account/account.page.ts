@@ -63,7 +63,7 @@ export default defineComponent({
 
     const { noRowsOverlay } = useOverlay();
 
-    const { loadAccount, processAccount, account } = useAccount();
+    const { loadAccount, account } = useAccount();
 
     const searchCriteria = ref<string>('');
 

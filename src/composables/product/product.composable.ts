@@ -2,7 +2,7 @@ import { useStorage } from '@/next';
 import { ref, unref } from 'vue';
 import { ProductModel } from './product.model';
 
-const { getItem, setItem } = useStorage('QUEGIRO');
+const { getItem, setItem } = useStorage();
 
 const products = ref<ProductModel[]>([]);
 

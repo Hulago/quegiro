@@ -19,7 +19,7 @@ export interface Products {
 
 const transactions = ref<TransactionModel[]>([]);
 
-const { getItem, setItem } = useStorage('QUEGIRO');
+const { getItem, setItem } = useStorage();
 
 export function useTransactions() {
   const { loadSales, sales, saveSales, resetSales } = useSales();
@@ -36,15 +36,20 @@ export function useTransactions() {
 
   async function saveTransactions() {
     try {
-      await setItem('transactions', unref(transactions));
+      if (unref(transactions).length === 0) {
+        console.warn('Empty transactions');
+      } else {
+        await setItem('transactions', unref(transactions));
+      }
     } catch (e) {
-      console.log(e);
+      console.error(e);
       console.error('Error saving transaction');
     }
   }
 
   async function resetTransactions() {
     transactions.value = [];
+    console.warn('Reset transactions');
     await saveTransactions();
   }
 
@@ -68,7 +73,7 @@ export function useTransactions() {
       ['transactionDate']
     );
 
-    console.log(JSON.stringify(salesToBeProcesses.map(item => item.remain)));
+    // console.log(JSON.stringify(salesToBeProcesses.map(item => item.remain)));
 
     const buys = orderBy(
       transactions.value.filter(trans => trans.isBuy),
@@ -76,19 +81,17 @@ export function useTransactions() {
     );
 
     salesToBeProcesses.forEach(sale => {
-      console.log('Process sale', sale.name, sale.transactionDate, sale.remain);
-
-      // debugger;
+      // console.log('Process sale', sale.name, sale.transactionDate, sale.remain);
 
       while (sale.remain > 0) {
         const buy = buys.find(buy => buy.remain && buy.isin === sale.isin);
 
-        console.log(
-          'Process sale',
-          sale.name,
-          sale.transactionDate,
-          sale.remain
-        );
+        // console.log(
+        //   'Process sale',
+        //   sale.name,
+        //   sale.transactionDate,
+        //   sale.remain
+        // );
 
         if (buy !== null && buy !== undefined) {
           const buyQty = Math.abs(buy.remain);
@@ -159,7 +162,7 @@ export function useTransactions() {
       }
     });
 
-    console.log('Save Sales');
+    // console.log('Save Sales');
 
     await saveSales();
   }

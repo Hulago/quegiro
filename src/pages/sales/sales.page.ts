@@ -191,7 +191,7 @@ export default defineComponent({
 
       await loadSales();
 
-      console.log('Load sales', sales.value);
+      // console.log('Load sales', sales.value);
 
       isLoading.value = false;
     }

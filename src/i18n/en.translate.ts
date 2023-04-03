@@ -103,6 +103,8 @@ export default {
     WELCOME: 'Welcome to Quegiro'
   },
   SENTENCE: {
+    NEW_VERSION:
+      'A new version of the application was released to solve some issues in data loading. You may need to reupload your transactions. We apologize for the inconvenience. Any suggestion or recomendation you can always contact us.',
     CLEAR_ALL_DATA:
       'Upon confirmation, all data will be deleted from local storage',
     DATA1: 'Welcome to the Import Transactions section of our application.',

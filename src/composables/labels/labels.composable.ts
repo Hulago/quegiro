@@ -98,6 +98,7 @@ export function useLabels(data: any = {}) {
     sells: t('APP.LABEL.SELLS'),
     sellTotalPrice: t('APP.LABEL.SELL_TOTAL_PRICE'),
     sentence: {
+      newVersion: t('APP.SENTENCE.NEW_VERSION'),
       clearAllData: t('APP.SENTENCE.CLEAR_ALL_DATA'),
       data1: t('APP.SENTENCE.DATA1'),
       data2: t('APP.SENTENCE.DATA2'),

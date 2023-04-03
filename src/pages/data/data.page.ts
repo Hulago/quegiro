@@ -66,6 +66,7 @@ export default defineComponent({
     const uploadTransactions = ref<UploadInstance>();
 
     const {
+      loadTransactions,
       processTransactionsCVS,
       processTransactions,
       processSales,
@@ -74,8 +75,13 @@ export default defineComponent({
       transactions
     } = useTransactions();
 
-    const { processAccountCVS, processAccount, saveAccount, resetAccount } =
-      useAccount();
+    const {
+      processAccountCVS,
+      processAccount,
+      saveAccount,
+      resetAccount,
+      loadAccount
+    } = useAccount();
 
     const { resetSales } = useSales();
     const { resetCategories } = useCategory();
@@ -89,12 +95,11 @@ export default defineComponent({
     onMounted(async () => {
       isLoading.value = true;
 
-      isLoading.value = false;
-    });
+      await loadTransactions();
 
-    onBeforeUnmount(async () => {
-      await saveTransactions();
-      await saveAccount();
+      await loadAccount();
+
+      isLoading.value = false;
     });
 
     async function handleClear() {

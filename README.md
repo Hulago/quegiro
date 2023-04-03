@@ -13,14 +13,14 @@ We take the security of your data very seriously, which is why all information i
 With our application, you can rest easy knowing that your tax compliance is accurate, secure and up-to-date. Say goodbye to tedious manual calculations and hello to streamlined, efficient and safe tax compliance with our application.
 
 TODO:
+Create some post on home page
+
+Sales, Transactions and Account, create a goto post page.
+
+Migrate to nuxt for better SEO.
 
 Home:
 Toolbar Add dark mode.
-
-Review i18n.
-Translate to portuguese.
-Add translations. Add i18n.
-PT by default.
 
 MVP - Add google ads.
 
@@ -28,5 +28,4 @@ Share with others.
 Add into site comments
 Add other tags
 
-Migrate to nuxt for better SEO.
 Course of SEO.

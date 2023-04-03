@@ -17,6 +17,8 @@ import { agGrid } from './plugins/ag-grid.plugin';
 import { i18n } from './plugins/i18n.plugin';
 import { ui } from '@/next';
 
+import './plugins/db.plugin';
+
 import { createHead } from '@vueuse/head';
 import { useStorage } from '@vueuse/core';
 

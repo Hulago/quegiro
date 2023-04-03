@@ -73,7 +73,7 @@ export default defineComponent({
 
     const { t } = useI18n();
 
-    const { getItem, setItem, removeItem } = useStorage('PLazyGrid');
+    const { getItem, setItem, removeItem } = useStorage();
 
     const labels = {
       setupTable: t('APP.LABEL.SETUP_TABLE'),

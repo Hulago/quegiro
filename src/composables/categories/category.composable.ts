@@ -4,7 +4,7 @@ import { CategoryModel } from './category.model';
 
 import { useProduct } from '../product/product.composable';
 
-const { getItem, setItem } = useStorage('QUEGIRO');
+const { getItem, setItem } = useStorage();
 
 const categories = ref<CategoryModel[]>([]);
 

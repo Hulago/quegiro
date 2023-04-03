@@ -12,6 +12,7 @@
       <el-row :gutter="20">
         <el-col :span="12">
           <h1>{{ labels.welcome }}</h1>
+          <el-alert :title="labels.sentence.newVersion" type="warning" />
           <p>
             {{ labels.sentence.home1 }}
             <code>

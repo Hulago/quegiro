@@ -72,7 +72,7 @@ export default defineComponent({
     return {
       currencyRender,
       debug,
-      dateRender: dateRender(),
+      dateRender: dateRender,
       handleProcessSales,
       icons: {
         mdiCloudUpload,

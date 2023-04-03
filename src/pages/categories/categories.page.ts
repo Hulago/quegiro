@@ -97,7 +97,7 @@ export default defineComponent({
       await loadProducts();
       await loadCategories();
 
-      console.log(categories);
+      // console.log(categories);
     });
 
     onBeforeUnmount(async () => {

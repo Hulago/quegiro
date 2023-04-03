@@ -13,7 +13,7 @@ const FULL_DAY_FORMAT = 'dd-MM-yyyy HH:mm';
 const account = ref<AccountModel[]>([]);
 
 export function useAccount() {
-  const { getItem, setItem } = useStorage('QUEGIRO');
+  const { getItem, setItem } = useStorage();
 
   function parseDate(date: string, dateFormat: string) {
     try {
@@ -27,8 +27,6 @@ export function useAccount() {
     try {
       const res = await getItem('account');
 
-      console.log(res);
-
       account.value = res ? res : [];
     } catch (e) {
       console.error('Erro loading account from localstorage');
@@ -38,11 +36,11 @@ export function useAccount() {
 
   async function saveAccount() {
     try {
-      await setItem('account', unref(account));
-
-      // if(account.value.length === 0) {
-      //   debugger;
-      // }
+      if (account.value.length === 0) {
+        console.warn('Empty account');
+      } else {
+        await setItem('account', unref(account));
+      }
     } catch (e) {
       console.error('Erro saving account to localstorage');
       console.error(e);
@@ -51,6 +49,7 @@ export function useAccount() {
 
   async function resetAccount() {
     account.value = [];
+    console.warn('Reset account');
     await saveAccount();
   }
 
@@ -99,7 +98,7 @@ export function useAccount() {
 
     const years = getDividendsYears();
 
-    console.log('Dividend data', dividendData, years);
+    // console.log('Dividend data', dividendData, years);
 
     const res = years.map(year =>
       Math.round(
@@ -107,7 +106,7 @@ export function useAccount() {
       )
     );
 
-    console.log('RES', res);
+    // console.log('RES', res);
 
     return res;
   }
@@ -145,24 +144,24 @@ export function useAccount() {
         ] = line.split(',');
 
         if (date && date !== '') {
-          console.log(
-            new AccountModel({
-              date: parseDate(
-                `${date} ${time}`,
-                FULL_DAY_FORMAT
-              )?.toISOString(),
-              dateValue,
-              product,
-              isin,
-              description,
-              exchangeRate: Number(exchangeRate),
-              currencyValue,
-              value: Number(value),
-              currencyBalance,
-              balance: Number(balance),
-              orderId
-            })
-          );
+          // console.log(
+          //   new AccountModel({
+          //     date: parseDate(
+          //       `${date} ${time}`,
+          //       FULL_DAY_FORMAT
+          //     )?.toISOString(),
+          //     dateValue,
+          //     product,
+          //     isin,
+          //     description,
+          //     exchangeRate: Number(exchangeRate),
+          //     currencyValue,
+          //     value: Number(value),
+          //     currencyBalance,
+          //     balance: Number(balance),
+          //     orderId
+          //   })
+          // );
 
           addAccount(
             new AccountModel({
@@ -200,7 +199,7 @@ export function useAccount() {
       ['desc']
     );
 
-    console.log('After process account', unref(account));
+    // console.log('After process account', unref(account));
   }
 
   return {

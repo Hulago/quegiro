@@ -1,26 +1,19 @@
 import localforage from 'localforage';
 import { unref } from 'vue';
 
-let storages: Record<string, typeof localforage> = {};
+const db = localforage;
 
-export const useStorage = (storageName: string) => {
-  // const dbs = localforage;
-
-  if (!storages[storageName]) {
-    storages = {
-      ...storages,
-      [storageName]: localforage
-    };
-
-    storages[storageName].config({
+export const useStorage = () => {
+  const setup = (name: string) => {
+    db.config({
       driver: [
         localforage.INDEXEDDB,
         localforage.WEBSQL,
         localforage.LOCALSTORAGE
       ],
-      name: storageName
+      name: name
     });
-  }
+  };
 
   /**
    * Set item on storage
@@ -29,11 +22,7 @@ export const useStorage = (storageName: string) => {
    * @param value - { any }
    */
   const setItem = (key: string, value: any): Promise<any> => {
-    console.log('setItem', key, storageName);
-    return storages[storageName].setItem(
-      key,
-      JSON.parse(JSON.stringify(unref(value)))
-    );
+    return db.setItem(key, JSON.parse(JSON.stringify(unref(value))));
   };
 
   /**
@@ -42,8 +31,7 @@ export const useStorage = (storageName: string) => {
    * @param key - { string }
    */
   const getItem = async (key: string): Promise<any> => {
-    console.log('getItem', key, storageName);
-    return storages[storageName].getItem(key);
+    return db.getItem(key);
   };
 
   /**
@@ -51,10 +39,10 @@ export const useStorage = (storageName: string) => {
    *
    * @param key - { string }
    */
-  const removeItem = (key: string): Promise<any> =>
-    storages[storageName].removeItem(key);
+  const removeItem = (key: string): Promise<any> => db.removeItem(key);
 
   return {
+    setup,
     getItem,
     removeItem,
     setItem

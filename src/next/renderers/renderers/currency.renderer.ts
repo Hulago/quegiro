@@ -39,7 +39,7 @@ export const currencyRender = ({
       )} ${monoFont ? monoFontClass : ''}">-</div>`;
     }
   } catch (e) {
-    console.log('Currency error', '#' + currency + '#', locale);
+    console.error('Currency error', '#' + currency + '#', locale);
     return '<div>Error</div>';
   }
 };
