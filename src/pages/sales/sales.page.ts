@@ -140,17 +140,17 @@ export default defineComponent({
           dateFormat: isAggregated.value ? 'MMM YYYY' : 'DD MMM YYYY HH:mm'
         }),
         nameColumn(),
-        isinColumn(),
-        exchangeColumn(),
+        isinColumn({ hide: true }),
+        exchangeColumn({ hide: true }),
         quantityColumn(),
         sellTotalPriceColumn(),
-        sellPriceColumn(),
+        sellPriceColumn({ hide: true }),
         buyTotalPriceColumn(),
-        buyPriceColumn(),
+        buyPriceColumn({ hide: true }),
         costColumn(),
         deltaColumn(),
-        buyOrderIdColumn(),
-        sellOrderIdColumn(),
+        buyOrderIdColumn({ hide: true }),
+        sellOrderIdColumn({ hide: true }),
 
         {
           colId: 'Actions',

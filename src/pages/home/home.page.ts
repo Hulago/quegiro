@@ -1,6 +1,8 @@
-import { defineComponent } from 'vue';
+import { computed, defineComponent, getCurrentInstance } from 'vue';
 
 import { PToolbar } from '@/next';
+
+import { useI18n } from 'vue-i18n';
 
 import {} from '@vueuse/head';
 
@@ -17,6 +19,10 @@ import CardLangSetupPT from './card-lang-setup-pt.vue';
 import CardTableConfigPT from './card-table-config-pt.vue';
 import CardAgregateDataPT from './card-agregate-data-pt.vue';
 
+import CardLangSetupEN from './card-lang-setup-en.vue';
+import CardTableConfigEN from './card-table-config-en.vue';
+import CardAgregateDataEN from './card-agregate-data-en.vue';
+
 export default defineComponent({
   name: 'Home',
   components: {
@@ -24,7 +30,10 @@ export default defineComponent({
     HomeSvg,
     CardLangSetupPT,
     CardTableConfigPT,
-    CardAgregateDataPT
+    CardAgregateDataPT,
+    CardLangSetupEN,
+    CardTableConfigEN,
+    CardAgregateDataEN
   },
   setup() {
     useHead({
@@ -53,6 +62,8 @@ export default defineComponent({
 
     const { labels } = useLabels();
 
+    const { locale } = useI18n();
+
     const message = 'Welcome to Quegiro';
 
     const { back, push } = useRouter();
@@ -67,11 +78,14 @@ export default defineComponent({
       });
     };
 
+    const currentLang = computed(() => locale.value);
+
     return {
       message,
       handleBack,
       handleStart,
-      labels
+      labels,
+      currentLang
     };
   }
 });

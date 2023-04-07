@@ -2,23 +2,23 @@
   <el-card class="mt-4">
     <template #header>
       <div class="card-header">
-        <span>Agregação de dados</span>
+        <span>Data aggregation</span>
       </div>
     </template>
     <p>
-      Para melhor calcular as mais e menos valias, na secção de vendas pode
-      restringir os dados por datas.
+      To better calculate capital gains and losses, in the sales section you can
+      restrict data by dates.
     </p>
     <p>
-      E pode também agregar os dados. Esta agregação de dados é feita quando o
-      mês de venda e o compra são os mesmo para a mesma ação.
+      And you can also aggregate the data. This data aggregation is done when
+      the month of sale and month of purchase are the same for the same stock.
     </p>
     <img src="/public/img/sales-agregate-data.jpg" style="width: 200px" />
-    <p>Exemplo:</p>
+    <p>Example:</p>
 
     <img src="/public/img/sales-agregate-sale-1.jpg" style="width: 100%" />
 
-    <p>Depois de agragado.</p>
+    <p>After agregation.</p>
 
     <img src="/public/img/sales-agregate-sale-2.jpg" style="width: 100%" />
   </el-card>

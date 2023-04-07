@@ -252,7 +252,8 @@ export function useSalesColumns() {
     currencyColumn({
       field,
       currency,
-      headerName
+      headerName,
+      ...options
     });
 
   const buyTotalPriceColumn = ({

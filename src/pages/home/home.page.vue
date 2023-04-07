@@ -12,6 +12,7 @@
       <el-row :gutter="20">
         <el-col :span="12">
           <h1>{{ labels.welcome }}</h1>
+
           <el-alert :title="labels.sentence.newVersion" type="warning" />
           <p>
             {{ labels.sentence.home1 }}
@@ -61,26 +62,28 @@
           <HomeSvg style="width: 80%; height: 80%" />
         </el-col>
       </el-row>
-      <!-- <el-row :gutter="20">
+      <h1>Blog - Help</h1>
+      <el-row :gutter="20">
         <el-col :span="12">
-          <CardLangSetupPT />
+          <CardLangSetupPT v-if="currentLang === 'pt-PT'" />
+          <CardLangSetupEN v-else />
         </el-col>
 
         <el-col :span="12"></el-col>
 
         <el-col :span="12">
-          <CardTableConfigPT />
+          <CardTableConfigPT v-if="currentLang === 'pt-PT'" />
+          <CardTableConfigEN v-else />
         </el-col>
 
         <el-col :span="12"></el-col>
 
-        <el-col :span="12">
-          <CardAgregateDataPT />
+        <el-col :span="24">
+          <CardAgregateDataPT v-if="currentLang === 'pt-PT'" />
+          <CardAgregateDataEN v-else />
         </el-col>
 
-        <el-col :span="12"></el-col>
-
-        <el-col :span="12">
+        <!-- <el-col :span="12">
           <el-card class="mt-2">
             <template #header>
               <div class="card-header">
@@ -102,8 +105,8 @@
               </div>
             </template>
           </el-card>
-        </el-col>
-      </el-row> -->
+        </el-col> -->
+      </el-row>
     </el-container>
   </el-container>
 </template>
