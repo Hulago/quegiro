@@ -61,6 +61,49 @@
           <HomeSvg style="width: 80%; height: 80%" />
         </el-col>
       </el-row>
+      <!-- <el-row :gutter="20">
+        <el-col :span="12">
+          <CardLangSetupPT />
+        </el-col>
+
+        <el-col :span="12"></el-col>
+
+        <el-col :span="12">
+          <CardTableConfigPT />
+        </el-col>
+
+        <el-col :span="12"></el-col>
+
+        <el-col :span="12">
+          <CardAgregateDataPT />
+        </el-col>
+
+        <el-col :span="12"></el-col>
+
+        <el-col :span="12">
+          <el-card class="mt-2">
+            <template #header>
+              <div class="card-header">
+                <span>Exemplo do calculo na secção das vendas</span>
+              </div>
+            </template>
+          </el-card>
+        </el-col>
+
+        <el-col :span="12"></el-col>
+
+        <el-col :span="12">
+          <el-card class="mt-2">
+            <template #header>
+              <div class="card-header">
+                <span>
+                  Valores finais diferentes dos valores do relatório anual
+                </span>
+              </div>
+            </template>
+          </el-card>
+        </el-col>
+      </el-row> -->
     </el-container>
   </el-container>
 </template>

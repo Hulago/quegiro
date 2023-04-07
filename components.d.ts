@@ -50,6 +50,8 @@ declare module '@vue/runtime-core' {
     Loading: typeof import('element-plus/es')['ElLoadingDirective']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    'SalesDeltaRender.component': typeof import('./src/components/sales-delta-render/sales-delta-render.component.vue')['default']
+    'TransactionStateRender.component': typeof import('./src/components/transaction-state-render/transaction-state-render.component.vue')['default']
   }
 }
 

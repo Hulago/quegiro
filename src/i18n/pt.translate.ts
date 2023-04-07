@@ -106,7 +106,7 @@ export default {
   },
   SENTENCE: {
     NEW_VERSION:
-      'Foi lançada uma nova versão da aplicação, para resolver alguns problemas no carregamento de dados. Pode ser necessário carregar novamente as suas transações. Pedimos desculpa pelo incomodo. Qualquer sugestão ou dúvida pode sempre nos contactar.',
+      'Foi lançada uma nova versão da aplicação, para resolver um problema na agregação de dados na secção das vendas.',
     CLEAR_ALL_DATA:
       'Após confirmar, todos os dados serão eliminados do armazenamento local do navegador.',
     DATA1: 'Bem-vindo à secção de importação de transações.',

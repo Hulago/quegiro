@@ -13,11 +13,18 @@ import { useHead } from '@vueuse/head';
 
 import { useLabels } from '@/composables/labels/labels.composable';
 
+import CardLangSetupPT from './card-lang-setup-pt.vue';
+import CardTableConfigPT from './card-table-config-pt.vue';
+import CardAgregateDataPT from './card-agregate-data-pt.vue';
+
 export default defineComponent({
   name: 'Home',
   components: {
     PToolbar,
-    HomeSvg
+    HomeSvg,
+    CardLangSetupPT,
+    CardTableConfigPT,
+    CardAgregateDataPT
   },
   setup() {
     useHead({

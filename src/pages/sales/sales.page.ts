@@ -227,12 +227,31 @@ export default defineComponent({
         salesData = [];
 
         const data = groupBy(
-          sales.value,
+          sales.value
+            .filter(item =>
+              item.name
+                ?.toLowerCase()
+                .includes(searchCriteria.value.toLowerCase())
+            )
+            .filter(
+              item =>
+                beginDate === null ||
+                new Date(item.sellDate as string) >
+                  new Date(beginDate as string)
+            )
+            .filter(
+              item =>
+                endDate === null ||
+                new Date(item.sellDate as string) < new Date(endDate as string)
+            ),
+
           sale =>
             format(new Date(sale.sellDate as Date), 'yyyy-MM') +
             format(new Date(sale.buyDate as Date), 'yyyy-MM') +
             sale.isin
         );
+
+        console.log('Sales agregated', data);
 
         Object.keys(data).forEach(key => {
           const sales = data[key] || [];
@@ -283,24 +302,29 @@ export default defineComponent({
         salesData = sales.value;
       }
 
-      return salesData
-        .filter(item =>
-          item.name?.toLowerCase().includes(searchCriteria.value.toLowerCase())
-        )
-        .filter(
-          item =>
-            beginDate === null ||
-            new Date(item.sellDate as string) > new Date(beginDate as string)
-        )
-        .filter(
-          item =>
-            endDate === null ||
-            new Date(item.sellDate as string) < new Date(endDate as string)
-        )
-        .map(item => ({
-          ...item,
-          delta: item.totalSellPrice - item.totalBuyPrice
-        }));
+      return isAggregated.value
+        ? salesData
+        : salesData
+            .filter(item =>
+              item.name
+                ?.toLowerCase()
+                .includes(searchCriteria.value.toLowerCase())
+            )
+            .filter(
+              item =>
+                beginDate === null ||
+                new Date(item.sellDate as string) >
+                  new Date(beginDate as string)
+            )
+            .filter(
+              item =>
+                endDate === null ||
+                new Date(item.sellDate as string) < new Date(endDate as string)
+            )
+            .map(item => ({
+              ...item,
+              delta: item.totalSellPrice - item.totalBuyPrice
+            }));
     });
 
     const totalBuy = computed(
